@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">芽儿呦</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tushu">图书</string>
+    <string name="yinyue">音乐</string>
+    <string name="dianying">电影</string>
+    <string name="home">首页</string>
+    <string name="guangbo">活动</string>
+    <string name="mine">我的</string>
+    <string name="more">更多</string>
+</resources>
