@@ -49,7 +49,9 @@
         <activity
             android:name=".ui.cloud.activity.CloudInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.cloud.activity.UserActivity"></activity>
+        <activity android:name=".ui.cloud.activity.UserActivity" />
+        <activity android:name=".ui.home.movies.activity.CommingSoonActivity" />
+        <activity android:name=".ui.home.movies.activity.NorthAmericaActivity"></activity>
     </application>
 
 </manifest>

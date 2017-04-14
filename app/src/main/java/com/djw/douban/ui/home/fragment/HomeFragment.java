@@ -12,6 +12,7 @@ import com.djw.douban.adapter.MainViewpagerAdapter;
 import com.djw.douban.base.SimpleFragment;
 import com.djw.douban.ui.home.book.fragment.BookFragment;
 import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
+import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.home.music.fragment.MusicFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
@@ -40,7 +41,7 @@ public class HomeFragment extends SimpleFragment {
         toolbar.setTitle("");
         ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.home));
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new MoviesFragment());
+        fragments.add(new NewMoviesFragment());
         fragments.add(new BookFragment());
         fragments.add(new MusicFragment());
         pager.setAdapter(new MainViewpagerAdapter(getChildFragmentManager(), fragments));

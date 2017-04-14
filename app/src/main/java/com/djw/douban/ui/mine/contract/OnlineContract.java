@@ -14,11 +14,15 @@ public interface OnlineContract {
 
         void showOnline(MineItemData mineItemData);
 
+        void showImg(String url);
+
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getOnline(String cate);
+
+        void getUrl();
 
     }
 

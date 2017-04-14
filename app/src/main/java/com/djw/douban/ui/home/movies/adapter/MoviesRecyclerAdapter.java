@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/7.
+ *
  */
 
 public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAdapter.MoviesHolder> {

@@ -1,31 +1,19 @@
 package com.djw.douban.ui.home.movies.activity;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.ParamsData;
-import com.djw.douban.data.movies.BannerData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.Top250Adapter;
 import com.djw.douban.ui.home.movies.contract.MoreMovieContract;
 import com.djw.douban.ui.home.movies.presenter.MoreMoviePresenter;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerClickListener;
-import com.youth.banner.loader.ImageLoader;
 
 import java.util.List;
 

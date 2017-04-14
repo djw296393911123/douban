@@ -16,7 +16,6 @@ import com.djw.douban.ui.home.movies.presenter.PeoplePresenter;
 public class PeopleActivity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {
 
     private PeopleAdapter adapter;
-    private Toolbar toolbar;
     private TextView title;
 
     @Override
@@ -27,7 +26,7 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
 
     @Override
     public void initView() {
-        toolbar = (Toolbar) findViewById(R.id.tl_base);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tl_base);
         toolbar.setTitle("");
         title = (TextView) findViewById(R.id.tv_toolbar_title);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_people);

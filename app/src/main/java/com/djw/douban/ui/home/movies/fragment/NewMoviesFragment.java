@@ -9,9 +9,9 @@ import android.view.View;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
-import com.djw.douban.data.movies.MoviesItemData;
-import com.djw.douban.ui.home.movies.adapter.MoviesRecyclerAdapter;
-import com.djw.douban.ui.home.movies.contract.MoviesContract;
+import com.djw.douban.data.newmovies.NewMoviesBaseData;
+import com.djw.douban.ui.home.movies.adapter.NewMoviesAdapter;
+import com.djw.douban.ui.home.movies.contract.NewMoviesContract;
 import com.djw.douban.ui.home.movies.presenter.NewMoviesPresenter;
 
 import java.util.List;
@@ -19,10 +19,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implements MoviesContract.View {
+public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implements NewMoviesContract.View{
 
-
-    private MoviesRecyclerAdapter adapter;
+    private NewMoviesAdapter adapter;
 
     @Override
     protected void lazyLoad() {
@@ -31,10 +30,17 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
 
     @Override
     protected void initView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_movies);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        adapter = new MoviesRecyclerAdapter(getActivity());
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_new);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new NewMoviesAdapter(getActivity());
         recyclerView.setAdapter(adapter);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.isSpan(position);
+            }
+        });
     }
 
     @Override
@@ -46,12 +52,12 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getMoviesList(ParamsData.START, ParamsData.COUNT, false);
+        mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT, false, true);
     }
 
     @Override
     protected int bindLayout() {
-        return R.layout.fragment_hot;
+        return R.layout.fragment_new_movies;
     }
 
     @Override
@@ -70,8 +76,8 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     }
 
     @Override
-    public void showMoviesList(List<MoviesItemData.SubjectsBean> subjectsBeen, boolean isLoadMore) {
-//        adapter.notifyDataChange(subjectsBeen, isLoadMore);
+    public void showNewMovies(List<NewMoviesBaseData> list, boolean isLoadMore) {
+        adapter.notifyDataChange(list, isLoadMore);
     }
 
 }

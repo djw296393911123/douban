@@ -1,7 +1,6 @@
 package com.djw.douban.ui.home.book.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;

@@ -18,7 +18,7 @@ public interface BookContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getBookList(int start, int count, String type, boolean isLoadMore);
+        void getBookList(int start, int count, String type, boolean isLoadMore, boolean isShowProgress);
 
     }
 

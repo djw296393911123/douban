@@ -15,6 +15,9 @@ import com.djw.douban.module.FragmentModule;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by JasonDong on 2017/3/23.
  */
@@ -22,6 +25,7 @@ import javax.inject.Inject;
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
 
     protected boolean isVisible;
+    private Unbinder bind;
 
     /**
      * 在这里实现Fragment数据的缓加载.
@@ -45,6 +49,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(bindLayout(), container, false);
+        bind = ButterKnife.bind(this, view);
         initView(view);
         inject();
         doBusiness();
@@ -62,6 +67,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onDestroyView() {
         super.onDestroyView();
         if (mPresenter != null) mPresenter.detachView();
+        bind.unbind();
+
     }
 
     protected FragmentModule getFragmentModule() {

@@ -3,6 +3,8 @@ package com.djw.douban;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -19,6 +21,7 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
 
     private ViewPager pager;
     private BottomNavigationBar bar;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +83,21 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(this, "再次点击退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

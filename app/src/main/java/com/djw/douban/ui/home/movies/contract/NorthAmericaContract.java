@@ -20,7 +20,7 @@ public interface NorthAmericaContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getMoviesList(int start, int count, boolean isLoadMore);
+        void getMoviesList(int start, int count, boolean isLoadMore, boolean isShowProgress);
 
     }
 

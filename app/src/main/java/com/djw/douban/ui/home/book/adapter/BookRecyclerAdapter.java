@@ -17,7 +17,6 @@ import com.djw.douban.R;
 import com.djw.douban.data.book.Books;
 import com.djw.douban.data.book.Images;
 import com.djw.douban.ui.home.book.activity.BookInfoActivity;
-import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/7.
+ *
  */
 
 public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.MoviesHolder> {
@@ -80,7 +80,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         private final CardView cardView;
         private final RatingBar ratingBar;
 
-        public MoviesHolder(View itemView) {
+        MoviesHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));

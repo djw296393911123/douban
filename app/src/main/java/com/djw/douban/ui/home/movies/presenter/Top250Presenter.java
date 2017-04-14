@@ -6,6 +6,7 @@ import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.home.movies.contract.MoviesContract;
+import com.djw.douban.ui.home.movies.contract.Top250Contract;
 import com.djw.douban.util.RxUtil;
 
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ import rx.Subscription;
  * Created by JasonDong on 2017/4/7.
  */
 
-public class Top250Presenter extends RxPresenter<MoviesContract.View> implements MoviesContract.Presenter {
+public class Top250Presenter extends RxPresenter<Top250Contract.View> implements Top250Contract.Presenter {
 
     private final RetrofitHelper helper;
 
@@ -26,13 +27,13 @@ public class Top250Presenter extends RxPresenter<MoviesContract.View> implements
     }
 
     @Override
-    public void getMoviesList(int start, int count, final boolean isLoadMore) {
+    public void showTop250(int start, int count, final boolean isLoadMore, boolean isShowProgress) {
         Subscription subscribe = helper.getTop250(start, count)
                 .compose(RxUtil.<MoviesItemData>rxSchedulerHelper())
-                .subscribe(new CommonSubscribers<MoviesItemData>(mView, !isLoadMore) {
+                .subscribe(new CommonSubscribers<MoviesItemData>(mView, isShowProgress) {
                     @Override
                     public void onNext(MoviesItemData moviesItemData) {
-                        mView.showMoviesList(moviesItemData.getSubjects(), isLoadMore);
+                        mView.showTop250(moviesItemData.getSubjects(), isLoadMore);
                     }
                 });
         addSubscrebe(subscribe);

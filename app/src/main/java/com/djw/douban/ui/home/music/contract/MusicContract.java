@@ -16,7 +16,7 @@ public interface MusicContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getMusic(int start, int count, String tag, boolean isLoadMore);
+        void getMusic(int start, int count, String tag, boolean isLoadMore, boolean isShowProgress);
 
     }
 

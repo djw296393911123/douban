@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/10.
+ *
  */
 
 public class HomeRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -48,6 +48,15 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         xRecyclerView.setLayoutManager(layoutManager);
         xRecyclerView.setLoadingListener(this);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0)
+                    return 2;
+                else
+                    return 1;
+            }
+        });
         bookRecyclerAdapter = new BookRecyclerAdapter(getActivity());
         xRecyclerView.setAdapter(bookRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -55,7 +64,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
             @Override
             public void OnItemClick(int position) {
                 BookFragment.this.position = position;
-                mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false);
+                mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false, true);
             }
         };
         recyclerView.setAdapter(adapter);
@@ -75,7 +84,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false);
+        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false, false);
     }
 
     @Override
@@ -85,12 +94,12 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     public void onRefresh() {
-        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false);
+        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false, false);
     }
 
     @Override
     public void onLoadMore() {
-        mPresenter.getBookList(bookRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, types[position], true);
+        mPresenter.getBookList(bookRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, types[position], true, false);
     }
 
     @Override

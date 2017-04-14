@@ -1,6 +1,7 @@
 package com.djw.douban.ui.home.movies.presenter;
 
 import com.djw.douban.base.CommonSubscriber;
+import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.http.RetrofitHelper;
@@ -25,10 +26,10 @@ public class NorthAmericaPresenter extends RxPresenter<NorthAmericaContract.View
     }
 
     @Override
-    public void getMoviesList(int start, int count, final boolean isLoadMore) {
+    public void getMoviesList(int start, int count, final boolean isLoadMore, boolean isShowProgress) {
         Subscription subscribe = helper.getNorthAmerica(start, count)
                 .compose(RxUtil.<NorthAmericaItemData>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<NorthAmericaItemData>(mView) {
+                .subscribe(new CommonSubscribers<NorthAmericaItemData>(mView, isShowProgress) {
                     @Override
                     public void onNext(NorthAmericaItemData northAmericaItemData) {
                         mView.showMoviesList(northAmericaItemData.getSubjects(), isLoadMore);

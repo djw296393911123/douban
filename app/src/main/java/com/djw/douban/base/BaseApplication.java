@@ -7,9 +7,6 @@ import com.djw.douban.component.DaggerAppComponent;
 import com.djw.douban.module.AppMoudel;
 import com.djw.douban.module.HttpMoudel;
 
-
-//
-
 /**
  * Created by JasonDong on 2017/3/23.
  *

@@ -26,10 +26,10 @@ public class MusicPresenter extends RxPresenter<MusicContract.View> implements M
     }
 
     @Override
-    public void getMusic(int start, int count, String tag, final boolean isLoadMore) {
+    public void getMusic(int start, int count, String tag, final boolean isLoadMore, boolean isShowProgress) {
         Subscription subscribe = helper.getMusicByTag(tag, start, count)
                 .compose(RxUtil.<MusicRoot>rxSchedulerHelper())
-                .subscribe(new CommonSubscribers<MusicRoot>(mView, !isLoadMore) {
+                .subscribe(new CommonSubscribers<MusicRoot>(mView, isShowProgress) {
                     @Override
                     public void onNext(MusicRoot musicRoot) {
                         mView.showMusic(musicRoot, isLoadMore);

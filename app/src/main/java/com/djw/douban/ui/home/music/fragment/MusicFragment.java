@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
@@ -53,7 +52,7 @@ public class MusicFragment extends BaseFragment<MusicPresenter> implements Music
             @Override
             public void OnItemClick(int position) {
                 MusicFragment.this.position = position;
-                mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[position], false);
+                mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[position], false, true);
             }
         };
         recyclerView.setAdapter(adapter);
@@ -73,7 +72,7 @@ public class MusicFragment extends BaseFragment<MusicPresenter> implements Music
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[0], false);
+        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[0], false, false);
     }
 
     @Override
@@ -83,12 +82,12 @@ public class MusicFragment extends BaseFragment<MusicPresenter> implements Music
 
     @Override
     public void onRefresh() {
-        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[position], false);
+        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT, types[position], false, false);
     }
 
     @Override
     public void onLoadMore() {
-        mPresenter.getMusic(musicRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, types[position], true);
+        mPresenter.getMusic(musicRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, types[position], true, false);
     }
 
     @Override
@@ -98,12 +97,10 @@ public class MusicFragment extends BaseFragment<MusicPresenter> implements Music
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
         xRecyclerView.loadMoreComplete();
         xRecyclerView.refreshComplete();
     }

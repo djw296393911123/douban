@@ -133,7 +133,7 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    class MoviesPeopleHolder extends RecyclerView.ViewHolder {
+    private class MoviesPeopleHolder extends RecyclerView.ViewHolder {
 
 
         private final ImageView head;

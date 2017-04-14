@@ -33,8 +33,6 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
 
     private Context context;
 
-    private ViewGroup parent;
-
     public CloudAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
@@ -48,7 +46,6 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
 
     @Override
     public CloudHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        this.parent = parent;
         return new CloudHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cloud, parent, false));
     }
 

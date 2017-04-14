@@ -26,10 +26,10 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
     }
 
     @Override
-    public void getBookList(int start, int count, String type, final boolean isLoadMore) {
+    public void getBookList(int start, int count, String type, final boolean isLoadMore, boolean isShowProgress) {
         Subscription subscribe = helper.getBookByTag(type, start, count)
                 .compose(RxUtil.<BookRoot>rxSchedulerHelper())
-                .subscribe(new CommonSubscribers<BookRoot>(mView, !isLoadMore) {
+                .subscribe(new CommonSubscribers<BookRoot>(mView, isShowProgress) {
                     @Override
                     public void onNext(BookRoot bookRoot) {
                         mView.showBookList(bookRoot, isLoadMore);
