@@ -2,7 +2,10 @@ package com.djw.douban.ui.mine.contract;
 
 import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
+import com.djw.douban.data.mine.LikeOrHideData;
 import com.djw.douban.data.mine.MineItemData;
+
+import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/13.
@@ -14,7 +17,7 @@ public interface OnlineContract {
 
         void showOnline(MineItemData mineItemData);
 
-        void showImg(String url);
+        void showImg(List<LikeOrHideData> url);
 
     }
 
@@ -22,7 +25,7 @@ public interface OnlineContract {
 
         void getOnline(String cate);
 
-        void getUrl();
+        void getUrl(int start, int count);
 
     }
 
