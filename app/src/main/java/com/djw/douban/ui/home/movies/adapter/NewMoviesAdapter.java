@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,12 +19,15 @@ import com.djw.douban.data.newmovies.NewMovieOne;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
+import com.djw.douban.data.newmovies.NewMoviesSix;
 import com.djw.douban.data.newmovies.NewMoviesThree;
 import com.djw.douban.data.newmovies.NewMoviesTwo;
 import com.djw.douban.ui.home.movies.activity.CommingSoonActivity;
+import com.djw.douban.ui.home.movies.activity.HotActivity;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
 import com.djw.douban.ui.home.movies.activity.Top250Activity;
+import com.djw.douban.ui.home.movies.activity.TypeActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -32,6 +36,8 @@ import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Created by JasonDong on 2017/4/14.
@@ -68,6 +74,8 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_four, parent, false));
             case NewMoviesBaseData.FIVE:
                 return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_five, parent, false));
+            case NewMoviesBaseData.SIX:
+                return new SixeHolder(LayoutInflater.from(context).inflate(R.layout.item_new_six, parent, false));
 
         }
         return null;
@@ -91,17 +99,25 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case NewMoviesBaseData.TWO:
                 TwoHolder twoHolder = (TwoHolder) holder;
                 NewMoviesTwo two = (NewMoviesTwo) list.get(position);
-                Glide.with(context).load(two.getUrl().get(0)).asBitmap().into(twoHolder.ivTowOne);
-                Glide.with(context).load(two.getUrl().get(1)).asBitmap().into(twoHolder.ivTowTwo);
-                Glide.with(context).load(two.getUrl().get(2)).asBitmap().into(twoHolder.ivTowThree);
-                Glide.with(context).load(two.getUrl().get(3)).asBitmap().into(twoHolder.ivTowFour);
+                twoHolder.ivTowOne.setImageResource(two.getUrl().get(0));
+                twoHolder.ivTowOne.setOnClickListener(this);
+                twoHolder.ivTowTwo.setImageResource(two.getUrl().get(1));
+                twoHolder.ivTowTwo.setOnClickListener(this);
+                twoHolder.ivTowThree.setImageResource(two.getUrl().get(2));
+                twoHolder.ivTowThree.setOnClickListener(this);
+                twoHolder.ivTowFour.setImageResource(two.getUrl().get(3));
+                twoHolder.ivTowFour.setOnClickListener(this);
+                twoHolder.tvTwoOne.setText(two.getName().get(0));
+                twoHolder.tvTwoTwo.setText(two.getName().get(1));
+                twoHolder.tvTwoThree.setText(two.getName().get(2));
+                twoHolder.tvTwoFour.setText(two.getName().get(3));
                 break;
             case NewMoviesBaseData.THREE:
                 ThreeHolder threeHolder = (ThreeHolder) holder;
                 NewMoviesThree three = (NewMoviesThree) list.get(position);
-                Glide.with(context).load(three.getUrl().get(0)).asBitmap().into(threeHolder.ivThreeOne);
-                Glide.with(context).load(three.getUrl().get(1)).asBitmap().into(threeHolder.ivThreeTwo);
-                Glide.with(context).load(three.getUrl().get(2)).asBitmap().into(threeHolder.ivThreeThree);
+                Glide.with(context).load(three.getUrl().get(0)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeOne);
+                Glide.with(context).load(three.getUrl().get(1)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeTwo);
+                Glide.with(context).load(three.getUrl().get(2)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeThree);
                 threeHolder.ivThreeOne.setOnClickListener(this);
                 threeHolder.ivThreeTwo.setOnClickListener(this);
                 threeHolder.ivThreeThree.setOnClickListener(this);
@@ -120,6 +136,12 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 FiveHolder fiveHolder = (FiveHolder) holder;
                 NewMoviesFive five = (NewMoviesFive) list.get(position);
                 fiveHolder.textView.setText(five.getName());
+                break;
+            case NewMoviesBaseData.SIX:
+                SixeHolder sixeHolder = (SixeHolder) holder;
+                NewMoviesSix six = (NewMoviesSix) list.get(position);
+                sixeHolder.textView.setText(six.getName());
+                sixeHolder.layout.setOnClickListener(this);
                 break;
         }
     }
@@ -162,6 +184,27 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 bundle.putInt("id", ((int) v.getTag()));
                 ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
                 break;
+            case R.id.iv_tow_one:
+                ((MainActivity) context).startActivity(HotActivity.class);
+                break;
+            case R.id.iv_tow_two:
+                Bundle two = new Bundle();
+                two.putString("q", "喜剧");
+                ((MainActivity) context).startActivity(TypeActivity.class, two);
+                break;
+            case R.id.iv_tow_three:
+                Bundle three = new Bundle();
+                three.putString("q", "犯罪");
+                ((MainActivity) context).startActivity(TypeActivity.class, three);
+                break;
+            case R.id.iv_tow_four:
+                Bundle four = new Bundle();
+                four.putString("q", "爱情");
+                ((MainActivity) context).startActivity(TypeActivity.class, four);
+                break;
+            case R.id.ll_six_layout:
+                ((MainActivity) context).startActivity(HotActivity.class);
+                break;
         }
     }
 
@@ -180,6 +223,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView ivTowTwo;
         ImageView ivTowThree;
         ImageView ivTowFour;
+        TextView tvTwoOne, tvTwoTwo, tvTwoThree, tvTwoFour;
 
         TwoHolder(View view) {
             super(view);
@@ -188,6 +232,10 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ivTowTwo = ((ImageView) view.findViewById(R.id.iv_tow_two));
             ivTowThree = ((ImageView) view.findViewById(R.id.iv_tow_three));
             ivTowFour = ((ImageView) view.findViewById(R.id.iv_tow_four));
+            tvTwoOne = ((TextView) view.findViewById(R.id.tv_two_one));
+            tvTwoTwo = ((TextView) view.findViewById(R.id.tv_two_two));
+            tvTwoThree = ((TextView) view.findViewById(R.id.tv_two_three));
+            tvTwoFour = ((TextView) view.findViewById(R.id.tv_two_four));
         }
     }
 
@@ -230,6 +278,18 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(view);
             AutoUtils.autoSize(view);
             textView = (TextView) view.findViewById(R.id.tv_five);
+        }
+    }
+
+    private static class SixeHolder extends RecyclerView.ViewHolder {
+        LinearLayout layout;
+        TextView textView;
+
+        SixeHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            textView = (TextView) view.findViewById(R.id.tv_six_more);
+            layout = ((LinearLayout) view.findViewById(R.id.ll_six_layout));
         }
     }
 

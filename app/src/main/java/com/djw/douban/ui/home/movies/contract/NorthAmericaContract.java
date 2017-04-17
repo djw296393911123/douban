@@ -14,7 +14,7 @@ public interface NorthAmericaContract {
 
     interface View extends BaseView {
 
-        void showMoviesList(List<NorthAmericaItemData.SubjectsBean> list, boolean isLoadMore);
+        void showMoviesList(List<NorthAmericaItemData.SubjectsBean> list, String date, boolean isLoadMore);
 
     }
 

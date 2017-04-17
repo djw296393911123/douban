@@ -12,4 +12,9 @@
     <string name="more">更多</string>
     <string name="fen">分</string>
     <string name="top">TOP250</string>
+    <string name="commingsoon">即将上映</string>
+    <string name="northamerica">北美票房排行榜</string>
+    <string name="hot">影院热映</string>
+    <string name="cancel">取消</string>
+    <string name="hint_tips">影视、图书、唱片、活动等</string>
 </resources>

@@ -23,4 +23,7 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">5sp</item>
+    </style>
 </resources>

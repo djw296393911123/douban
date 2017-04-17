@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
+import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
@@ -44,17 +45,30 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
 
     @Override
     public MoviesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MoviesHolder(LayoutInflater.from(context).inflate(R.layout.item_movies, parent, false));
+        return new MoviesHolder(LayoutInflater.from(context).inflate(R.layout.item_top250, parent, false));
     }
 
     @Override
     public void onBindViewHolder(MoviesHolder holder, int position) {
+        holder.num.setText(String.valueOf(position + 1));
         final NorthAmericaItemData.SubjectsBean.SubjectBean subjectBean = list.get(position).getSubject();
         NorthAmericaItemData.SubjectsBean.SubjectBean.ImagesBean images = subjectBean.getImages();
-        Glide.with(context).load(images.getLarge() == null ? images.getMedium() == null ? images.getSmall() : images.getMedium() : images.getLarge()).asBitmap().into(holder.image);
-        holder.name.setText(subjectBean.getTitle());
-        holder.grade.setText(String.valueOf(subjectBean.getRating().getAverage()));
+        Glide.with(context).load(images.getLarge() == null ? images.getMedium() == null ? images.getSmall() : images.getMedium() : images.getLarge()).asBitmap().into(holder.head);
+        holder.title.setText(subjectBean.getTitle());
+        holder.pingfen.setText(String.valueOf(subjectBean.getRating().getAverage()));
         holder.ratingBar.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
+        String daoyan = "导演 ：";
+        List<NorthAmericaItemData.SubjectsBean.SubjectBean.DirectorsBean> directors = subjectBean.getDirectors();
+        for (int i = 0; i < directors.size(); i++) {
+            daoyan = daoyan + directors.get(i).getName() + "/";
+        }
+        holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
+        String actor = "演员 ：";
+        List<NorthAmericaItemData.SubjectsBean.SubjectBean.CastsBean> casts = subjectBean.getCasts();
+        for (int i = 0; i < casts.size(); i++) {
+            actor = actor + casts.get(i).getName() + "/";
+        }
+        holder.actiors.setText(actor.substring(0, actor.length() - 1));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,20 +86,26 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
 
     class MoviesHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView image;
-        private final TextView name;
-        private final TextView grade;
-        private final CardView cardView;
+        private final TextView title;
+        private final TextView actiors;
+        private final TextView daoyan;
         private final RatingBar ratingBar;
+        private final ImageView head;
+        private final TextView num;
+        private final TextView pingfen;
+        private final CardView cardView;
 
-        MoviesHolder(View itemView) {
+        public MoviesHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
-            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
-            image = ((ImageView) itemView.findViewById(R.id.iv_movie));
-            name = ((TextView) itemView.findViewById(R.id.tv_name));
-            grade = ((TextView) itemView.findViewById(R.id.tv_grade));
+            title = ((TextView) itemView.findViewById(R.id.tv_title));
+            actiors = ((TextView) itemView.findViewById(R.id.tv_actors));
+            daoyan = ((TextView) itemView.findViewById(R.id.tv_daoyan));
             ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_movies));
+            head = ((ImageView) itemView.findViewById(R.id.iv_head));
+            num = ((TextView) itemView.findViewById(R.id.tv_num));
+            pingfen = ((TextView) itemView.findViewById(R.id.tv_pingfen));
+            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
         }
     }
 

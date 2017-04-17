@@ -22,4 +22,11 @@ public class ParamsData {
     public static final String DAY = "today";
 
     public static final String TYPE = "all";
+
+
+    public static final int GO_MOVIES = 1;
+
+    public static final int GO_BOOKS = 2;
+
+    public static final int GO_MUSICS = 3;
 }

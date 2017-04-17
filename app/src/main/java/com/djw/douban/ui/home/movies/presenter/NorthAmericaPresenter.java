@@ -32,7 +32,7 @@ public class NorthAmericaPresenter extends RxPresenter<NorthAmericaContract.View
                 .subscribe(new CommonSubscribers<NorthAmericaItemData>(mView, isShowProgress) {
                     @Override
                     public void onNext(NorthAmericaItemData northAmericaItemData) {
-                        mView.showMoviesList(northAmericaItemData.getSubjects(), isLoadMore);
+                        mView.showMoviesList(northAmericaItemData.getSubjects(), northAmericaItemData.getDate(), isLoadMore);
                     }
                 });
         addSubscrebe(subscribe);

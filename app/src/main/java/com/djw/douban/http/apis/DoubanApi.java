@@ -14,6 +14,7 @@ import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.data.movies.Top250Data;
+import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.data.music.MusicRoot;
 import com.djw.douban.data.music.Musics;
 
@@ -89,5 +90,8 @@ public interface DoubanApi {
 
     @GET("user/{name}")
     Observable<UserData> getUser(@Path("name") String id);
+
+    @GET("movie/search")
+    Observable<TypeData> getSearch(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
 
 }

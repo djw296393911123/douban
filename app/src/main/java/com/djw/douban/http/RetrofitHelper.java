@@ -14,6 +14,7 @@ import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.data.movies.Top250Data;
+import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.data.music.MusicRoot;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.http.apis.DoubanApi;
@@ -112,4 +113,7 @@ public class RetrofitHelper {
         return doubanApi.getUser(id);
     }
 
+    public Observable<TypeData> getType(String q, int start, int count) {
+        return doubanApi.getSearch(q, start, count);
+    }
 }

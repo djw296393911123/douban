@@ -4,12 +4,17 @@ package com.djw.douban.ui.home.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.adapter.MainViewpagerAdapter;
 import com.djw.douban.base.SimpleFragment;
+import com.djw.douban.ui.home.activity.SearchActivity;
 import com.djw.douban.ui.home.book.fragment.BookFragment;
 import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
 import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
@@ -38,6 +43,8 @@ public class HomeFragment extends SimpleFragment {
 
     @Override
     protected void doBusiness() {
+        setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("");
         ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.home));
         List<Fragment> fragments = new ArrayList<>();
@@ -53,4 +60,15 @@ public class HomeFragment extends SimpleFragment {
         return R.layout.fragment_home;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        startActivity(SearchActivity.class);
+        return super.onOptionsItemSelected(item);
+    }
 }

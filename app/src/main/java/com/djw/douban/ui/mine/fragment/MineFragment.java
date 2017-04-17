@@ -30,7 +30,7 @@ import butterknife.BindView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends BaseFragment<OnlinePresenter> implements OnlineContract.View, XRecyclerView.LoadingListener{
+public class MineFragment extends BaseFragment<OnlinePresenter> implements OnlineContract.View, XRecyclerView.LoadingListener {
 
     @BindView(R.id.tv_toolbar_title)
     TextView tvToolbarTitle;
@@ -38,7 +38,7 @@ public class MineFragment extends BaseFragment<OnlinePresenter> implements Onlin
     Toolbar tlBase;
     RecyclerView recyclerView;
     private MineAdapter adapter;
-    ItemTouchHelper helper ;
+    ItemTouchHelper helper;
 
     @Override
     protected void lazyLoad() {
@@ -65,7 +65,7 @@ public class MineFragment extends BaseFragment<OnlinePresenter> implements Onlin
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getUrl(ParamsData.START, ParamsData.COUNT);
+//        mPresenter.getUrl(ParamsData.START, ParamsData.COUNT);
     }
 
     @Override

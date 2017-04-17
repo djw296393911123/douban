@@ -50,8 +50,21 @@
             android:name=".ui.cloud.activity.CloudInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.cloud.activity.UserActivity" />
-        <activity android:name=".ui.home.movies.activity.CommingSoonActivity" />
-        <activity android:name=".ui.home.movies.activity.NorthAmericaActivity"></activity>
+        <activity
+            android:name=".ui.home.movies.activity.CommingSoonActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.home.movies.activity.NorthAmericaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.home.movies.activity.HotActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.home.movies.activity.TypeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.home.activity.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

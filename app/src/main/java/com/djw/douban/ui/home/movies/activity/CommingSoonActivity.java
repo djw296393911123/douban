@@ -2,28 +2,39 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.MoviesItemData;
-import com.djw.douban.ui.home.movies.adapter.Top250Adapter;
+import com.djw.douban.ui.home.movies.adapter.CommingSoonAdapter;
 import com.djw.douban.ui.home.movies.contract.CommingSoonContract;
 import com.djw.douban.ui.home.movies.presenter.CommingSoonPresenter;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CommingSoonActivity extends RxActivity<CommingSoonPresenter> implements CommingSoonContract.View, XRecyclerView.LoadingListener {
 
+    @BindView(R.id.tv_toolbar_title)
+    TextView tvToolbarTitle;
+    @BindView(R.id.tl_base)
+    Toolbar tlBase;
+    @BindView(R.id.xrv_comming_soon)
     XRecyclerView xrvCommingSoon;
-    private Top250Adapter adapter;
+    private CommingSoonAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comming_soon);
+
     }
 
     @Override
@@ -40,10 +51,12 @@ public class CommingSoonActivity extends RxActivity<CommingSoonPresenter> implem
 
     @Override
     public void initView() {
+        tlBase.setTitle("");
+        tvToolbarTitle.setText(R.string.commingsoon);
         xrvCommingSoon = (XRecyclerView) findViewById(R.id.xrv_comming_soon);
         xrvCommingSoon.setLayoutManager(new LinearLayoutManager(this));
         xrvCommingSoon.setLoadingListener(this);
-        adapter = new Top250Adapter(this);
+        adapter = new CommingSoonAdapter(this);
         xrvCommingSoon.setAdapter(adapter);
     }
 

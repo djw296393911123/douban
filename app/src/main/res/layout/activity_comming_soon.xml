@@ -3,7 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.djw.douban.ui.home.movies.activity.CommingSoonActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tl_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/xrv_comming_soon"

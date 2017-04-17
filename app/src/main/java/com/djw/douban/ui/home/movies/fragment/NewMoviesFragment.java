@@ -5,7 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implements NewMoviesContract.View{
+public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implements NewMoviesContract.View {
 
     private NewMoviesAdapter adapter;
 
@@ -62,17 +64,17 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgress() {
-
+        ((MainActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
-
+        ((MainActivity) getActivity()).dismissProgress();
     }
 
     @Override

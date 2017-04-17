@@ -58,13 +58,13 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
         for (int i = 0; i < directors.size(); i++) {
             daoyan = daoyan + directors.get(i).getName() + "/";
         }
-        holder.daoyan.setText(daoyan);
+        holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
         String actor = "演员 ：";
         List<MoviesItemData.SubjectsBean.CastsBean> casts = subjectsBean.getCasts();
         for (int i = 0; i < casts.size(); i++) {
             actor = actor + casts.get(i).getName() + "/";
         }
-        holder.actiors.setText(actor);
+        holder.actiors.setText(actor.substring(0, actor.length() - 1));
         Glide.with(context).load(subjectsBean.getImages().getLarge()).asBitmap().into(holder.head);
         holder.ratingBar.setRating(((float) (subjectsBean.getRating().getAverage() / 2)));
         holder.pingfen.setText(String.valueOf(subjectsBean.getRating().getAverage()));

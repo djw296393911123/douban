@@ -10,11 +10,11 @@ public class NewMoviesTwo extends NewMoviesBaseData {
 
     private List<String> name;
 
-    private List<String> url;
+    private List<Integer> url;
 
     private List<String> id;
 
-    public NewMoviesTwo(List<String> name, List<String> url, List<String> id) {
+    public NewMoviesTwo(List<String> name, List<Integer> url, List<String> id) {
         super(NewMoviesBaseData.TWO);
         this.name = name;
         this.url = url;
@@ -29,11 +29,11 @@ public class NewMoviesTwo extends NewMoviesBaseData {
         this.name = name;
     }
 
-    public List<String> getUrl() {
+    public List<Integer> getUrl() {
         return url;
     }
 
-    public void setUrl(List<String> url) {
+    public void setUrl(List<Integer> url) {
         this.url = url;
     }
 

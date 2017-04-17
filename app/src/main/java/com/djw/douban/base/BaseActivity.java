@@ -18,6 +18,8 @@ import com.zhy.autolayout.AutoLayoutActivity;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by JasonDong on 2017/3/23.
  */
@@ -31,6 +33,7 @@ public abstract class BaseActivity extends AutoLayoutActivity{
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
+        ButterKnife.bind(this);
         context = this;
         progressDialog = new ProgressDialog(this);
         DoubleBounce doubleBounce = new DoubleBounce();

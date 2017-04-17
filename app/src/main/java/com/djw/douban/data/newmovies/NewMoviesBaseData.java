@@ -11,6 +11,7 @@ public class NewMoviesBaseData {
     public static final int THREE = 0x90003;
     public static final int FOUR = 0x90004;
     public static final int FIVE = 0x90005;
+    public static final int SIX = 0x90006;
 
     private int type;
 

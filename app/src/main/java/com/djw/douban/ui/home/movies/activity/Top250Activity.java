@@ -56,15 +56,6 @@ public class Top250Activity extends RxActivity<Top250Presenter> implements Top25
         mPresenter.showTop250(ParamsData.START, ParamsData.COUNT, false, true);
     }
 
-    @Override
-    public void showProgress() {
-    }
-
-    @Override
-    public void dismissProgress() {
-        recyclerView.refreshComplete();
-        recyclerView.loadMoreComplete();
-    }
 
     @Override
     public void showError(String msg) {
@@ -84,6 +75,8 @@ public class Top250Activity extends RxActivity<Top250Presenter> implements Top25
 
     @Override
     public void showTop250(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
+        recyclerView.refreshComplete();
+        recyclerView.loadMoreComplete();
         adapter.notifyDataChange(list, isLoadMore);
     }
 

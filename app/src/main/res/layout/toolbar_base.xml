@@ -14,21 +14,17 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv_toolbar_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textSize="35px" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
 
         <com.flyco.tablayout.SlidingTabLayout xmlns:android="http://schemas.android.com/apk/res/android"

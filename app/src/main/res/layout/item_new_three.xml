@@ -21,8 +21,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20px"
             android:text="TOP250"
-            android:textColor="@color/white"
-            android:textSize="35px"
+            android:textColor="@color/colorAccent"
+            android:textSize="45px"
             android:textStyle="bold" />
     </FrameLayout>
 
@@ -54,8 +54,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20px"
                 android:text="即将上映"
-                android:textColor="@color/white"
-                android:textSize="35px"
+                android:textColor="@color/colorAccent"
+                android:textSize="45px"
                 android:textStyle="bold" />
         </FrameLayout>
 
@@ -82,8 +82,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20px"
                 android:text="北美票房排行榜"
-                android:textColor="@color/white"
-                android:textSize="35px"
+                android:textColor="@color/colorAccent"
+                android:textSize="45px"
                 android:textStyle="bold" />
         </FrameLayout>
     </LinearLayout>
