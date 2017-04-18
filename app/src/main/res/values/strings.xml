@@ -17,4 +17,6 @@
     <string name="hot">影院热映</string>
     <string name="cancel">取消</string>
     <string name="hint_tips">影视、图书、唱片、活动等</string>
+    <string name="shower">表演者 : </string>
+    <string name="show_time">发行时间 : </string>
 </resources>

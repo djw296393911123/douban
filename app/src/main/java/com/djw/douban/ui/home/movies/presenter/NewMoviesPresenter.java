@@ -89,7 +89,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                             }
                             list.add(new NewMoviesThree(titles_three, urls_three, ids_three));
 
-                            list.add(new NewMoviesFive("猜你喜欢"));
+                            list.add(new NewMoviesFive("影院热映"));
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);

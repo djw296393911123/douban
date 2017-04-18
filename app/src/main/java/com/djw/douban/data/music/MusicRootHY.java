@@ -3,7 +3,7 @@ package com.djw.douban.data.music;
 import java.util.List;
 
 
-public class MusicRoot {
+public class MusicRootHY {
     private int count;
 
     private int start;
@@ -42,15 +42,5 @@ public class MusicRoot {
 
     public void setMusics(List<Musics> musics) {
         this.musics = musics;
-    }
-
-    @Override
-    public String toString() {
-        return "MusicRoot{" +
-                "count=" + count +
-                ", start=" + start +
-                ", total=" + total +
-                ", musics=" + musics +
-                '}';
     }
 }

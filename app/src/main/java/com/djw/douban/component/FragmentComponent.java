@@ -10,6 +10,7 @@ import com.djw.douban.ui.home.book.fragment.BookFragment;
 import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
 import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.home.music.fragment.MusicFragment;
+import com.djw.douban.ui.home.music.fragment.NewMusicFragment;
 import com.djw.douban.ui.mine.fragment.MineFragment;
 
 import dagger.Component;
@@ -36,4 +37,6 @@ public interface FragmentComponent {
     void inject(MineFragment mineFragment);
 
     void inject(NewMoviesFragment newMoviesFragment);
+
+    void inject(NewMusicFragment newMusicFragment);
 }

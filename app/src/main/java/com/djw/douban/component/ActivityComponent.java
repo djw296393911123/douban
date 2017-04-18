@@ -16,6 +16,8 @@ import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
 import com.djw.douban.ui.home.movies.activity.PeopleActivity;
 import com.djw.douban.ui.home.movies.activity.Top250Activity;
 import com.djw.douban.ui.home.movies.activity.TypeActivity;
+import com.djw.douban.ui.home.music.activity.ChooseTypeActivity;
+import com.djw.douban.ui.home.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.home.music.activity.MusicInfoActivity;
 
 import dagger.Component;
@@ -53,4 +55,8 @@ public interface ActivityComponent {
     void inject(TypeActivity typeActivity);
 
     void inject(SearchActivity searchActivity);
+
+    void inject(MoreMusicActivity moreMusicActivity);
+
+    void inject(ChooseTypeActivity chooseTypeActivity);
 }

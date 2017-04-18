@@ -19,6 +19,11 @@ import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.ui.home.music.contract.MusicInfoContract;
 import com.djw.douban.ui.home.music.presenter.MusicInfoPresenter;
+import com.djw.douban.util.RxUtil;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 
 public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements MusicInfoContract.View {
     private ImageView head;
@@ -51,16 +56,26 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
 
         Glide.with(this).load(musics.getImage()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                Palette.Swatch darkMutedSwatch = Palette.from(resource).generate().getDarkMutedSwatch();
-                if (darkMutedSwatch != null) {
-                    layout.setBackgroundColor(darkMutedSwatch.getRgb());
-                    toolbar.setBackgroundColor(darkMutedSwatch.getRgb());
-                } else {
-                    layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                }
-                head.setImageBitmap(resource);
+            public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                Observable.create(new Observable.OnSubscribe<Palette.Swatch>() {
+                    @Override
+                    public void call(Subscriber<? super Palette.Swatch> subscriber) {
+                        subscriber.onNext(Palette.from(resource).generate().getDarkMutedSwatch());
+                    }
+                }).compose(RxUtil.<Palette.Swatch>rxSchedulerHelper()).subscribe(new Action1<Palette.Swatch>() {
+                    @Override
+                    public void call(Palette.Swatch swatch) {
+                        if (swatch != null) {
+                            layout.setBackgroundColor(swatch.getRgb());
+                            toolbar.setBackgroundColor(swatch.getRgb());
+                        } else {
+                            layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        }
+                        head.setImageBitmap(resource);
+                    }
+                });
+
             }
         });
         title.setText(musics.getTitle());
@@ -69,7 +84,8 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
         jianjie.setText(musics.getSummary());
         time.setText("发行时间 : " + musics.getAttrs().getPubdate().get(0));
         out.setText("发行商 : " + musics.getAttrs().getPublisher().get(0));
-        zuozhe.setText(musics.getAttrs().getTracks().toString());
+        String string = musics.getAttrs().getTracks().toString();
+        zuozhe.setText(string.substring(1, string.length() - 1));
         grade.setText(musics.getRating().getAverage());
         ratingBar.setRating(((float) (Double.parseDouble(musics.getRating().getAverage()) / 2)));
         num.setText(String.valueOf(musics.getRating().getNumRaters()) + "人");

@@ -16,6 +16,9 @@ import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.data.movies.Top250Data;
 import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.data.music.MusicRoot;
+import com.djw.douban.data.music.MusicRootHY;
+import com.djw.douban.data.music.MusicRootOM;
+import com.djw.douban.data.music.MusicRootRH;
 import com.djw.douban.data.music.Musics;
 
 import retrofit2.http.GET;
@@ -93,5 +96,14 @@ public interface DoubanApi {
 
     @GET("movie/search")
     Observable<TypeData> getSearch(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    @GET("music/search")
+    Observable<MusicRootHY> searchMusicByHY(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    @GET("music/search")
+    Observable<MusicRootRH> searchMusicByRH(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    @GET("music/search")
+    Observable<MusicRootOM> searchMusicByOM(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
 
 }

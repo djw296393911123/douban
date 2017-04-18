@@ -18,6 +18,11 @@ import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.book.BookInfoData;
 import com.djw.douban.ui.home.book.contract.BookInfoContract;
 import com.djw.douban.ui.home.book.presenter.BookInfoPresenter;
+import com.djw.douban.util.RxUtil;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 
 public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements BookInfoContract.View {
 
@@ -79,16 +84,25 @@ public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements B
     public void showContent(BookInfoData bookInfoData) {
         Glide.with(this).load(bookInfoData.getImages().getLarge()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                Palette.Swatch darkMutedSwatch = Palette.from(resource).generate().getDarkMutedSwatch();
-                if (darkMutedSwatch != null) {
-                    layout.setBackgroundColor(darkMutedSwatch.getRgb());
-                    toolbar.setBackgroundColor(darkMutedSwatch.getRgb());
-                } else {
-                    layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                }
-                head.setImageBitmap(resource);
+            public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                Observable.create(new Observable.OnSubscribe<Palette.Swatch>() {
+                    @Override
+                    public void call(Subscriber<? super Palette.Swatch> subscriber) {
+                        subscriber.onNext(Palette.from(resource).generate().getDarkMutedSwatch());
+                    }
+                }).compose(RxUtil.<Palette.Swatch>rxSchedulerHelper()).subscribe(new Action1<Palette.Swatch>() {
+                    @Override
+                    public void call(Palette.Swatch swatch) {
+                        if (swatch != null) {
+                            layout.setBackgroundColor(swatch.getRgb());
+                            toolbar.setBackgroundColor(swatch.getRgb());
+                        } else {
+                            layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            toolbar.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        }
+                        head.setImageBitmap(resource);
+                    }
+                });
             }
         });
         title.setText(bookInfoData.getTitle());

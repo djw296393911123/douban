@@ -65,6 +65,10 @@
         <activity
             android:name=".ui.home.activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.home.music.activity.MoreMusicActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.home.music.activity.ChooseTypeActivity"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.djw.douban.ui.home.book.fragment.BookFragment;
 import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
 import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.home.music.fragment.MusicFragment;
+import com.djw.douban.ui.home.music.fragment.NewMusicFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class HomeFragment extends SimpleFragment {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new NewMoviesFragment());
         fragments.add(new BookFragment());
-        fragments.add(new MusicFragment());
+        fragments.add(new NewMusicFragment());
         pager.setAdapter(new MainViewpagerAdapter(getChildFragmentManager(), fragments));
         tabLayout.setViewPager(pager);
     }

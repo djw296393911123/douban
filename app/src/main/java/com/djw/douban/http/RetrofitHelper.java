@@ -16,6 +16,9 @@ import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.data.movies.Top250Data;
 import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.data.music.MusicRoot;
+import com.djw.douban.data.music.MusicRootHY;
+import com.djw.douban.data.music.MusicRootOM;
+import com.djw.douban.data.music.MusicRootRH;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.http.apis.DoubanApi;
 
@@ -87,6 +90,16 @@ public class RetrofitHelper {
 
     public Observable<MusicRoot> getMusicByTag(String tag, int start, int count) {
         return doubanApi.searchMusicByTag(tag, start, count);
+    }
+
+    public Observable<MusicRootHY> getMusicByTagHY(String tag, int start, int count) {
+        return doubanApi.searchMusicByHY(tag, start, count);
+    }
+    public Observable<MusicRootRH> getMusicByTagRH(String tag, int start, int count) {
+        return doubanApi.searchMusicByRH(tag, start, count);
+    }
+    public Observable<MusicRootOM> getMusicByTagOM(String tag, int start, int count) {
+        return doubanApi.searchMusicByOM(tag, start, count);
     }
 
     public Observable<BookInfoData> getBookInfo(String id) {

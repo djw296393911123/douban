@@ -43,22 +43,13 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     protected void initView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_book_type);
         xRecyclerView = ((XRecyclerView) view.findViewById(R.id.xrv_book));
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         xRecyclerView.setLayoutManager(layoutManager);
         xRecyclerView.setLoadingListener(this);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (position == 0)
-                    return 2;
-                else
-                    return 1;
-            }
-        });
         bookRecyclerAdapter = new BookRecyclerAdapter(getActivity());
         xRecyclerView.setAdapter(bookRecyclerAdapter);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_book_type);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new BookTypeAdapter() {
             @Override
