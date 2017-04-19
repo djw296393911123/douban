@@ -19,4 +19,9 @@
     <string name="hint_tips">影视、图书、唱片、活动等</string>
     <string name="shower">表演者 : </string>
     <string name="show_time">发行时间 : </string>
+    <string name="welcome">最受欢迎</string>
+    <string name="shaixuan">筛选</string>
+    <string name="find">找音乐</string>
+    <string name="custom">请输入自定义标签</string>
+    <string name="sure">确定</string>
 </resources>

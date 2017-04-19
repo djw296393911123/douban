@@ -34,9 +34,15 @@ public abstract class SelectTypeAdapter extends RecyclerView.Adapter<SelectTypeA
     @Override
     public void onBindViewHolder(CityHolder holder, final int position) {
         holder.textview.setText(list.get(position).getName());
+        holder.textview.setSelected(list.get(position).isSelect());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < list.size(); i++) {
+                    list.get(i).setSelect(false);
+                }
+                list.get(position).setSelect(true);
+                notifyDataSetChanged();
                 onItemClick(String.valueOf(position), list.get(position).getName());
             }
         });

@@ -29,7 +29,6 @@ import rx.Subscription;
 
 /**
  * Created by JasonDong on 2017/4/18.
- *
  */
 
 public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implements NewMusicContract.Presenter {
@@ -97,13 +96,11 @@ public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implem
 
                             list.add(new MusicTypeData("猜你喜欢"));
 
-                            List<MusicInfoData> contentDatas = new ArrayList<>();
                             List<Musics> musics = ((MusicRoot) o).getMusics();
                             for (int i = 0; i < musics.size(); i++) {
                                 Musics musics1 = musics.get(i);
-                                contentDatas.add(new MusicInfoData(musics1.getTitle(), musics1.getId(), musics1.getImage(), musics1.getRating().getAverage(), musics1.getAuthor().get(0).getName()));
+                                list.add(new MusicLikeData(musics1.getTitle(), musics1.getImage(), musics1.getId(), musics1.getRating().getAverage(), musics1.getAuthor().get(0).getName()));
                             }
-                            list.add(new MusicLikeData(contentDatas));
 
                             list.add(new MusicNewFiveData("查看更多"));
                         }

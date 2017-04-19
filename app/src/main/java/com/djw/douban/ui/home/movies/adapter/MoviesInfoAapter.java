@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,19 +43,24 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void notifyDataChange(MoviesInfoData moviesInfoData) {
         list.add(new MoviesInfoType("简介"));
         list.add(new MoviesTextData(moviesInfoData.getSummary()));
-        list.add(new MoviesInfoType("导演"));
         List<MoviesInfoData.DirectorsBean> directors = moviesInfoData.getDirectors();
-        for (int i = 0; i < directors.size(); i++) {
-            MoviesInfoData.DirectorsBean directorsBean = directors.get(i);
-            list.add(new MoviesPeople(directorsBean.getAvatars().getLarge(), directorsBean.getName(), Integer.parseInt(directorsBean.getId())));
+        Log.i("directors", directors.toString());
+        if (directors.size() > 0) {
+            list.add(new MoviesInfoType("导演"));
+            for (int i = 0; i < directors.size(); i++) {
+                MoviesInfoData.DirectorsBean directorsBean = directors.get(i);
+                MoviesInfoData.DirectorsBean.AvatarsBeanX avatars = directorsBean.getAvatars();
+                list.add(new MoviesPeople(avatars.getLarge(), directorsBean.getName(), Integer.parseInt(directorsBean.getId())));
+            }
         }
-        list.add(new MoviesInfoType("主演"));
         List<MoviesInfoData.CastsBean> casts = moviesInfoData.getCasts();
-        for (int i = 0; i < casts.size(); i++) {
-            MoviesInfoData.CastsBean castsBean = casts.get(i);
-            list.add(new MoviesPeople(castsBean.getAvatars().getLarge(), castsBean.getName(), Integer.parseInt(castsBean.getId())));
+        if (casts.size() > 0) {
+            list.add(new MoviesInfoType("主演"));
+            for (int i = 0; i < casts.size(); i++) {
+                MoviesInfoData.CastsBean castsBean = casts.get(i);
+                list.add(new MoviesPeople(castsBean.getAvatars().getLarge(), castsBean.getName(), Integer.parseInt(castsBean.getId())));
+            }
         }
-
         notifyDataSetChanged();
     }
 
@@ -111,22 +117,22 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return list.get(position).getType();
     }
 
-    class MoviesTextHolder extends RecyclerView.ViewHolder {
+    private class MoviesTextHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview;
 
-        public MoviesTextHolder(View itemView) {
+        MoviesTextHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             textview = ((TextView) itemView.findViewById(R.id.tv_info_content));
         }
     }
 
-    class MoviesTypeHolder extends RecyclerView.ViewHolder {
+    private class MoviesTypeHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview;
 
-        public MoviesTypeHolder(View itemView) {
+        MoviesTypeHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             textview = ((TextView) itemView.findViewById(R.id.tv_type));
@@ -137,16 +143,14 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
         private final ImageView head;
-        private final TextView people;
         private final TextView name;
         private final CardView cardView;
 
-        public MoviesPeopleHolder(View itemView) {
+        MoviesPeopleHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
             head = ((ImageView) itemView.findViewById(R.id.iv_movie));
-            people = ((TextView) itemView.findViewById(R.id.tv_people));
             name = ((TextView) itemView.findViewById(R.id.tv_name));
         }
     }

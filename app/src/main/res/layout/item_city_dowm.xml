@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_city"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:id="@+id/ll_city"
     android:orientation="vertical"
     android:padding="30px">
 
@@ -11,6 +11,6 @@
         android:id="@+id/tv_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="@drawable/type_text"
         android:textSize="30px" />
 </LinearLayout>

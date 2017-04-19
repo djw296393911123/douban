@@ -16,13 +16,19 @@ public class MusicListData extends MusicBaseData {
 
     private String id;
 
-    public MusicListData(String url, String name, String author, String grade, String id) {
+    private int start;
+
+    private String year;
+
+    public MusicListData(String url, String name, String author, String grade, String id, int start,String year) {
         super(MusicBaseData.THREE);
         this.url = url;
         this.name = name;
         this.author = author;
         this.grade = grade;
         this.id = id;
+        this.start = start;
+        this.year = year;
     }
 
     public String getUrl() {
@@ -63,5 +69,21 @@ public class MusicListData extends MusicBaseData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

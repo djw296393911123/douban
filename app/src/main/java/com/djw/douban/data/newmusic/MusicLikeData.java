@@ -1,25 +1,67 @@
 package com.djw.douban.data.newmusic;
 
-import java.util.List;
-
 /**
  * Created by JasonDong on 2017/4/18.
  */
 
 public class MusicLikeData extends MusicBaseData {
 
-    private List<MusicInfoData> list;
+    private String name;
 
-    public MusicLikeData(List<MusicInfoData> list) {
+    private String url;
+
+    private String id;
+
+    private String grade;
+
+    private String singer;
+
+    public MusicLikeData(String name, String url, String id, String grade,String singer) {
         super(MusicBaseData.FOUR);
-        this.list = list;
+        this.name = name;
+        this.url = url;
+        this.id = id;
+        this.grade = grade;
+        this.singer = singer;
     }
 
-    public List<MusicInfoData> getList() {
-        return list;
+    public String getName() {
+        return name;
     }
 
-    public void setList(List<MusicInfoData> list) {
-        this.list = list;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getSinger() {
+        return singer;
+    }
+
+    public void setSinger(String singer) {
+        this.singer = singer;
     }
 }

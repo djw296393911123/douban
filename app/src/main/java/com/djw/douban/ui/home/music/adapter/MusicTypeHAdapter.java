@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.djw.douban.R;
 import com.djw.douban.data.newmusic.MusicStyleInfoData;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -22,6 +23,11 @@ public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHA
 
     public MusicTypeHAdapter(List<MusicStyleInfoData> list) {
         this.list = list;
+    }
+
+    public void addType(List<MusicStyleInfoData> list) {
+        this.list.addAll(this.list.size() - 1, list);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -41,7 +47,19 @@ public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHA
                 }
                 list.get(position).setSelect(true);
                 notifyDataSetChanged();
-                onItemClick(list.get(position).getName(), position);
+                onItemClick(list.get(position).getName());
+            }
+        });
+        holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!list.get(position).getName().equals("+自定义标签")) {
+                    list.remove(list.get(position));
+                    notifyDataSetChanged();
+                } else {
+                    onItemClick("+自定义标签");
+                }
+                return false;
             }
         });
     }
@@ -58,11 +76,12 @@ public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHA
 
         public TypeHolder(View itemView) {
             super(itemView);
+            AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_type_title));
             layout = ((LinearLayout) itemView.findViewById(R.id.ll_type));
         }
     }
 
-    public abstract void onItemClick(String tag, int position);
+    public abstract void onItemClick(String tag);
 
 }

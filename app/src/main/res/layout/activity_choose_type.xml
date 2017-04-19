@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.djw.douban.ui.home.music.activity.ChooseTypeActivity">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tl_base"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_type_tope"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_zhihu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabBackground="@color/white"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/gary" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#eee" />
+
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/xrv_choose"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eee" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </LinearLayout>

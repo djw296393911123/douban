@@ -2,6 +2,7 @@ package com.djw.douban.ui.home.music.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,7 +32,14 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     @Override
     protected void initView(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_new_music);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.isSpan(position);
+            }
+        });
         adapter = new NewMusicAdapter(getActivity());
         recyclerView.setAdapter(adapter);
     }

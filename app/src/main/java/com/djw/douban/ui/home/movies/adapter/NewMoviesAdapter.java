@@ -131,6 +131,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 fourHolder.name.setText(four.getName());
                 fourHolder.cardView.setTag(Integer.parseInt(four.getId()));
                 fourHolder.cardView.setOnClickListener(this);
+                fourHolder.direct.setText(four.getDirect());
                 break;
             case NewMoviesBaseData.FIVE:
                 FiveHolder fiveHolder = (FiveHolder) holder;
@@ -259,6 +260,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView ivFour;
         RatingBar ratingBar;
         TextView grade;
+        TextView direct;
 
         FourHolder(View view) {
             super(view);
@@ -268,6 +270,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ratingBar = ((RatingBar) view.findViewById(R.id.rb_four));
             grade = ((TextView) view.findViewById(R.id.tv_four_grade));
             cardView = ((CardView) view.findViewById(R.id.cv_item));
+            direct = ((TextView) view.findViewById(R.id.tv_singer));
         }
     }
 

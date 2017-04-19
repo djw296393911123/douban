@@ -39,8 +39,8 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
     }
 
     @Override
-    public void getNewMovies(int start, int count, final boolean isLoadMore, boolean isShowProgress) {
-        Subscription subscribe = helper.getHotMovies(start, count)
+    public void getNewMovies(final int start, int count, final boolean isLoadMore, boolean isShowProgress) {
+        Subscription subscribe = helper.getTop250(start, count)
                 .compose(RxUtil.<MoviesItemData>rxSchedulerHelper())
                 .subscribe(new CommonSubscribers<MoviesItemData>(mView, isShowProgress) {
                     @Override
@@ -50,8 +50,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                         if (isLoadMore) {
                             for (int i = 0; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage())));
-                                list.add(new NewMoviesSix("查看更多"));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName()));
                             }
                         } else {
                             List<String> urls = new ArrayList<>();
@@ -93,10 +92,10 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage())));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName()));
                             }
 
-                            list.add(new NewMoviesSix("查看更多"));
+//                            list.add(new NewMoviesSix("查看更多"));
                         }
 
                         mView.showNewMovies(list, isLoadMore);

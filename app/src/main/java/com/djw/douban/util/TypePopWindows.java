@@ -34,14 +34,14 @@ public abstract class TypePopWindows extends PopupWindow {
     }
 
     private void initView(Context context, List<MusicStyleInfoData> list) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_city, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_top_pop, null);
         AutoUtils.autoSize(view);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_city);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new SelectTypeAdapter(list) {
             @Override
-            public void onItemClick(String id,String title) {
-                onItemClicks(id,title);
+            public void onItemClick(String id, String title) {
+                onItemClicks(id, title);
             }
         });
         this.setContentView(view);
@@ -60,6 +60,6 @@ public abstract class TypePopWindows extends PopupWindow {
         });
     }
 
-    public abstract void onItemClicks(String id,String title);
+    public abstract void onItemClicks(String id, String title);
 
 }

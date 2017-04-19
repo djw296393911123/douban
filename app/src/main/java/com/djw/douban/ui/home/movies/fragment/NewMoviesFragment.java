@@ -3,6 +3,7 @@ package com.djw.douban.ui.home.movies.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
 
     private NewMoviesAdapter adapter;
 
+    private boolean isLoading = false;
+
     @Override
     protected void lazyLoad() {
 
@@ -41,6 +44,20 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
             @Override
             public int getSpanSize(int position) {
                 return adapter.isSpan(position);
+            }
+        });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+                if (lastVisibleItem >= totalItemCount - 2 && dy > 0) {
+                    if (!isLoading) {
+                        mPresenter.getNewMovies(adapter.getItemCount() + 1, ParamsData.COUNT, true, true);
+                        isLoading = true;
+                    }
+                }
             }
         });
     }
@@ -80,6 +97,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     @Override
     public void showNewMovies(List<NewMoviesBaseData> list, boolean isLoadMore) {
         adapter.notifyDataChange(list, isLoadMore);
+        isLoading = false;
     }
 
 }

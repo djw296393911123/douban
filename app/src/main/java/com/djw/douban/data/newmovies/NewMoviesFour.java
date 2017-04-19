@@ -14,12 +14,15 @@ public class NewMoviesFour extends NewMoviesBaseData {
 
     private String grade;
 
-    public NewMoviesFour(String name, String url, String id, String grade) {
+    private String direct;
+
+    public NewMoviesFour(String name, String url, String id, String grade, String direct) {
         super(NewMoviesBaseData.FOUR);
         this.name = name;
         this.url = url;
         this.id = id;
         this.grade = grade;
+        this.direct = direct;
     }
 
     public String getName() {
@@ -52,5 +55,13 @@ public class NewMoviesFour extends NewMoviesBaseData {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getDirect() {
+        return direct;
+    }
+
+    public void setDirect(String direct) {
+        this.direct = direct;
     }
 }
