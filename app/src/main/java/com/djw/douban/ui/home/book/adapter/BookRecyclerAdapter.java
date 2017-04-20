@@ -24,7 +24,6 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/7.
- *
  */
 
 public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapter.MoviesHolder> {

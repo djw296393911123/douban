@@ -6,7 +6,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
-import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmusic.MusicBaseData;
 import com.djw.douban.data.newmusic.MusicChooseData;
 import com.djw.douban.data.newmusic.MusicContentData;
-import com.djw.douban.data.newmusic.MusicInfoData;
 import com.djw.douban.data.newmusic.MusicLikeData;
 import com.djw.douban.data.newmusic.MusicNewFiveData;
 import com.djw.douban.data.newmusic.MusicTypeData;
@@ -35,6 +32,7 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/18.
+ *
  */
 
 public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
@@ -42,7 +40,6 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<MusicBaseData> list;
 
     private Context context;
-    private LikeAdapter likeAdapter;
 
     public NewMusicAdapter(Context context) {
         this.context = context;
@@ -53,14 +50,6 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
-    }
-
-    public void addListData(List<MusicInfoData> list) {
-        likeAdapter.notifyDataChange(list, true);
-    }
-
-    public int getListDataSize() {
-        return likeAdapter.getItemCount() + 1;
     }
 
     @Override

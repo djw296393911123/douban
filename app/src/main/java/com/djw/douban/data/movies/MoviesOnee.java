@@ -13,11 +13,14 @@ public class MoviesOnee {
 
     private int id;
 
-    public MoviesOnee(String name, String url, double grade, int id) {
+    private String direct_id;
+
+    public MoviesOnee(String name, String url, double grade, int id,String direct_id) {
         this.name = name;
         this.url = url;
         this.grade = grade;
         this.id = id;
+        this.direct_id = direct_id;
     }
 
     public String getName() {
@@ -50,5 +53,13 @@ public class MoviesOnee {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDirect_id() {
+        return direct_id;
+    }
+
+    public void setDirect_id(String direct_id) {
+        this.direct_id = direct_id;
     }
 }

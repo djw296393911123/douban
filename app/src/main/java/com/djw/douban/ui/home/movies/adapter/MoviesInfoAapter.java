@@ -3,12 +3,14 @@ package com.djw.douban.ui.home.movies.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +20,8 @@ import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.movies.MoviesInfoType;
 import com.djw.douban.data.movies.MoviesPeople;
 import com.djw.douban.data.movies.MoviesTextData;
+import com.djw.douban.data.newmovies.MovieInfoTopData;
+import com.djw.douban.data.newmovies.MoviesInfoAlsoLikeData;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.PeopleActivity;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -40,28 +44,13 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.list = new ArrayList<>();
     }
 
-    public void notifyDataChange(MoviesInfoData moviesInfoData) {
-        list.add(new MoviesInfoType("简介"));
-        list.add(new MoviesTextData(moviesInfoData.getSummary()));
-        List<MoviesInfoData.DirectorsBean> directors = moviesInfoData.getDirectors();
-        Log.i("directors", directors.toString());
-        if (directors.size() > 0) {
-            list.add(new MoviesInfoType("导演"));
-            for (int i = 0; i < directors.size(); i++) {
-                MoviesInfoData.DirectorsBean directorsBean = directors.get(i);
-                MoviesInfoData.DirectorsBean.AvatarsBeanX avatars = directorsBean.getAvatars();
-                list.add(new MoviesPeople(avatars.getLarge(), directorsBean.getName(), Integer.parseInt(directorsBean.getId())));
-            }
-        }
-        List<MoviesInfoData.CastsBean> casts = moviesInfoData.getCasts();
-        if (casts.size() > 0) {
-            list.add(new MoviesInfoType("主演"));
-            for (int i = 0; i < casts.size(); i++) {
-                MoviesInfoData.CastsBean castsBean = casts.get(i);
-                list.add(new MoviesPeople(castsBean.getAvatars().getLarge(), castsBean.getName(), Integer.parseInt(castsBean.getId())));
-            }
-        }
+    public void notifyDataChange(List<MoviesInfoBaseData> list) {
+        this.list.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public int isSpan(int position) {
+        return list.get(position).getType() == MoviesInfoBaseData.PEOPLE_TYPE ? 1 : 2;
     }
 
     @Override
@@ -73,6 +62,8 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new MoviesTextHolder(LayoutInflater.from(context).inflate(R.layout.item_movies_content, parent, false));
             case MoviesInfoBaseData.TYPE_TYPE:
                 return new MoviesTypeHolder(LayoutInflater.from(context).inflate(R.layout.item_type_title, parent, false));
+            case MoviesInfoBaseData.FOUR_TYPE:
+                return new MoviesFourHolder(LayoutInflater.from(context).inflate(R.layout.item_also, parent, false));
         }
         return null;
     }
@@ -103,6 +94,13 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 MoviesTypeHolder typeHolder = (MoviesTypeHolder) holder;
                 MoviesInfoType moviesInfoType = (MoviesInfoType) list.get(position);
                 typeHolder.textview.setText(moviesInfoType.getTitle());
+                break;
+            case MoviesInfoBaseData.FOUR_TYPE:
+                MoviesFourHolder fourHolder = (MoviesFourHolder) holder;
+                MoviesInfoAlsoLikeData alsoLikeData = (MoviesInfoAlsoLikeData) list.get(position);
+                fourHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                AlsoListAdapter adapter = new AlsoListAdapter(alsoLikeData.getList(), context);
+                fourHolder.recyclerView.setAdapter(adapter);
                 break;
         }
     }
@@ -154,5 +152,17 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             name = ((TextView) itemView.findViewById(R.id.tv_name));
         }
     }
+
+    private class MoviesFourHolder extends RecyclerView.ViewHolder {
+
+        RecyclerView recyclerView;
+
+        MoviesFourHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            recyclerView = ((RecyclerView) view.findViewById(R.id.rv_music_content));
+        }
+    }
+
 
 }

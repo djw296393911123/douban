@@ -6,17 +6,19 @@ package com.djw.douban.data.search;
 
 public class SearchNormalData extends SearchBaseData {
 
+    private final String direct_id;
     private String name;
 
     private String id;
 
     private int goWhere;
 
-    public SearchNormalData(String name, String id, int goWhere) {
+    public SearchNormalData(String name, String id, int goWhere,String direct_id) {
         super(SearchBaseData.ONE);
         this.name = name;
         this.id = id;
         this.goWhere = goWhere;
+        this.direct_id = direct_id;
     }
 
     public String getName() {
@@ -41,5 +43,9 @@ public class SearchNormalData extends SearchBaseData {
 
     public void setGoWhere(int goWhere) {
         this.goWhere = goWhere;
+    }
+
+    public String getDirect_id() {
+        return direct_id;
     }
 }

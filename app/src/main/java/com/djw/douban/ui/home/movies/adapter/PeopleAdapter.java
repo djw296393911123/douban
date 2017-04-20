@@ -55,7 +55,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 MoviesActorsData.WorksBean.SubjectBean.CastsBean castsBean = casts.get(j);
                 peopleTwos.add(new PeopleTwo(castsBean.getName(), castsBean.getId(), castsBean.getAvatars() == null ? "" : castsBean.getAvatars().getLarge()));
             }
-            list.add(new PeopleThree(subject.getImages().getLarge(), subject.getTitle(), subject.getId(), peopleTwos));
+            list.add(new PeopleThree(subject.getImages().getLarge(), subject.getTitle(), subject.getId(), peopleTwos, subject.getDirectors().get(0).getId()));
         }
         notifyDataSetChanged();
     }
@@ -94,6 +94,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
+                        bundle.putString("direct",peopleThree.getDirect_id());
                         bundle.putInt("id", Integer.parseInt(peopleThree.getId()));
                         ((PeopleActivity) context).startActivity(MovieInfoActivity.class, bundle);
                     }

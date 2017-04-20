@@ -6,33 +6,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
-import com.djw.douban.data.newmusic.MusicInfoData;
-import com.djw.douban.ui.home.movies.activity.TypeActivity;
 import com.djw.douban.ui.home.music.activity.ChooseTypeActivity;
-import com.djw.douban.ui.home.music.activity.MoreMusicActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/18.
+ *
  */
-
-public class MusicChooseAdapter extends RecyclerView.Adapter<MusicChooseAdapter.MusicChooseHolder> implements View.OnClickListener {
+class MusicChooseAdapter extends RecyclerView.Adapter<MusicChooseAdapter.MusicChooseHolder> implements View.OnClickListener {
 
     private List<String> list;
 
     private Context context;
 
-    public MusicChooseAdapter(List<String> list, Context context) {
+    MusicChooseAdapter(List<String> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -69,7 +63,7 @@ public class MusicChooseAdapter extends RecyclerView.Adapter<MusicChooseAdapter.
         private final TextView choose;
         private final LinearLayout layout;
 
-        public MusicChooseHolder(View itemView) {
+        MusicChooseHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             choose = ((TextView) itemView.findViewById(R.id.tv_choose_type));

@@ -72,6 +72,7 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putString("direct", list.get(position).getDirectors().get(0).getId());
                 bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }

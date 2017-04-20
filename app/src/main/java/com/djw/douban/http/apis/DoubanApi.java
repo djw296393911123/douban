@@ -89,7 +89,7 @@ public interface DoubanApi {
     Observable<CloudItemData> getActivitys(@Query("loc") String loc, @Query("day_type") String day_type, @Query("type") String type, @Query("start") int start, @Query("count") int count);
 
     @GET("onlines")
-    Observable<MineItemData> getOnline(@Query("cate") String cate);
+    Observable<MineItemData> getOnline(@Query("tag") String cate);
 
     @GET("user/{name}")
     Observable<UserData> getUser(@Path("name") String id);

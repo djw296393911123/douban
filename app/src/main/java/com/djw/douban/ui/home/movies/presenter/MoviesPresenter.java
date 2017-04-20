@@ -1,15 +1,11 @@
 package com.djw.douban.ui.home.movies.presenter;
 
-import android.util.Log;
-
-import com.djw.douban.base.ApiException;
 import com.djw.douban.base.CommonSubscriber;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.CommingSoonData;
 import com.djw.douban.data.movies.HotData;
 import com.djw.douban.data.movies.MoviesHomeData;
-import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.MoviesOne;
 import com.djw.douban.data.movies.MoviesOnee;
 import com.djw.douban.data.movies.MoviesThree;
@@ -20,7 +16,6 @@ import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.data.movies.Top250Data;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.home.movies.contract.MoviesHomeContract;
-import com.djw.douban.util.RxUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +58,7 @@ public class MoviesPresenter extends RxPresenter<MoviesHomeContract.View> implem
                             List<HotData.SubjectsBean> subjects = ((HotData) o).getSubjects();
                             for (int i = 0; i < subjects.size(); i++) {
                                 HotData.SubjectsBean subjectsBean = subjects.get(i);
-                                MoviesOnee moviesOnee = new MoviesOnee(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getRating().getAverage(), Integer.parseInt(subjectsBean.getId()));
+                                MoviesOnee moviesOnee = new MoviesOnee(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getRating().getAverage(), Integer.parseInt(subjectsBean.getId()), subjectsBean.getDirectors().get(0).getId());
                                 ones.add(moviesOnee);
                             }
                             list.add(new MoviesOne("影院热映", ones));
@@ -72,7 +67,7 @@ public class MoviesPresenter extends RxPresenter<MoviesHomeContract.View> implem
                             List<CommingSoonData.SubjectsBean> subjects = ((CommingSoonData) o).getSubjects();
                             for (int i = 0; i < subjects.size(); i++) {
                                 CommingSoonData.SubjectsBean subjectsBean = subjects.get(i);
-                                MoviesOnee moviesOnee = new MoviesOnee(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getRating().getAverage(), Integer.parseInt(subjectsBean.getId()));
+                                MoviesOnee moviesOnee = new MoviesOnee(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getRating().getAverage(), Integer.parseInt(subjectsBean.getId()), subjectsBean.getDirectors().get(0).getId());
                                 ones.add(moviesOnee);
                             }
                             list.add(new MoviesOne("院线即将上映", ones));
@@ -95,7 +90,7 @@ public class MoviesPresenter extends RxPresenter<MoviesHomeContract.View> implem
                                 NorthAmericaItemData.SubjectsBean subjectsBean = subjects.get(i);
                                 NorthAmericaItemData.SubjectsBean.SubjectBean subject = subjectsBean.getSubject();
                                 NorthAmericaItemData.SubjectsBean.SubjectBean.ImagesBean images = subject.getImages();
-                                MoviesThreee moviesThreee = new MoviesThreee(subject.getTitle(), images == null ? "" : images.getLarge(), subject.getRating().getAverage(), Integer.parseInt(subject.getId()));
+                                MoviesThreee moviesThreee = new MoviesThreee(subject.getTitle(), images == null ? "" : images.getLarge(), subject.getRating().getAverage(), Integer.parseInt(subject.getId()), subject.getDirectors().get(0).getId());
                                 threes.add(moviesThreee);
                             }
                             list.add(new MoviesThree("猜您喜欢", threes));

@@ -72,6 +72,7 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
+                bundle.putString("direct", list.get(position).getDirectors().get(0).getId());
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });

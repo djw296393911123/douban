@@ -8,6 +8,7 @@ import java.util.List;
 
 public class PeopleThree extends PeopleBaseData {
 
+    private final String direct_id;
     private String url;
 
     private String name;
@@ -16,12 +17,13 @@ public class PeopleThree extends PeopleBaseData {
 
     private List<PeopleTwo> list;
 
-    public PeopleThree(String url, String name, String id,List<PeopleTwo> list) {
+    public PeopleThree(String url, String name, String id,List<PeopleTwo> list,String direct_id) {
         super(PeopleBaseData.THREE);
         this.url = url;
         this.name = name;
         this.id = id;
         this.list = list;
+        this.direct_id = direct_id;
     }
 
     public String getId() {
@@ -54,5 +56,9 @@ public class PeopleThree extends PeopleBaseData {
 
     public void setList(List<PeopleTwo> list) {
         this.list = list;
+    }
+
+    public String getDirect_id() {
+        return direct_id;
     }
 }

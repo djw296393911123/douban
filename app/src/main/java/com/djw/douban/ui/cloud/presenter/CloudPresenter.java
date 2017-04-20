@@ -93,7 +93,7 @@ public class CloudPresenter extends RxPresenter<CloudContract.View> implements C
         list.add(new CityData("明天", "tomorrow"));
         list.add(new CityData("一周之内", "week"));
         list.add(new CityData("周末", "weekend"));
-        list.add(new CityData("将来", "future"));
+        list.add(new CityData("近期", "future"));
         mView.showTypeDay(list);
     }
 }

@@ -1,6 +1,7 @@
 package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +11,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
+import com.djw.douban.data.movies.MoviesInfoBaseData;
 import com.djw.douban.data.movies.MoviesInfoData;
+import com.djw.douban.data.newmovies.MovieInfoTopData;
 import com.djw.douban.ui.home.movies.adapter.MoviesInfoAapter;
 import com.djw.douban.ui.home.movies.contract.MovieInfoContract;
 import com.djw.douban.ui.home.movies.presenter.MovieInfoPresenter;
+
+import java.util.List;
 
 public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements MovieInfoContract.View {
 
@@ -44,7 +49,14 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
         area = (TextView) findViewById(R.id.tv_area);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_info_movie);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.isSpan(position);
+            }
+        });
         adapter = new MoviesInfoAapter(this);
         recyclerView.setAdapter(adapter);
     }
@@ -58,7 +70,8 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
     public void inject() {
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getInfo(getIntent().getExtras().getInt("id"));
+        Bundle bundle = getIntent().getExtras();
+        mPresenter.getInfo(bundle.getInt("id"), bundle.getString("direct"));
     }
 
     @Override
@@ -67,15 +80,17 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
     }
 
     @Override
-    public void showInfo(MoviesInfoData data) {
-        Glide.with(this).load(data.getImages().getLarge()).asBitmap().into(head);
-        toolbar.setTitle(data.getTitle());
-        name.setText(data.getTitle());
-        year.setText(data.getYear() + "上映");
-        area.setText(data.getCountries().toString());
-        story.setText(data.getGenres().toString());
-        grade.setText("评分" + data.getRating().getAverage());
-        num.setText(String.valueOf(data.getWish_count()) + "人");
+    public void showInfo(List<MoviesInfoBaseData> data, MovieInfoTopData topData) {
+        if (topData != null) {
+            Glide.with(this).load(topData.getUrl()).asBitmap().into(head);
+            toolbar.setTitle(topData.getTitle());
+            name.setText(topData.getTitle());
+            year.setText(topData.getYear());
+            area.setText(topData.getCountry());
+            story.setText(topData.getType());
+            grade.setText(topData.getGrade());
+            num.setText(topData.getCount());
+        }
         adapter.notifyDataChange(data);
     }
 }

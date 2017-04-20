@@ -8,24 +8,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseActivity;
+import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.TypeData;
+import com.djw.douban.ui.home.movies.activity.HotActivity;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
+import com.djw.douban.ui.home.movies.activity.TypeActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by JasonDong on 2017/4/10.
  */
 
-public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.Top250Holder> {
+public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
 
     private List<TypeData.SubjectsBean> list;
 
@@ -43,36 +50,38 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.Top250Holder> 
     }
 
     @Override
-    public Top250Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new Top250Holder(LayoutInflater.from(context).inflate(R.layout.item_top250, parent, false));
+    public TypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new TypeHolder(LayoutInflater.from(context).inflate(R.layout.item_hot, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(Top250Holder holder, final int position) {
-        holder.num.setText(String.valueOf(position + 1));
-        TypeData.SubjectsBean subjectsBean = list.get(position);
-        holder.title.setText(subjectsBean.getTitle());
+    public void onBindViewHolder(TypeHolder holder, int position) {
+        final TypeData.SubjectsBean subjectBean = list.get(position);
+        Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.ivHotHead);
+        holder.tvHotTitle.setText(subjectBean.getTitle());
+        holder.tvHotDirect.setText(subjectBean.getDirectors().get(0).getName());
+        holder.tvHotGrade.setText(String.valueOf(subjectBean.getRating().getAverage()));
+        holder.rbHot.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
+        holder.tvHotNum.setText(String.valueOf(subjectBean.getCollect_count()));
         String daoyan = "导演 ：";
-        List<TypeData.SubjectsBean.DirectorsBean> directors = subjectsBean.getDirectors();
+        List<TypeData.SubjectsBean.DirectorsBean> directors = subjectBean.getDirectors();
         for (int i = 0; i < directors.size(); i++) {
             daoyan = daoyan + directors.get(i).getName() + "/";
         }
-        holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
+        holder.tvHotDirect.setText(daoyan.substring(0, daoyan.length() - 1));
         String actor = "演员 ：";
-        List<TypeData.SubjectsBean.CastsBean> casts = subjectsBean.getCasts();
+        List<TypeData.SubjectsBean.CastsBean> casts = subjectBean.getCasts();
         for (int i = 0; i < casts.size(); i++) {
             actor = actor + casts.get(i).getName() + "/";
         }
-        holder.actiors.setText(actor.substring(0, actor.length() - 1));
-        Glide.with(context).load(subjectsBean.getImages().getLarge()).asBitmap().into(holder.head);
-        holder.ratingBar.setRating(((float) (subjectsBean.getRating().getAverage() / 2)));
-        holder.pingfen.setText(String.valueOf(subjectsBean.getRating().getAverage()));
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.tvHotCast.setText(actor.substring(0, actor.length() - 1));
+        holder.llLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
-                ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
+                bundle.putInt("id", Integer.parseInt(subjectBean.getId()));
+                bundle.putString("direct", subjectBean.getDirectors().get(0).getId());
+                ((TypeActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
     }
@@ -82,28 +91,28 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.Top250Holder> 
         return list.size();
     }
 
-    class Top250Holder extends RecyclerView.ViewHolder {
+    static class TypeHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_hot_head)
+        ImageView ivHotHead;
+        @BindView(R.id.tv_hot_title)
+        TextView tvHotTitle;
+        @BindView(R.id.rb_hot)
+        RatingBar rbHot;
+        @BindView(R.id.tv_hot_grade)
+        TextView tvHotGrade;
+        @BindView(R.id.tv_hot_direct)
+        TextView tvHotDirect;
+        @BindView(R.id.tv_hot_cast)
+        TextView tvHotCast;
+        @BindView(R.id.tv_hot_num)
+        TextView tvHotNum;
+        @BindView(R.id.ll_hot)
+        LinearLayout llLayout;
 
-        private final TextView title;
-        private final TextView actiors;
-        private final TextView daoyan;
-        private final RatingBar ratingBar;
-        private final ImageView head;
-        private final TextView num;
-        private final TextView pingfen;
-        private final CardView cardView;
-
-        public Top250Holder(View itemView) {
-            super(itemView);
+        TypeHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
             AutoUtils.autoSize(itemView);
-            title = ((TextView) itemView.findViewById(R.id.tv_title));
-            actiors = ((TextView) itemView.findViewById(R.id.tv_actors));
-            daoyan = ((TextView) itemView.findViewById(R.id.tv_daoyan));
-            ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_movies));
-            head = ((ImageView) itemView.findViewById(R.id.iv_head));
-            num = ((TextView) itemView.findViewById(R.id.tv_num));
-            pingfen = ((TextView) itemView.findViewById(R.id.tv_pingfen));
-            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
         }
     }
 }

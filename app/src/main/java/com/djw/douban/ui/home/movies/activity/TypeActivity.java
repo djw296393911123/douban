@@ -1,5 +1,6 @@
 package com.djw.douban.ui.home.movies.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -24,8 +25,6 @@ public class TypeActivity extends RxActivity<TypePresenter> implements TypeContr
 
     @BindView(R.id.xrv_type)
     XRecyclerView xrvType;
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @BindView(R.id.tl_base)
     Toolbar tlBase;
     private TypeAdapter adapter;
@@ -51,7 +50,6 @@ public class TypeActivity extends RxActivity<TypePresenter> implements TypeContr
 
     @Override
     public void initView() {
-        tlBase.setTitle("");
         xrvType.setLayoutManager(new LinearLayoutManager(this));
         xrvType.setLoadingListener(this);
         adapter = new TypeAdapter(this);
@@ -68,7 +66,8 @@ public class TypeActivity extends RxActivity<TypePresenter> implements TypeContr
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
         q = getIntent().getExtras().getString("q");
-        tvToolbarTitle.setText(q);
+        tlBase.setTitleTextColor(Color.WHITE);
+        tlBase.setTitle(q);
         mPresenter.getType(q, ParamsData.START, ParamsData.COUNT, false, true);
     }
 

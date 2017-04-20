@@ -50,18 +50,21 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                         if (isLoadMore) {
                             for (int i = 0; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName()));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName(), subjectsBean.getDirectors().get(0).getId()));
                             }
                         } else {
                             List<String> urls = new ArrayList<>();
                             List<String> titles = new ArrayList<>();
                             List<String> ids = new ArrayList<>();
+                            List<String> direct_id = new ArrayList<>();
+
                             for (int i = 0; i < 5; i++) {
                                 titles.add(subjects.get(i).getTitle());
                                 urls.add(subjects.get(i).getImages().getLarge());
                                 ids.add(subjects.get(i).getId());
+                                direct_id.add(subjects.get(i).getDirectors().get(0).getId());
                             }
-                            list.add(new NewMovieOne(titles, urls, ids));
+                            list.add(new NewMovieOne(titles, urls, ids, direct_id));
 
 //                            list.add(new NewMoviesFive("精彩分类"));
 
@@ -92,7 +95,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName()));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName(), subjectsBean.getDirectors().get(0).getId()));
                             }
 
 //                            list.add(new NewMoviesSix("查看更多"));

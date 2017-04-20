@@ -20,7 +20,7 @@ public class BookInfoPresenter extends RxPresenter<BookInfoContract.View> implem
     private final RetrofitHelper helper;
 
     @Inject
-    public BookInfoPresenter(RetrofitHelper helper) {
+    BookInfoPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

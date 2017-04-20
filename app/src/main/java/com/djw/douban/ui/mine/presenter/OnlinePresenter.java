@@ -1,5 +1,7 @@
 package com.djw.douban.ui.mine.presenter;
 
+import android.util.Log;
+
 import com.djw.douban.base.CommonSubscriber;
 import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
@@ -27,7 +29,7 @@ public class OnlinePresenter extends RxPresenter<OnlineContract.View> implements
     private final RetrofitHelper helper;
 
     @Inject
-    public OnlinePresenter(RetrofitHelper helper) {
+    OnlinePresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 
@@ -38,6 +40,7 @@ public class OnlinePresenter extends RxPresenter<OnlineContract.View> implements
                 .subscribe(new CommonSubscribers<MineItemData>(mView, false) {
                     @Override
                     public void onNext(MineItemData mineItemData) {
+                        Log.i("mineitemdata", mineItemData.toString());
                         mView.showOnline(mineItemData);
                     }
                 });

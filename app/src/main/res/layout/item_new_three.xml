@@ -15,15 +15,15 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20px"
-            android:text="TOP250"
-            android:textColor="@color/colorAccent"
-            android:textSize="45px"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="20px"-->
+            <!--android:text="TOP250"-->
+            <!--android:textColor="@color/colorAccent"-->
+            <!--android:textSize="45px"-->
+            <!--android:textStyle="bold" />-->
     </FrameLayout>
 
     <View
@@ -48,15 +48,15 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20px"
-                android:text="即将上映"
-                android:textColor="@color/colorAccent"
-                android:textSize="45px"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="20px"-->
+                <!--android:text="即将上映"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="45px"-->
+                <!--android:textStyle="bold" />-->
         </FrameLayout>
 
 
@@ -76,15 +76,15 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20px"
-                android:text="北美票房排行榜"
-                android:textColor="@color/colorAccent"
-                android:textSize="45px"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="20px"-->
+                <!--android:text="北美票房排行榜"-->
+                <!--android:textColor="@color/colorAccent"-->
+                <!--android:textSize="45px"-->
+                <!--android:textStyle="bold" />-->
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

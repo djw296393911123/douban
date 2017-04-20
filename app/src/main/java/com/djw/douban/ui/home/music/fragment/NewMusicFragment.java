@@ -24,8 +24,10 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
 
     private NewMusicAdapter adapter;
 
+
     @Override
     protected void lazyLoad() {
+
 
     }
 

@@ -74,6 +74,7 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", Integer.parseInt(subjectBean.getId()));
+                bundle.putString("direct", subjectBean.getDirectors().get(0).getId());
                 ((NorthAmericaActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });

@@ -67,7 +67,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 SearchNormalData normalData = (SearchNormalData) list.get(position);
                 hotHolder.name.setText(normalData.getName());
                 hotHolder.num.setText(String.valueOf(position));
-                hotHolder.layout.setTag(normalData.getId() + "," + normalData.getGoWhere());
+                hotHolder.layout.setTag(normalData.getId() + "," + normalData.getGoWhere() + "," + normalData.getDirect_id());
                 hotHolder.layout.setOnClickListener(this);
                 break;
             case SearchBaseData.TWO:
@@ -96,6 +96,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         switch (Integer.parseInt(split[1])) {
             case 1:
                 bundle.putInt("id", Integer.parseInt(split[0]));
+                bundle.putString("direct", split[2]);
                 ((SearchActivity) context).startActivity(MovieInfoActivity.class, bundle);
                 break;
             case 2:

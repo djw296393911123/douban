@@ -1,7 +1,9 @@
 package com.djw.douban.ui.home.movies.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
@@ -24,8 +26,6 @@ public class HotActivity extends RxActivity<HotPresenter> implements HotContract
 
     @BindView(R.id.xrv_hot)
     XRecyclerView xrvHot;
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @BindView(R.id.tl_base)
     Toolbar tlBase;
     private HotAdapter adapter;
@@ -50,17 +50,9 @@ public class HotActivity extends RxActivity<HotPresenter> implements HotContract
 
     @Override
     public void initView() {
-        tlBase.setTitle("");
-        tvToolbarTitle.setText(R.string.hot);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                Log.i("position", position + "");
-                return 1;
-            }
-        });
-        xrvHot.setLayoutManager(layoutManager);
+        tlBase.setTitleTextColor(Color.WHITE);
+        tlBase.setTitle(R.string.hot);
+        xrvHot.setLayoutManager(new LinearLayoutManager(this));
         xrvHot.setLoadingListener(this);
         adapter = new HotAdapter(this);
         xrvHot.setAdapter(adapter);

@@ -115,9 +115,9 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case NewMoviesBaseData.THREE:
                 ThreeHolder threeHolder = (ThreeHolder) holder;
                 NewMoviesThree three = (NewMoviesThree) list.get(position);
-                Glide.with(context).load(three.getUrl().get(0)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeOne);
-                Glide.with(context).load(three.getUrl().get(1)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeTwo);
-                Glide.with(context).load(three.getUrl().get(2)).bitmapTransform(new BlurTransformation(context, 10)).into(threeHolder.ivThreeThree);
+                Glide.with(context).load(three.getUrl().get(0)).into(threeHolder.ivThreeOne);
+                Glide.with(context).load(three.getUrl().get(1)).into(threeHolder.ivThreeTwo);
+                Glide.with(context).load(three.getUrl().get(2)).into(threeHolder.ivThreeThree);
                 threeHolder.ivThreeOne.setOnClickListener(this);
                 threeHolder.ivThreeTwo.setOnClickListener(this);
                 threeHolder.ivThreeThree.setOnClickListener(this);
@@ -129,7 +129,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 fourHolder.grade.setText(four.getGrade());
                 fourHolder.ratingBar.setRating(((float) (Double.parseDouble(four.getGrade()) / 2)));
                 fourHolder.name.setText(four.getName());
-                fourHolder.cardView.setTag(Integer.parseInt(four.getId()));
+                fourHolder.cardView.setTag(Integer.parseInt(four.getId()) + "," + four.getDirect_id());
                 fourHolder.cardView.setOnClickListener(this);
                 fourHolder.direct.setText(four.getDirect());
                 break;
@@ -164,7 +164,9 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void OnBannerClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt("id", Integer.parseInt(((NewMovieOne) list.get(0)).getIds().get(position - 1)));
+        NewMovieOne newMovieOne = (NewMovieOne) list.get(0);
+        bundle.putString("direct", newMovieOne.getDirect_id().get(position - 1));
+        bundle.putInt("id", Integer.parseInt(newMovieOne.getIds().get(position - 1)));
         ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
     }
 
@@ -182,7 +184,10 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case R.id.cv_item:
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", ((int) v.getTag()));
+                String tag = (String) v.getTag();
+                String[] split = tag.split(",");
+                bundle.putInt("id", Integer.parseInt(split[0]));
+                bundle.putString("direct", split[1]);
                 ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
                 break;
             case R.id.iv_tow_one:

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -20,6 +21,9 @@ import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by JasonDong on 2017/4/17.
@@ -50,15 +54,30 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotHolder> {
     @Override
     public void onBindViewHolder(HotHolder holder, int position) {
         final MoviesItemData.SubjectsBean subjectBean = list.get(position);
-        Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.image);
-        holder.name.setText(subjectBean.getTitle());
-        holder.grade.setText(String.valueOf(subjectBean.getRating().getAverage()));
-        holder.ratingBar.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.ivHotHead);
+        holder.tvHotTitle.setText(subjectBean.getTitle());
+        holder.tvHotDirect.setText(subjectBean.getDirectors().get(0).getName());
+        holder.tvHotGrade.setText(String.valueOf(subjectBean.getRating().getAverage()));
+        holder.rbHot.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
+        holder.tvHotNum.setText(String.valueOf(subjectBean.getCollect_count()));
+        String daoyan = "导演 ：";
+        List<MoviesItemData.SubjectsBean.DirectorsBean> directors = subjectBean.getDirectors();
+        for (int i = 0; i < directors.size(); i++) {
+            daoyan = daoyan + directors.get(i).getName() + "/";
+        }
+        holder.tvHotDirect.setText(daoyan.substring(0, daoyan.length() - 1));
+        String actor = "演员 ：";
+        List<MoviesItemData.SubjectsBean.CastsBean> casts = subjectBean.getCasts();
+        for (int i = 0; i < casts.size(); i++) {
+            actor = actor + casts.get(i).getName() + "/";
+        }
+        holder.tvHotCast.setText(actor.substring(0, actor.length() - 1));
+        holder.llLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", Integer.parseInt(subjectBean.getId()));
+                bundle.putString("direct", subjectBean.getDirectors().get(0).getId());
                 ((HotActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
@@ -69,22 +88,28 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotHolder> {
         return list.size();
     }
 
-    class HotHolder extends RecyclerView.ViewHolder {
+    static class HotHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_hot_head)
+        ImageView ivHotHead;
+        @BindView(R.id.tv_hot_title)
+        TextView tvHotTitle;
+        @BindView(R.id.rb_hot)
+        RatingBar rbHot;
+        @BindView(R.id.tv_hot_grade)
+        TextView tvHotGrade;
+        @BindView(R.id.tv_hot_direct)
+        TextView tvHotDirect;
+        @BindView(R.id.tv_hot_cast)
+        TextView tvHotCast;
+        @BindView(R.id.tv_hot_num)
+        TextView tvHotNum;
+        @BindView(R.id.ll_hot)
+        LinearLayout llLayout;
 
-        private final ImageView image;
-        private final TextView name;
-        private final TextView grade;
-        private final CardView cardView;
-        private final RatingBar ratingBar;
-
-        HotHolder(View itemView) {
-            super(itemView);
+        HotHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
             AutoUtils.autoSize(itemView);
-            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
-            image = ((ImageView) itemView.findViewById(R.id.iv_movie));
-            name = ((TextView) itemView.findViewById(R.id.tv_name));
-            grade = ((TextView) itemView.findViewById(R.id.tv_grade));
-            ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_movies));
         }
     }
 }

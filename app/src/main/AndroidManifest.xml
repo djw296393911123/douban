@@ -42,7 +42,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.home.movies.activity.MoreMovieActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ui.home.music.activity.MusicInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />

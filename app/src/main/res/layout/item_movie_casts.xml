@@ -48,7 +48,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="5px"
-                    android:textSize="25px" />
+                    android:textColor="#000"
+                    android:textSize="25px"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

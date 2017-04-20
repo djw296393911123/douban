@@ -60,6 +60,7 @@ public class MoviesRecyclerAdapter extends RecyclerView.Adapter<MoviesRecyclerAd
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", moviesOnee.getId());
+                bundle.putString("direct", moviesOnee.getDirect_id());
                 ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });

@@ -52,7 +52,7 @@ public class SearchPresenter extends RxPresenter<SearchContract.View> implements
                         List<MoviesItemData.SubjectsBean> subjects = moviesItemData.getSubjects();
                         for (int i = 0; i < subjects.size(); i++) {
                             MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                            list.add(new SearchNormalData(subjectsBean.getTitle(), subjectsBean.getId(), ParamsData.GO_MOVIES));
+                            list.add(new SearchNormalData(subjectsBean.getTitle(), subjectsBean.getId(), ParamsData.GO_MOVIES, subjectsBean.getDirectors().get(0).getId()));
                         }
                         mView.showHotSearch(list);
                     }
@@ -79,7 +79,7 @@ public class SearchPresenter extends RxPresenter<SearchContract.View> implements
 
                             for (int i = 0; i < subjects.size(); i++) {
                                 TypeData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new SearchNormalData(subjectsBean.getTitle(), subjectsBean.getId(), ParamsData.GO_MOVIES));
+                                list.add(new SearchNormalData(subjectsBean.getTitle(), subjectsBean.getId(), ParamsData.GO_MOVIES, subjectsBean.getDirectors().get(0).getId()));
                             }
                         } else if (o instanceof BookRoot) {
                             List<Books> books = ((BookRoot) o).getBooks();
@@ -88,7 +88,7 @@ public class SearchPresenter extends RxPresenter<SearchContract.View> implements
 
                             for (int i = 0; i < books.size(); i++) {
                                 Books book = books.get(i);
-                                list.add(new SearchNormalData(book.getTitle(), book.getId(), ParamsData.GO_BOOKS));
+                                list.add(new SearchNormalData(book.getTitle(), book.getId(), ParamsData.GO_BOOKS, ""));
                             }
                         } else if (o instanceof MusicRoot) {
                             List<Musics> musics = ((MusicRoot) o).getMusics();
@@ -97,7 +97,7 @@ public class SearchPresenter extends RxPresenter<SearchContract.View> implements
 
                             for (int i = 0; i < musics.size(); i++) {
                                 Musics music = musics.get(i);
-                                list.add(new SearchNormalData(music.getTitle(), music.getId(), ParamsData.GO_MUSICS));
+                                list.add(new SearchNormalData(music.getTitle(), music.getId(), ParamsData.GO_MUSICS, ""));
                             }
                         }
                         mView.showSearchData(list);

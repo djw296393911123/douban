@@ -53,7 +53,6 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
 
     @Override
     public void showMusci(Musics musics) {
-
         Glide.with(this).load(musics.getImage()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
