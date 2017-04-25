@@ -7,9 +7,7 @@ import com.djw.douban.http.FragmentScope;
 import com.djw.douban.module.FragmentModule;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.home.book.fragment.BookFragment;
-import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
 import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
-import com.djw.douban.ui.home.music.fragment.MusicFragment;
 import com.djw.douban.ui.home.music.fragment.NewMusicFragment;
 import com.djw.douban.ui.mine.fragment.MineFragment;
 
@@ -25,12 +23,7 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-
-    void inject(MoviesFragment moviesFragment);
-
     void inject(BookFragment bookFragment);
-
-    void inject(MusicFragment musicFragment);
 
     void inject(CloudFragment cloudFragment);
 

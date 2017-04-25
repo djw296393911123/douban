@@ -20,7 +20,7 @@ public interface NewMusicContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getMusic(String tag, int start, int count);
+        void getMusic(int start, int count);
 
     }
 

@@ -2,6 +2,8 @@ package com.djw.douban.base;
 
 import android.app.Application;
 
+import com.bumptech.glide.request.target.ViewTarget;
+import com.djw.douban.R;
 import com.djw.douban.component.AppComponent;
 import com.djw.douban.component.DaggerAppComponent;
 import com.djw.douban.module.AppMoudel;
@@ -9,7 +11,6 @@ import com.djw.douban.module.HttpMoudel;
 
 /**
  * Created by JasonDong on 2017/3/23.
- *
  */
 
 public class BaseApplication extends Application {
@@ -20,6 +21,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ViewTarget.setTagId(R.id.glide_tag_id);
     }
 
     public static synchronized BaseApplication getInstance() {

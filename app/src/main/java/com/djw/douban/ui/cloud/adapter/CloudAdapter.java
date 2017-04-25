@@ -15,7 +15,6 @@ import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.ui.cloud.activity.CloudInfoActivity;
-import com.djw.douban.ui.cloud.activity.UserActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by JasonDong on 2017/4/12.
  */
 
-public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder> {
+public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder> {
 
     private List<CloudItemData.EventsBean> list;
 
@@ -75,12 +74,10 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
                 ((MainActivity) context).startActivity(CloudInfoActivity.class, bundle);
             }
         });
-        holder.head.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id", eventsBean.getOwner().getId());
-                ((MainActivity) context).startActivity(UserActivity.class, bundle);
+                onImageClick(eventsBean.getImage_hlarge());
             }
         });
     }
@@ -102,7 +99,7 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
         private final ImageView cha;
         private final CardView cardView;
 
-        public CloudHolder(View itemView) {
+        CloudHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             head = ((ImageView) itemView.findViewById(R.id.iv_cloud));
@@ -116,5 +113,7 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
         }
     }
+
+    public abstract void onImageClick(String url);
 
 }

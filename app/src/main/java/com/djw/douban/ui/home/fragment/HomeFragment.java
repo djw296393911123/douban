@@ -16,9 +16,7 @@ import com.djw.douban.adapter.MainViewpagerAdapter;
 import com.djw.douban.base.SimpleFragment;
 import com.djw.douban.ui.home.activity.SearchActivity;
 import com.djw.douban.ui.home.book.fragment.BookFragment;
-import com.djw.douban.ui.home.movies.fragment.MoviesFragment;
 import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
-import com.djw.douban.ui.home.music.fragment.MusicFragment;
 import com.djw.douban.ui.home.music.fragment.NewMusicFragment;
 import com.flyco.tablayout.SlidingTabLayout;
 

@@ -3,7 +3,6 @@ package com.djw.douban.ui.home.music.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -55,7 +54,7 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getMusic("", ParamsData.START, ParamsData.COUNT);
+        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT);
     }
 
     @Override

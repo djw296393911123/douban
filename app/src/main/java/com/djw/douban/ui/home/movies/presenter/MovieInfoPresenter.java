@@ -65,7 +65,11 @@ public class MovieInfoPresenter extends RxPresenter<MovieInfoContract.View> impl
                                 list.add(new MoviesInfoType("主演"));
                                 for (int i = 0; i < casts.size(); i++) {
                                     MoviesInfoData.CastsBean castsBean = casts.get(i);
-                                    list.add(new MoviesPeople(castsBean.getAvatars().getLarge(), castsBean.getName(), Integer.parseInt(castsBean.getId())));
+                                    try {
+                                        list.add(new MoviesPeople(castsBean.getAvatars().getLarge(), castsBean.getName(), Integer.parseInt(castsBean.getId())));
+                                    } catch (Exception e) {
+                                        list.add(new MoviesPeople("", castsBean.getName(), 1));
+                                    }
                                 }
                             }
 

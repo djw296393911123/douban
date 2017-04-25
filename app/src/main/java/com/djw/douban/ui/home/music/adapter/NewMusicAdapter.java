@@ -22,6 +22,7 @@ import com.djw.douban.data.newmusic.MusicChooseData;
 import com.djw.douban.data.newmusic.MusicContentData;
 import com.djw.douban.data.newmusic.MusicLikeData;
 import com.djw.douban.data.newmusic.MusicNewFiveData;
+import com.djw.douban.data.newmusic.MusicNoMoreData;
 import com.djw.douban.data.newmusic.MusicTypeData;
 import com.djw.douban.ui.home.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.home.music.activity.MusicInfoActivity;
@@ -32,7 +33,6 @@ import java.util.List;
 
 /**
  * Created by JasonDong on 2017/4/18.
- *
  */
 
 public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
@@ -65,6 +65,9 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_four, parent, false));
             case MusicBaseData.FIVE:
                 return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_six, parent, false));
+            case MusicBaseData.SIX:
+                return new SixHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_nomore, parent, false));
+
         }
         return null;
     }
@@ -127,6 +130,9 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         ((MainActivity) context).startActivity(MoreMusicActivity.class, bundle);
                     }
                 });
+                break;
+            case MusicBaseData.SIX:
+                ((SixHolder) holder).textView.setText(((MusicNoMoreData) list.get(position)).getTitle());
                 break;
         }
     }
@@ -213,6 +219,16 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             AutoUtils.autoSize(view);
             textView = (TextView) view.findViewById(R.id.tv_six_more);
             layout = ((LinearLayout) view.findViewById(R.id.ll_six_layout));
+        }
+    }
+
+    private static class SixHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+
+        SixHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            textView = (TextView) view.findViewById(R.id.tv_music_type);
         }
     }
 

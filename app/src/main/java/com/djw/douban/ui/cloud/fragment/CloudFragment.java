@@ -2,9 +2,9 @@ package com.djw.douban.ui.cloud.fragment;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -60,7 +60,14 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         recyclerView = ((XRecyclerView) view.findViewById(R.id.xrv_cloud));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingListener(this);
-        adapter = new CloudAdapter(getActivity());
+        adapter = new CloudAdapter(getActivity()) {
+            @Override
+            public void onImageClick(String url) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.add(ImageFragment.newInstance(url), "img");
+                transaction.commitAllowingStateLoss();
+            }
+        };
         recyclerView.setAdapter(adapter);
     }
 
@@ -68,6 +75,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     protected void doBusiness() {
         toolbar.setTitle("");
         title = ((TextView) toolbar.findViewById(R.id.tv_toolbar_title));
+
     }
 
     @Override
@@ -122,7 +130,9 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showActivitys(List<CloudItemData.EventsBean> list, boolean isLoadMore) {
+
         adapter.notifyDataChange(list, isLoadMore);
+
     }
 
     @Override

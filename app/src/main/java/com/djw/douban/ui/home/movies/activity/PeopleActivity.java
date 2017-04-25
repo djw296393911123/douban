@@ -9,9 +9,12 @@ import android.widget.TextView;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.movies.MoviesActorsData;
+import com.djw.douban.data.movies.PeopleBaseData;
 import com.djw.douban.ui.home.movies.adapter.PeopleAdapter;
 import com.djw.douban.ui.home.movies.contract.MoviesPeopleContract;
 import com.djw.douban.ui.home.movies.presenter.PeoplePresenter;
+
+import java.util.List;
 
 public class PeopleActivity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {
 
@@ -53,8 +56,8 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
     }
 
     @Override
-    public void showPeople(MoviesActorsData data) {
-        title.setText(data.getName());
-        adapter.notifyDataChange(data);
+    public void showPeople(List<PeopleBaseData> list,String name) {
+        title.setText(name);
+        adapter.notifyDataChange(list);
     }
 }

@@ -26,4 +26,9 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">5sp</item>
     </style>
+
+    <style name="dialog_style">
+        <item name="android:windowEnterAnimation">@anim/showimage_in</item>
+        <item name="android:windowExitAnimation">@anim/showimage_out</item>
+    </style>
 </resources>

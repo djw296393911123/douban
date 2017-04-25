@@ -6,6 +6,7 @@ import android.util.Log;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.cloud.UserData;
+import com.djw.douban.data.cloud.VisitedData;
 import com.djw.douban.ui.cloud.contract.UserContract;
 import com.djw.douban.ui.cloud.presenter.UserPresenter;
 
@@ -23,8 +24,8 @@ public class UserActivity extends RxActivity<UserPresenter> implements UserContr
     }
 
     @Override
-    public void showUser(UserData userData) {
-        Log.i("userData", userData.toString());
+    public void showUser(VisitedData visitedData) {
+        Log.i("userData", visitedData.toString());
     }
 
     @Override

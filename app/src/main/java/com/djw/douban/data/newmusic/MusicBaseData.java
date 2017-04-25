@@ -16,6 +16,8 @@ public class MusicBaseData {
 
     public static final int FIVE = 0x9005;
 
+    public static final int SIX = 0x9006;
+
     private int type;
 
     public MusicBaseData(int type) {

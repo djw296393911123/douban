@@ -6,6 +6,7 @@ import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.data.cloud.CloudLocData;
 import com.djw.douban.data.cloud.UserData;
+import com.djw.douban.data.cloud.VisitedData;
 import com.djw.douban.data.mine.MineItemData;
 import com.djw.douban.data.movies.CommingSoonData;
 import com.djw.douban.data.movies.HotData;
@@ -105,5 +106,8 @@ public interface DoubanApi {
 
     @GET("music/search")
     Observable<MusicRootOM> searchMusicByOM(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    @GET("travel/user/{id}/collections")
+    Observable<VisitedData> getVisited(@Path("id") String id);
 
 }

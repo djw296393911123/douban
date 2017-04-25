@@ -1,8 +1,8 @@
 package com.djw.douban.ui.cloud.presenter;
 
-import com.djw.douban.base.CommonSubscriber;
+import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
-import com.djw.douban.data.cloud.UserData;
+import com.djw.douban.data.cloud.VisitedData;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.cloud.contract.UserContract;
 import com.djw.douban.util.RxUtil;
@@ -26,12 +26,12 @@ public class UserPresenter extends RxPresenter<UserContract.View> implements Use
 
     @Override
     public void getUser(String id) {
-        Subscription subscribe = helper.getUser(id)
-                .compose(RxUtil.<UserData>rxSchedulerHelper())
-                .subscribe(new CommonSubscriber<UserData>(mView) {
+        Subscription subscribe = helper.getVisited(id)
+                .compose(RxUtil.<VisitedData>rxSchedulerHelper())
+                .subscribe(new CommonSubscribers<VisitedData>(mView, true) {
                     @Override
-                    public void onNext(UserData userData) {
-                        mView.showUser(userData);
+                    public void onNext(VisitedData visitedData) {
+                        mView.showUser(visitedData);
                     }
                 });
         addSubscrebe(subscribe);

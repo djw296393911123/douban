@@ -13,6 +13,7 @@ import com.djw.douban.data.newmusic.MusicContentData;
 import com.djw.douban.data.newmusic.MusicInfoData;
 import com.djw.douban.data.newmusic.MusicLikeData;
 import com.djw.douban.data.newmusic.MusicNewFiveData;
+import com.djw.douban.data.newmusic.MusicNoMoreData;
 import com.djw.douban.data.newmusic.MusicTypeData;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.home.music.contract.NewMusicContract;
@@ -43,7 +44,7 @@ public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implem
     }
 
     @Override
-    public void getMusic(String tag, int start, int count) {
+    public void getMusic(int start, int count) {
 
         Observable<MusicRootHY> hy = helper.getMusicByTagHY("华语", start, count);
         Observable<MusicRootRH> rh = helper.getMusicByTagRH("日韩", start, count);
@@ -86,7 +87,7 @@ public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implem
                             }
                             list.add(new MusicContentData(infoDatas));
 
-                            list.add(new MusicTypeData("选音乐"));
+                            list.add(new MusicNoMoreData("选音乐"));
 
                             List<String> choose = new ArrayList<>();
                             Collections.addAll(choose, chooses);
@@ -94,7 +95,7 @@ public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implem
 
                         } else if (o instanceof MusicRoot) {
 
-                            list.add(new MusicTypeData("猜你喜欢"));
+                            list.add(new MusicNoMoreData("猜你喜欢"));
 
                             List<Musics> musics = ((MusicRoot) o).getMusics();
                             for (int i = 0; i < musics.size(); i++) {

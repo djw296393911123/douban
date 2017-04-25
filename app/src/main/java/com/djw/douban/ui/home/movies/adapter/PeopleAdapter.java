@@ -43,20 +43,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.list = new ArrayList<>();
     }
 
-    public void notifyDataChange(MoviesActorsData data) {
-        list.add(new PeopleOne(data.getAvatars().getLarge(), data.getName() + data.getName_en(), "性别：" + data.getGender() + "/出生地:" + data.getBorn_place()));
-        list.add(new PeopleFour("参演作品"));
-        List<MoviesActorsData.WorksBean> works = data.getWorks();
-        for (int i = 0; i < works.size(); i++) {
-            MoviesActorsData.WorksBean.SubjectBean subject = works.get(i).getSubject();
-            List<MoviesActorsData.WorksBean.SubjectBean.CastsBean> casts = subject.getCasts();
-            List<PeopleTwo> peopleTwos = new ArrayList<>();
-            for (int j = 0; j < casts.size(); j++) {
-                MoviesActorsData.WorksBean.SubjectBean.CastsBean castsBean = casts.get(j);
-                peopleTwos.add(new PeopleTwo(castsBean.getName(), castsBean.getId(), castsBean.getAvatars() == null ? "" : castsBean.getAvatars().getLarge()));
-            }
-            list.add(new PeopleThree(subject.getImages().getLarge(), subject.getTitle(), subject.getId(), peopleTwos, subject.getDirectors().get(0).getId()));
-        }
+    public void notifyDataChange(List<PeopleBaseData> list) {
+        this.list.clear();
+        this.list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -66,7 +55,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case PeopleBaseData.ONE:
                 return new PeopleOneHolder(LayoutInflater.from(context).inflate(R.layout.item_people_one, parent, false));
             case PeopleBaseData.THREE:
-                return new PeopleThreeHolder(LayoutInflater.from(context).inflate(R.layout.item_people_casts, parent, false));
+                return new PeopleThreeHolder(LayoutInflater.from(context).inflate(R.layout.item_also, parent, false));
             case PeopleBaseData.FOUR:
                 return new PeopleFourHolder(LayoutInflater.from(context).inflate(R.layout.item_type_title, parent, false));
         }
@@ -86,19 +75,9 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case PeopleBaseData.THREE:
                 PeopleThreeHolder threeHolder = (PeopleThreeHolder) holder;
                 final PeopleThree peopleThree = (PeopleThree) list.get(position);
-                threeHolder.people.setText(peopleThree.getName());
-                Glide.with(context).load(peopleThree.getUrl()).asBitmap().into(threeHolder.image);
                 threeHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                threeHolder.recyclerView.setAdapter(new PeopleCastsAdapter(peopleThree.getList(), context));
-                threeHolder.cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("direct",peopleThree.getDirect_id());
-                        bundle.putInt("id", Integer.parseInt(peopleThree.getId()));
-                        ((PeopleActivity) context).startActivity(MovieInfoActivity.class, bundle);
-                    }
-                });
+                SubjectAdapter adapter = new SubjectAdapter(peopleThree.getList(), context);
+                threeHolder.recyclerView.setAdapter(adapter);
                 break;
             case PeopleBaseData.FOUR:
                 PeopleFourHolder fourHolder = (PeopleFourHolder) holder;
@@ -133,29 +112,14 @@ public class PeopleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    class PeopleTwoHolder extends RecyclerView.ViewHolder {
-
-
-        public PeopleTwoHolder(View itemView) {
-            super(itemView);
-            AutoUtils.autoSize(itemView);
-        }
-    }
-
     class PeopleThreeHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView image;
-        private final TextView people;
-        private final CardView cardView;
         private final RecyclerView recyclerView;
 
         public PeopleThreeHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
-            image = ((ImageView) itemView.findViewById(R.id.iv_movie));
-            people = ((TextView) itemView.findViewById(R.id.tv_people));
-            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
-            recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_people_casts));
+            recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_music_content));
         }
     }
 

@@ -21,8 +21,6 @@ import com.zhy.autolayout.utils.AutoUtils;
 public abstract class CustomPopWindows extends PopupWindow implements View.OnClickListener {
 
     private final Context context;
-    EditText etCustom;
-    TextView tvSure;
     private EditText etSearch;
 
     public CustomPopWindows(Context context) {

@@ -25,8 +25,6 @@ import java.util.List;
 
 public abstract class CityPopWindows extends PopupWindow {
 
-    private EditText etSearch;
-
     public CityPopWindows(Context context, List<CityData> list) {
         super(context);
         initView(context, list);
@@ -39,19 +37,17 @@ public abstract class CityPopWindows extends PopupWindow {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new CityAdapter(list) {
             @Override
-            public void onItemClick(String id,String title) {
-                onItemClicks(id,title);
+            public void onItemClick(String id, String title) {
+                onItemClicks(id, title);
             }
         });
         this.setContentView(view);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFocusable(true);
-//        this.setAnimationStyle(R.style.mypopwindow_anim_style);
         this.setTouchable(true);
         ColorDrawable colorDrawable = new ColorDrawable(0xffffff);
         this.setBackgroundDrawable(colorDrawable);
-//        bgView.setVisibility(View.VISIBLE);
         this.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -59,6 +55,6 @@ public abstract class CityPopWindows extends PopupWindow {
         });
     }
 
-    public abstract void onItemClicks(String id,String title);
+    public abstract void onItemClicks(String id, String title);
 
 }

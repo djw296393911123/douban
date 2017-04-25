@@ -1,17 +1,19 @@
 package com.djw.douban.ui.mine.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.djw.douban.MainActivity;
 import com.djw.douban.R;
-import com.djw.douban.data.mine.LikeOrHideData;
+import com.djw.douban.data.mine.MineListData;
+import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 
 public class MineAdapter extends RecyclerView.Adapter<MineAdapter.MineHolder> {
 
-    private List<LikeOrHideData> list;
+    private List<MineListData> list;
 
     private Context context;
 
@@ -31,8 +33,8 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.MineHolder> {
         this.list = new ArrayList<>();
     }
 
-    public void notifyDataChange(List<LikeOrHideData> list) {
-        this.list.clear();
+    public void notifyDataChange(List<MineListData> list, boolean isLoadMore) {
+        if (!isLoadMore) this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -42,13 +44,22 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.MineHolder> {
         return new MineHolder(LayoutInflater.from(context).inflate(R.layout.item_mine, parent, false));
     }
 
+    public int span(int position) {
+        return list.get(position).getType();
+    }
+
     @Override
-    public void onBindViewHolder(MineHolder holder, int position) {
-        LikeOrHideData likeOrHideData = list.get(position);
-        holder.grade.setText(likeOrHideData.getGrade());
-        holder.name.setText(likeOrHideData.getName());
-        holder.ratingBar.setRating((float) (Double.parseDouble(likeOrHideData.getGrade()) / 2));
-        Glide.with(context).load(likeOrHideData.getUrl()).asBitmap().into(holder.image);
+    public void onBindViewHolder(MineHolder holder, final int position) {
+        Glide.with(context).load(list.get(position).getUrl()).asBitmap().into(holder.image);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("direct", list.get(position).getDirect_id());
+                bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
+                ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
+            }
+        });
     }
 
     @Override
@@ -58,17 +69,13 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.MineHolder> {
 
     static class MineHolder extends RecyclerView.ViewHolder {
 
-        private final TextView name;
-        private final TextView grade;
-        private final RatingBar ratingBar;
         private final ImageView image;
+        private final CardView cardView;
 
-        public MineHolder(View itemView) {
+        MineHolder(View itemView) {
             super(itemView);
-            name = ((TextView) itemView.findViewById(R.id.tv_foru_name));
-            grade = ((TextView) itemView.findViewById(R.id.tv_four_grade));
-            ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_four));
             image = ((ImageView) itemView.findViewById(R.id.iv_four));
+            cardView = ((CardView) itemView.findViewById(R.id.cv_item));
         }
     }
 

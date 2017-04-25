@@ -6,6 +6,7 @@ import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.data.cloud.CloudLocData;
 import com.djw.douban.data.cloud.UserData;
+import com.djw.douban.data.cloud.VisitedData;
 import com.djw.douban.data.mine.MineItemData;
 import com.djw.douban.data.movies.CommingSoonData;
 import com.djw.douban.data.movies.HotData;
@@ -95,9 +96,11 @@ public class RetrofitHelper {
     public Observable<MusicRootHY> getMusicByTagHY(String tag, int start, int count) {
         return doubanApi.searchMusicByHY(tag, start, count);
     }
+
     public Observable<MusicRootRH> getMusicByTagRH(String tag, int start, int count) {
         return doubanApi.searchMusicByRH(tag, start, count);
     }
+
     public Observable<MusicRootOM> getMusicByTagOM(String tag, int start, int count) {
         return doubanApi.searchMusicByOM(tag, start, count);
     }
@@ -124,6 +127,10 @@ public class RetrofitHelper {
 
     public Observable<UserData> getUser(String id) {
         return doubanApi.getUser(id);
+    }
+
+    public Observable<VisitedData> getVisited(String id) {
+        return doubanApi.getVisited(id);
     }
 
     public Observable<TypeData> getType(String q, int start, int count) {

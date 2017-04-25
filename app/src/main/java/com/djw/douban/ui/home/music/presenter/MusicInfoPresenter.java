@@ -20,7 +20,7 @@ public class MusicInfoPresenter extends RxPresenter<MusicInfoContract.View> impl
     private final RetrofitHelper helper;
 
     @Inject
-    public MusicInfoPresenter(RetrofitHelper helper) {
+    MusicInfoPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

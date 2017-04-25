@@ -23,7 +23,7 @@ public class CommingSoonPresenter extends RxPresenter<CommingSoonContract.View> 
     private final RetrofitHelper helper;
 
     @Inject
-    public CommingSoonPresenter(RetrofitHelper helper) {
+    CommingSoonPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 
