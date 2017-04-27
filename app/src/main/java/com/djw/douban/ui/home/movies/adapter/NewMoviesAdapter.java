@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,11 +36,10 @@ import com.zhy.autolayout.utils.AutoUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
 /**
- * Created by JasonDong on 2017/4/14.
- * 3
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/14.
  */
 
 public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener, View.OnClickListener {
@@ -71,7 +69,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case NewMoviesBaseData.THREE:
                 return new ThreeHolder(LayoutInflater.from(context).inflate(R.layout.item_new_three, parent, false));
             case NewMoviesBaseData.FOUR:
-                return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_four, parent, false));
+                return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_fourr, parent, false));
             case NewMoviesBaseData.FIVE:
                 return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_five, parent, false));
             case NewMoviesBaseData.SIX:
@@ -126,8 +124,6 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 FourHolder fourHolder = (FourHolder) holder;
                 NewMoviesFour four = (NewMoviesFour) list.get(position);
                 Glide.with(context).load(four.getUrl()).asBitmap().into(fourHolder.ivFour);
-                fourHolder.grade.setText(four.getGrade());
-                fourHolder.ratingBar.setRating(((float) (Double.parseDouble(four.getGrade()) / 2)));
                 fourHolder.name.setText(four.getName());
                 fourHolder.cardView.setTag(Integer.parseInt(four.getId()) + "," + four.getDirect_id());
                 fourHolder.cardView.setOnClickListener(this);
@@ -263,8 +259,6 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         CardView cardView;
         TextView name;
         ImageView ivFour;
-        RatingBar ratingBar;
-        TextView grade;
         TextView direct;
 
         FourHolder(View view) {
@@ -272,8 +266,6 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             AutoUtils.autoSize(view);
             ivFour = ((ImageView) view.findViewById(R.id.iv_four));
             name = ((TextView) view.findViewById(R.id.tv_foru_name));
-            ratingBar = ((RatingBar) view.findViewById(R.id.rb_four));
-            grade = ((TextView) view.findViewById(R.id.tv_four_grade));
             cardView = ((CardView) view.findViewById(R.id.cv_item));
             direct = ((TextView) view.findViewById(R.id.tv_singer));
         }
@@ -305,6 +297,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             Glide.with(context).load(path).asBitmap().into(imageView);
         }
 

@@ -1,6 +1,5 @@
 package com.djw.douban.ui.home.movies.presenter;
 
-import com.djw.douban.base.CommonSubscriber;
 import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.movies.NorthAmericaItemData;
@@ -13,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class NorthAmericaPresenter extends RxPresenter<NorthAmericaContract.View> implements NorthAmericaContract.Presenter {
@@ -21,7 +22,7 @@ public class NorthAmericaPresenter extends RxPresenter<NorthAmericaContract.View
     private final RetrofitHelper helper;
 
     @Inject
-    public NorthAmericaPresenter(RetrofitHelper helper) {
+    NorthAmericaPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

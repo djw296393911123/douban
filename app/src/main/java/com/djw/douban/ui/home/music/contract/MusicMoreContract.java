@@ -4,10 +4,10 @@ import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
 import com.djw.douban.data.music.MusicRoot;
 
-import java.util.List;
-
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public interface MusicMoreContract {

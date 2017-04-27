@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.data.movies.PeopleTwo;
-import com.djw.douban.data.newmovies.NewMoviesFour;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.PeopleActivity;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -21,23 +20,25 @@ import com.zhy.autolayout.utils.AutoUtils;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/20.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/20.
  */
 
-public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.AlsoListHolder> implements View.OnClickListener {
+class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.AlsoListHolder> implements View.OnClickListener {
 
     private List<PeopleTwo> list;
 
     private Context context;
 
-    public SubjectAdapter(List<PeopleTwo> list, Context context) {
+    SubjectAdapter(List<PeopleTwo> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @Override
     public AlsoListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new AlsoListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_also_like, parent, false));
+        return new AlsoListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_people_item, parent, false));
     }
 
     @Override
@@ -72,7 +73,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.AlsoList
         private final TextView grade;
         private final LinearLayout layout;
 
-        public AlsoListHolder(View itemView) {
+        AlsoListHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             head = ((ImageView) itemView.findViewById(R.id.iv_like));

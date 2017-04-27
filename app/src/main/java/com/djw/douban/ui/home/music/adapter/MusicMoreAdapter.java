@@ -3,7 +3,6 @@ package com.djw.douban.ui.home.music.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.MusicMoreHolder> implements View.OnClickListener {
@@ -85,7 +86,7 @@ public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.Musi
         private final TextView pinglun;
         private final LinearLayout layout;
 
-        public MusicMoreHolder(View itemView) {
+        MusicMoreHolder(View itemView) {
             super(itemView);
             head = ((ImageView) itemView.findViewById(R.id.iv_more_head));
             ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_more));

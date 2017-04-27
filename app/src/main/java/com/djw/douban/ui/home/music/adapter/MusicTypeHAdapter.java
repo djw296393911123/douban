@@ -14,18 +14,20 @@ import com.zhy.autolayout.utils.AutoUtils;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
-public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHAdapter.TypeHolder> {
+abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHAdapter.TypeHolder> {
 
     private List<MusicStyleInfoData> list;
 
-    public MusicTypeHAdapter(List<MusicStyleInfoData> list) {
+    MusicTypeHAdapter(List<MusicStyleInfoData> list) {
         this.list = list;
     }
 
-    public void addType(List<MusicStyleInfoData> list) {
+    void addType(List<MusicStyleInfoData> list) {
         this.list.addAll(this.list.size() - 1, list);
         notifyDataSetChanged();
     }
@@ -36,25 +38,26 @@ public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHA
     }
 
     @Override
-    public void onBindViewHolder(TypeHolder holder, final int position) {
+    public void onBindViewHolder(TypeHolder holder, int position) {
         holder.title.setSelected(list.get(position).isSelect());
         holder.title.setText(list.get(position).getName());
+        holder.layout.setTag(position);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < list.size(); i++) {
                     list.get(i).setSelect(false);
                 }
-                list.get(position).setSelect(true);
+                list.get(((int) v.getTag())).setSelect(true);
                 notifyDataSetChanged();
-                onItemClick(list.get(position).getName());
+                onItemClick(list.get(((int) v.getTag())).getName());
             }
         });
         holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (!list.get(position).getName().equals("+自定义标签")) {
-                    list.remove(list.get(position));
+                if (!list.get(((int) v.getTag())).getName().equals("+自定义标签")) {
+                    list.remove(list.get(((int) v.getTag())));
                     notifyDataSetChanged();
                 } else {
                     onItemClick("+自定义标签");
@@ -74,7 +77,7 @@ public abstract class MusicTypeHAdapter extends RecyclerView.Adapter<MusicTypeHA
         private final TextView title;
         private final LinearLayout layout;
 
-        public TypeHolder(View itemView) {
+        TypeHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_type_title));

@@ -13,6 +13,7 @@ import com.djw.douban.ui.home.movies.activity.HotActivity;
 import com.djw.douban.ui.home.movies.activity.MoreMovieActivity;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
+import com.djw.douban.ui.home.movies.activity.People2Activity;
 import com.djw.douban.ui.home.movies.activity.PeopleActivity;
 import com.djw.douban.ui.home.movies.activity.Top250Activity;
 import com.djw.douban.ui.home.movies.activity.TypeActivity;
@@ -59,4 +60,6 @@ public interface ActivityComponent {
     void inject(MoreMusicActivity moreMusicActivity);
 
     void inject(ChooseTypeActivity chooseTypeActivity);
+
+    void inject(People2Activity people2Activity);
 }

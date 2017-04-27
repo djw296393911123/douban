@@ -5,22 +5,18 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.data.movies.MoviesInfoBaseData;
-import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.movies.MoviesInfoType;
 import com.djw.douban.data.movies.MoviesPeople;
 import com.djw.douban.data.movies.MoviesTextData;
-import com.djw.douban.data.newmovies.MovieInfoTopData;
 import com.djw.douban.data.newmovies.MoviesInfoAlsoLikeData;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.PeopleActivity;
@@ -30,7 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -8,7 +8,9 @@ import com.djw.douban.data.newmovies.MovieInfoTopData;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public interface MovieInfoContract {

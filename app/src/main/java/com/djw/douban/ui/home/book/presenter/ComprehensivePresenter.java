@@ -17,7 +17,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public class ComprehensivePresenter extends RxPresenter<BookContract.View> implements BookContract.Presenter {
@@ -25,7 +27,7 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
     private final RetrofitHelper helper;
 
     @Inject
-    public ComprehensivePresenter(RetrofitHelper helper) {
+    ComprehensivePresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

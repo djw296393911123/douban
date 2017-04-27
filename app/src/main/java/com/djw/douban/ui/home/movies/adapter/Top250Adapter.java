@@ -16,14 +16,15 @@ import com.djw.douban.R;
 import com.djw.douban.base.BaseActivity;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
-import com.djw.douban.ui.home.movies.activity.Top250Activity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Holder> {
@@ -49,7 +50,7 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
     }
 
     @Override
-    public void onBindViewHolder(Top250Holder holder, final int position) {
+    public void onBindViewHolder(Top250Holder holder, int position) {
         holder.num.setText(String.valueOf(position + 1));
         MoviesItemData.SubjectsBean subjectsBean = list.get(position);
         holder.title.setText(subjectsBean.getTitle());
@@ -68,12 +69,13 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
         Glide.with(context).load(subjectsBean.getImages().getLarge()).asBitmap().into(holder.head);
         holder.ratingBar.setRating(((float) (subjectsBean.getRating().getAverage() / 2)));
         holder.pingfen.setText(String.valueOf(subjectsBean.getRating().getAverage()));
+        holder.cardView.setTag(position);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("direct", list.get(position).getDirectors().get(0).getId());
-                bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
+                bundle.putString("direct", list.get(((int) v.getTag())).getDirectors().get(0).getId());
+                bundle.putInt("id", Integer.parseInt(list.get(((int) v.getTag())).getId()));
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
@@ -95,7 +97,7 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
         private final TextView pingfen;
         private final CardView cardView;
 
-        public Top250Holder(View itemView) {
+        Top250Holder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_title));

@@ -7,7 +7,9 @@ import com.djw.douban.data.newmusic.MusicBaseData;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public interface NewMusicContract {

@@ -1,7 +1,5 @@
 package com.djw.douban.ui.home.music.presenter;
 
-import android.util.Log;
-
 import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.music.MusicRoot;
@@ -26,7 +24,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public class MusicChooseTypePresenter extends RxPresenter<ChooseTypeContract.View> implements ChooseTypeContract.Presenter {

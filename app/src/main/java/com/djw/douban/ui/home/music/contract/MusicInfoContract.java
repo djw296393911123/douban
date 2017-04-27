@@ -5,7 +5,9 @@ import com.djw.douban.base.BaseView;
 import com.djw.douban.data.music.Musics;
 
 /**
- * Created by JasonDong on 2017/4/12.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/12.
  */
 
 public interface MusicInfoContract {

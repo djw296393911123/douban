@@ -9,7 +9,9 @@ import com.djw.douban.module.ActivityModule;
 import javax.inject.Inject;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public abstract class RxActivity<T extends BasePresenter> extends BaseActivity implements BaseView {
@@ -19,6 +21,13 @@ public abstract class RxActivity<T extends BasePresenter> extends BaseActivity i
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
+//        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                //取消网络请求
+//                if (mPresenter != null) mPresenter.detachView();
+//            }
+//        });
         context = this;
         initView();
         doBusiness();

@@ -15,14 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/11.
+ * Created by JasonDong on
+ * <p>
+ * 2017/4/11.
  */
 
 public abstract class BookTypeAdapter extends RecyclerView.Adapter<BookTypeAdapter.BookTypeHolder> {
 
     private List<BookTypeData> list;
 
-    public BookTypeAdapter() {
+    protected BookTypeAdapter() {
         this.list = new ArrayList<>();
     }
 
@@ -37,18 +39,19 @@ public abstract class BookTypeAdapter extends RecyclerView.Adapter<BookTypeAdapt
     }
 
     @Override
-    public void onBindViewHolder(final BookTypeHolder holder, final int position) {
+    public void onBindViewHolder(final BookTypeHolder holder, int position) {
         holder.textView.setText(list.get(position).getTitle());
         holder.layout.setSelected(list.get(position).isSelect());
+        holder.layout.setTag(position);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < list.size(); i++) {
                     list.get(i).setSelect(false);
                 }
-                list.get(position).setSelect(true);
+                list.get(((int) v.getTag())).setSelect(true);
                 notifyDataSetChanged();
-                OnItemClick(position);
+                OnItemClick(((int) v.getTag()));
             }
         });
     }
@@ -63,7 +66,7 @@ public abstract class BookTypeAdapter extends RecyclerView.Adapter<BookTypeAdapt
         private final TextView textView;
         private final LinearLayout layout;
 
-        public BookTypeHolder(View itemView) {
+        BookTypeHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             textView = ((TextView) itemView.findViewById(R.id.tv_type));

@@ -7,7 +7,9 @@ import com.djw.douban.data.movies.MoviesItemData;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/14.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/14.
  */
 
 public interface Top250Contract {

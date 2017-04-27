@@ -1,10 +1,11 @@
 package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
 import com.djw.douban.data.movies.MoviesInfoBaseData;
-import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.newmovies.MovieInfoTopData;
 import com.djw.douban.ui.home.movies.adapter.MoviesInfoAapter;
 import com.djw.douban.ui.home.movies.contract.MovieInfoContract;
@@ -20,7 +20,7 @@ import com.djw.douban.ui.home.movies.presenter.MovieInfoPresenter;
 
 import java.util.List;
 
-public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements MovieInfoContract.View {
+public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements MovieInfoContract.View, AppBarLayout.OnOffsetChangedListener {
 
     private ImageView head;
     private TextView grade;
@@ -31,6 +31,7 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
     private TextView area;
     private MoviesInfoAapter adapter;
     private Toolbar toolbar;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,8 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
 
     @Override
     public void initView() {
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        appBarLayout.addOnOffsetChangedListener(this);
         head = (ImageView) findViewById(R.id.iv_movie_info);
         grade = ((TextView) findViewById(R.id.tv_info_grade));
         num = (TextView) findViewById(R.id.tv_info_num);
@@ -48,6 +51,7 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
         name = (TextView) findViewById(R.id.tv_name);
         area = (TextView) findViewById(R.id.tv_area);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = (TextView) findViewById(R.id.tv_movies_title);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_info_movie);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -83,7 +87,8 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
     public void showInfo(List<MoviesInfoBaseData> data, MovieInfoTopData topData) {
         if (topData != null) {
             Glide.with(this).load(topData.getUrl()).asBitmap().into(head);
-            toolbar.setTitle(topData.getTitle());
+            toolbar.setTitle("");
+            title.setText(topData.getTitle());
             name.setText(topData.getTitle());
             year.setText(topData.getYear());
             area.setText(topData.getCountry());
@@ -92,5 +97,12 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
             num.setText(topData.getCount());
         }
         adapter.notifyDataChange(data);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (verticalOffset != 0)
+            title.setVisibility(View.VISIBLE);
+        title.animate().alpha(Math.abs(verticalOffset));
     }
 }

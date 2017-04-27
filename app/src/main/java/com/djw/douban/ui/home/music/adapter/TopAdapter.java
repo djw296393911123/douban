@@ -3,7 +3,6 @@ package com.djw.douban.ui.home.music.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/19.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/19.
  */
 
 public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHolder> {
@@ -31,7 +32,7 @@ public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHold
     private Context context;
     private MusicTypeHAdapter adapter;
 
-    public TopAdapter(Context context) {
+    protected TopAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
     }
@@ -100,7 +101,7 @@ public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHold
         private final TextView title;
         private final RecyclerView recyclerView;
 
-        public TopHolder(View itemView) {
+        TopHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_type));

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.djw.douban.component.DaggerFragmentComponent;
 import com.djw.douban.component.FragmentComponent;
 import com.djw.douban.module.FragmentModule;
@@ -19,7 +18,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by JasonDong on 2017/3/23.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/23.
  */
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
@@ -88,17 +89,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
         startActivity(intent);
     }
-
-    public void startActivityForResult(Class<?> cls, Bundle bundle,
-                                       int requestCode) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivityForResult(intent, requestCode);
-    }
-
 
     protected void onVisible() {
         lazyLoad();

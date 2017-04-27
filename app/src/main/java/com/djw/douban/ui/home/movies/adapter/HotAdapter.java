@@ -2,7 +2,6 @@ package com.djw.douban.ui.home.movies.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by JasonDong on 2017/4/17.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/17.
  */
 
 public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotHolder> {

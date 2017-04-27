@@ -2,13 +2,14 @@ package com.djw.douban.ui.home.movies.contract;
 
 import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
-import com.djw.douban.data.movies.BannerData;
 import com.djw.douban.data.movies.MoviesItemData;
 
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/11.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/11.
  */
 
 public interface MoreMovieContract {

@@ -29,7 +29,9 @@ import rx.Observable;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public class NewMusicPresenter extends RxPresenter<NewMusicContract.View> implements NewMusicContract.Presenter {

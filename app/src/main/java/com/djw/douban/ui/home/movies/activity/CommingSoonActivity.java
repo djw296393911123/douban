@@ -18,7 +18,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CommingSoonActivity extends RxActivity<CommingSoonPresenter> implements CommingSoonContract.View, XRecyclerView.LoadingListener {
 

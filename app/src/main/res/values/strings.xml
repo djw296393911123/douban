@@ -24,4 +24,7 @@
     <string name="find">找音乐</string>
     <string name="custom">请输入自定义标签</string>
     <string name="sure">确定</string>
+    <string name="person_name">JasonDong</string>
+    <string name="person_title">android程序员</string>
+    <string name="person_intro">asdf</string>
 </resources>

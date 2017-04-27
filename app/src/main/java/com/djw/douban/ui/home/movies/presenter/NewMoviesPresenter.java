@@ -8,7 +8,6 @@ import com.djw.douban.data.newmovies.NewMovieOne;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
-import com.djw.douban.data.newmovies.NewMoviesSix;
 import com.djw.douban.data.newmovies.NewMoviesThree;
 import com.djw.douban.data.newmovies.NewMoviesTwo;
 import com.djw.douban.http.RetrofitHelper;
@@ -24,7 +23,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> implements NewMoviesContract.Presenter {
@@ -40,7 +41,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
 
     @Override
     public void getNewMovies(final int start, int count, final boolean isLoadMore, boolean isShowProgress) {
-        Subscription subscribe = helper.getTop250(start, count)
+        Subscription subscribe = helper.getCommingSoon(start, count)
                 .compose(RxUtil.<MoviesItemData>rxSchedulerHelper())
                 .subscribe(new CommonSubscribers<MoviesItemData>(mView, isShowProgress) {
                     @Override
@@ -91,7 +92,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                             }
                             list.add(new NewMoviesThree(titles_three, urls_three, ids_three));
 
-                            list.add(new NewMoviesFive("影院热映"));
+                            list.add(new NewMoviesFive("即将上映"));
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);

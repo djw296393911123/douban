@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class HotPresenter extends RxPresenter<HotContract.View> implements HotContract.Presenter {
@@ -20,7 +22,7 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
     private final RetrofitHelper helper;
 
     @Inject
-    public HotPresenter(RetrofitHelper helper) {
+    HotPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

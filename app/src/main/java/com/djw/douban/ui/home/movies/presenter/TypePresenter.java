@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/17.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/17.
  */
 
 public class TypePresenter extends RxPresenter<TypeContract.View> implements TypeContract.Presenter {
@@ -20,7 +22,7 @@ public class TypePresenter extends RxPresenter<TypeContract.View> implements Typ
     private final RetrofitHelper helper;
 
     @Inject
-    public TypePresenter(RetrofitHelper helper) {
+    TypePresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

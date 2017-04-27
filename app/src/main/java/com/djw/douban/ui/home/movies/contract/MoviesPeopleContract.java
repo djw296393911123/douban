@@ -2,20 +2,23 @@ package com.djw.douban.ui.home.movies.contract;
 
 import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
-import com.djw.douban.data.movies.MoviesActorsData;
 import com.djw.douban.data.movies.PeopleBaseData;
+import com.djw.douban.data.movies.PeopleOne;
+import com.djw.douban.data.movies.PeopleThree;
 
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public interface MoviesPeopleContract {
 
     interface View extends BaseView {
 
-        void showPeople(List<PeopleBaseData> list, String title);
+        void showPeople(PeopleOne peopleOne, List<PeopleBaseData> list, String title);
 
     }
 

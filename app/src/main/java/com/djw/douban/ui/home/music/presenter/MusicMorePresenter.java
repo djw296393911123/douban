@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
 public class MusicMorePresenter extends RxPresenter<MusicMoreContract.View> implements MusicMoreContract.Presenter {
@@ -20,7 +22,7 @@ public class MusicMorePresenter extends RxPresenter<MusicMoreContract.View> impl
     private final RetrofitHelper helper;
 
     @Inject
-    public MusicMorePresenter(RetrofitHelper helper) {
+    MusicMorePresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

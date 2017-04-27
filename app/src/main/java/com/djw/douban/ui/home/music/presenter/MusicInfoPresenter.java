@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/12.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/12.
  */
 
 public class MusicInfoPresenter extends RxPresenter<MusicInfoContract.View> implements MusicInfoContract.Presenter {

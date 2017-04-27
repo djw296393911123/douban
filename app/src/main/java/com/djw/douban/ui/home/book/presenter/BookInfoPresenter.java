@@ -12,7 +12,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public class BookInfoPresenter extends RxPresenter<BookInfoContract.View> implements BookInfoContract.Presenter {

@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by JasonDong on 2017/3/23.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/23.
  */
 
-public abstract class SimpleFragment extends Fragment{
+public abstract class SimpleFragment extends Fragment {
 
     @Nullable
     @Override
@@ -36,19 +38,6 @@ public abstract class SimpleFragment extends Fragment{
         }
         startActivity(intent);
     }
-
-    public void startActivityForResult(Class<?> cls, Bundle bundle,
-                                       int requestCode) {
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivityForResult(intent, requestCode);
-    }
-
-
-
 
     protected abstract void initView(View view);
 

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
-import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
@@ -23,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmericaRecyclerAdapter.MoviesHolder> {
@@ -96,7 +97,7 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
         private final TextView pingfen;
         private final CardView cardView;
 
-        public MoviesHolder(View itemView) {
+        MoviesHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_title));

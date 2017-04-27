@@ -9,11 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
-import com.zhy.autolayout.utils.AutoUtils;
 
 import uk.co.senab.photoview.PhotoView;
 

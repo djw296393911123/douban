@@ -11,29 +11,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.djw.douban.MainActivity;
 import com.djw.douban.R;
-import com.djw.douban.data.newmovies.MoviesInfoAlsoLikeData;
 import com.djw.douban.data.newmovies.NewMoviesFour;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
- * Created by JasonDong on 2017/4/20.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/20.
  */
 
-public class AlsoListAdapter extends RecyclerView.Adapter<AlsoListAdapter.AlsoListHolder> implements View.OnClickListener {
+class AlsoListAdapter extends RecyclerView.Adapter<AlsoListAdapter.AlsoListHolder> implements View.OnClickListener {
 
     private List<NewMoviesFour> list;
 
     private Context context;
 
-    public AlsoListAdapter(List<NewMoviesFour> list, Context context) {
+    AlsoListAdapter(List<NewMoviesFour> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -75,7 +72,7 @@ public class AlsoListAdapter extends RecyclerView.Adapter<AlsoListAdapter.AlsoLi
         private final TextView grade;
         private final LinearLayout layout;
 
-        public AlsoListHolder(View itemView) {
+        AlsoListHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             head = ((ImageView) itemView.findViewById(R.id.iv_like));

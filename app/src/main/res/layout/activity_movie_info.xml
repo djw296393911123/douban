@@ -93,7 +93,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_movies_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="35px" />
+                </FrameLayout>
+            </android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>

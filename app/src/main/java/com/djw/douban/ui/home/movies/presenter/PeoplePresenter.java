@@ -20,7 +20,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class PeoplePresenter extends RxPresenter<MoviesPeopleContract.View> implements MoviesPeopleContract.Presenter {
@@ -28,7 +30,7 @@ public class PeoplePresenter extends RxPresenter<MoviesPeopleContract.View> impl
     private final RetrofitHelper helper;
 
     @Inject
-    public PeoplePresenter(RetrofitHelper helper) {
+    PeoplePresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 
@@ -40,7 +42,7 @@ public class PeoplePresenter extends RxPresenter<MoviesPeopleContract.View> impl
                     @Override
                     public void onNext(MoviesActorsData data) {
                         List<PeopleBaseData> list = new ArrayList<>();
-                        list.add(new PeopleOne(data.getAvatars().getLarge(), data.getName() + data.getName_en(), "性别：" + data.getGender() + "/出生地:" + data.getBorn_place()));
+                        PeopleOne peopleOne = new PeopleOne(data.getAvatars().getLarge(), data.getName() + data.getName_en(), "性别：" + data.getGender() + "/出生地:" + data.getBorn_place());
                         list.add(new PeopleFour("参演作品"));
 
                         List<MoviesActorsData.WorksBean> works = data.getWorks();
@@ -55,7 +57,7 @@ public class PeoplePresenter extends RxPresenter<MoviesPeopleContract.View> impl
                         }
                         list.add(new PeopleThree(peopleTwos));
 
-                        mView.showPeople(list, data.getName());
+                        mView.showPeople(peopleOne, list, data.getName());
                     }
                 });
         addSubscrebe(subscribe);

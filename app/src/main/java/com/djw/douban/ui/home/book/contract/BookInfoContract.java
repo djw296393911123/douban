@@ -5,7 +5,9 @@ import com.djw.douban.base.BaseView;
 import com.djw.douban.data.book.BookInfoData;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by
+ * <p>
+ * JasonDong on 2017/4/10.
  */
 
 public interface BookInfoContract {

@@ -18,7 +18,6 @@ import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.book.BannerData;
-import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.book.BookTypeData;
 import com.djw.douban.data.book.Books;
 import com.djw.douban.ui.home.book.activity.BookInfoActivity;

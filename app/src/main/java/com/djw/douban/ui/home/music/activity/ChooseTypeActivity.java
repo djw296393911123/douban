@@ -16,7 +16,6 @@ import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.newmusic.MusicBaseData;
 import com.djw.douban.data.newmusic.MusicListData;
 import com.djw.douban.data.newmusic.MusicStyleInfoData;
-import com.djw.douban.data.newmusic.TopOneData;
 import com.djw.douban.ui.home.music.adapter.MusicTypeAdapter;
 import com.djw.douban.ui.home.music.adapter.TopAdapter;
 import com.djw.douban.ui.home.music.contract.ChooseTypeContract;
@@ -46,7 +45,6 @@ public class ChooseTypeActivity extends RxActivity<MusicChooseTypePresenter> imp
     private TopAdapter topAdapter;
     private TypePopWindows typePopWindows;
     private int type = 0;
-    private int position;
     private CustomPopWindows customPopWindows;
 
     @Override
@@ -155,7 +153,7 @@ public class ChooseTypeActivity extends RxActivity<MusicChooseTypePresenter> imp
         mPresenter.attachView(this);
         Bundle extras = getIntent().getExtras();
         tag = extras.getString("tag");
-        position = extras.getInt("position");
+        int position = extras.getInt("position");
         mPresenter.getChooseType(tag, type, ParamsData.START, ParamsData.COUNT, false, true);
         mPresenter.getTopType(position);
         mPresenter.getPopData();

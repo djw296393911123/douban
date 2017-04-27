@@ -33,7 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.home.movies.activity.PeopleActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/NoStateBar" />
         <activity
             android:name=".ui.home.book.activity.BookInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />

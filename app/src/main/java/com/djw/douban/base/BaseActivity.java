@@ -8,27 +8,24 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.djw.douban.R;
-import com.djw.douban.component.ActivityComponent;
-import com.djw.douban.component.DaggerActivityComponent;
-import com.djw.douban.module.ActivityModule;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackActivityHelper;
 import com.github.anzewei.parallaxbacklayout.ParallaxBackLayout;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.zhy.autolayout.AutoLayoutActivity;
 
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 
 /**
- * Created by JasonDong on 2017/3/23.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/23.
  */
 
-public abstract class BaseActivity extends AutoLayoutActivity{
+public abstract class BaseActivity extends AutoLayoutActivity {
 
     private ParallaxBackActivityHelper mHelper;
     protected Context context;
-    private ProgressDialog progressDialog;
+    protected ProgressDialog progressDialog;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -61,16 +58,6 @@ public abstract class BaseActivity extends AutoLayoutActivity{
             intent.putExtras(bundle);
         }
         startActivity(intent);
-    }
-
-    public void startActivityForResult(Class<?> cls, Bundle bundle,
-                                       int requestCode) {
-        Intent intent = new Intent();
-        intent.setClass(this, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivityForResult(intent, requestCode);
     }
 
     public void showProgress() {

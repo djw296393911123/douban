@@ -26,7 +26,9 @@ import rx.Observable;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public class MovieInfoPresenter extends RxPresenter<MovieInfoContract.View> implements MovieInfoContract.Presenter {
@@ -43,7 +45,7 @@ public class MovieInfoPresenter extends RxPresenter<MovieInfoContract.View> impl
     public void getInfo(int id, String direct) {
         Observable<MoviesItemData> hotMovies = helper.getHotMovies(ParamsData.START, ParamsData.COUNT);
         Observable<MoviesInfoData> movieInfo = helper.getMovieInfo(id);
-        Observable<MoviesActorsData> moviesPeople = helper.getMoviesPeople(Integer.parseInt(direct));
+        Observable<MoviesActorsData> moviesPeople = helper.getMoviesPeople(Integer.parseInt(direct.equals("null") ? "110" : direct));
         Subscription subscribe = Observable.concat(movieInfo, moviesPeople, hotMovies)
                 .compose(RxUtil.rxSchedulerHelper())
                 .subscribe(new CommonSubscriber<Object>(mView) {
@@ -56,7 +58,14 @@ public class MovieInfoPresenter extends RxPresenter<MovieInfoContract.View> impl
 
                         if (o instanceof MoviesInfoData) {
                             MoviesInfoData moviesInfoData = (MoviesInfoData) o;
-                            topData = new MovieInfoTopData(moviesInfoData.getImages().getLarge(), moviesInfoData.getTitle(), moviesInfoData.getYear() + "上映", moviesInfoData.getCountries().toString(), "评分" + moviesInfoData.getRating().getAverage(), String.valueOf(moviesInfoData.getWish_count()) + "人", moviesInfoData.getGenres().toString());
+                            topData = new MovieInfoTopData(
+                                    moviesInfoData.getImages().getLarge(),
+                                    moviesInfoData.getTitle(),
+                                    moviesInfoData.getYear() + "上映",
+                                    moviesInfoData.getCountries().toString(),
+                                    moviesInfoData.getRating().getAverage() == 0.0 ? "暂无评分" : "评分" + moviesInfoData.getRating().getAverage(),
+                                    String.valueOf(moviesInfoData.getWish_count()) + "人",
+                                    moviesInfoData.getGenres().toString());
 
                             list.add(new MoviesInfoType("简介"));
                             list.add(new MoviesTextData(moviesInfoData.getSummary()));
@@ -79,7 +88,7 @@ public class MovieInfoPresenter extends RxPresenter<MovieInfoContract.View> impl
                                 for (int i = 0; i < directors.size(); i++) {
                                     MoviesInfoData.DirectorsBean directorsBean = directors.get(i);
                                     MoviesInfoData.DirectorsBean.AvatarsBeanX avatars = directorsBean.getAvatars();
-                                    list.add(new MoviesPeople(avatars.getLarge(), directorsBean.getName(), Integer.parseInt(directorsBean.getId())));
+                                    list.add(new MoviesPeople(avatars == null ? "" : avatars.getLarge(), directorsBean.getName(), Integer.parseInt(directorsBean.getId() == null ? "110" : directorsBean.getId())));
                                 }
                             }
 

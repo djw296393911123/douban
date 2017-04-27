@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.Top250Holder> {
@@ -48,7 +49,7 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
     }
 
     @Override
-    public void onBindViewHolder(Top250Holder holder, final int position) {
+    public void onBindViewHolder(Top250Holder holder, int position) {
         holder.num.setText(String.valueOf(position + 1));
         MoviesItemData.SubjectsBean subjectsBean = list.get(position);
         holder.title.setText(subjectsBean.getTitle());
@@ -67,12 +68,13 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
         Glide.with(context).load(subjectsBean.getImages().getLarge()).asBitmap().into(holder.head);
         String string = subjectsBean.getGenres().toString();
         holder.pingfen.setText(string.substring(1, string.length() - 1));
+        holder.cardView.setTag(position);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("id", Integer.parseInt(list.get(position).getId()));
-                bundle.putString("direct", list.get(position).getDirectors().get(0).getId());
+                bundle.putInt("id", Integer.parseInt(list.get(((int) v.getTag())).getId()));
+                bundle.putString("direct", list.get(((int) v.getTag())).getDirectors().get(0).getId());
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
@@ -93,7 +95,7 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
         private final TextView pingfen;
         private final CardView cardView;
 
-        public Top250Holder(View itemView) {
+        Top250Holder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             title = ((TextView) itemView.findViewById(R.id.tv_title));

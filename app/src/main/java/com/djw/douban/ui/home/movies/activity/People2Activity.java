@@ -21,7 +21,8 @@ import java.util.List;
 import butterknife.BindView;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
-public class PeopleActivity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {
+public class People2Activity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {
+
 
     @BindView(R.id.iv_large)
     ImageView ivLarge;

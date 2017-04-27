@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
@@ -19,7 +18,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class TypeActivity extends RxActivity<TypePresenter> implements TypeContract.View, XRecyclerView.LoadingListener {
 

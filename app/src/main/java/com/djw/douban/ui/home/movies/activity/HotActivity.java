@@ -2,11 +2,8 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;

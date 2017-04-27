@@ -3,13 +3,14 @@ package com.djw.douban.ui.home.book.contract;
 import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
 import com.djw.douban.data.book.BannerData;
-import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.book.Books;
 
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public interface BookContract {

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
-import com.djw.douban.data.newmusic.MusicContentData;
 import com.djw.douban.data.newmusic.MusicInfoData;
 import com.djw.douban.ui.home.music.activity.MusicInfoActivity;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -22,16 +21,18 @@ import com.zhy.autolayout.utils.AutoUtils;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/4/18.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/18.
  */
 
-public class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapter.MusicContentHolder> implements View.OnClickListener {
+class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapter.MusicContentHolder> implements View.OnClickListener {
 
     private List<MusicInfoData> list;
 
     private Context context;
 
-    public MusicContentAdapter(List<MusicInfoData> list, Context context) {
+    MusicContentAdapter(List<MusicInfoData> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -73,7 +74,7 @@ public class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapte
         private final TextView singer;
         private final LinearLayout layout;
 
-        public MusicContentHolder(View itemView) {
+        MusicContentHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             head = ((ImageView) itemView.findViewById(R.id.iv_music));
