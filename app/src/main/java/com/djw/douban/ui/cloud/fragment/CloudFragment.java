@@ -4,11 +4,15 @@ package com.djw.douban.ui.cloud.fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
@@ -19,17 +23,16 @@ import com.djw.douban.ui.cloud.adapter.CloudAdapter;
 import com.djw.douban.ui.cloud.contract.CloudContract;
 import com.djw.douban.ui.cloud.presenter.CloudPresenter;
 import com.djw.douban.util.CityPopWindows;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CloudFragment extends BaseFragment<CloudPresenter> implements CloudContract.View, XRecyclerView.LoadingListener, View.OnClickListener {
+public class CloudFragment extends BaseFragment<CloudPresenter> implements CloudContract.View, View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
 
     private boolean isFirst = true;
-    private XRecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private CloudAdapter adapter;
     private Toolbar toolbar;
     private CityPopWindows cityPopWindows;
@@ -42,6 +45,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     private String id_day = ParamsData.DAY;
     private String id_type = ParamsData.TYPE;
     private View type_view;
+    private SwipeToLoadLayout swipeToLoadLayout;
 
 
     @Override
@@ -51,6 +55,9 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     protected void initView(View view) {
+        swipeToLoadLayout = ((SwipeToLoadLayout) view.findViewById(R.id.stll_movies));
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
         toolbar = ((Toolbar) view.findViewById(R.id.tl_base));
         view.findViewById(R.id.ll_cloud).setOnClickListener(this);
         type_view = view.findViewById(R.id.ll_type);
@@ -58,10 +65,8 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         view.findViewById(R.id.ll_type_day).setOnClickListener(this);
         type_all = ((TextView) view.findViewById(R.id.tv_type));
         type_day = ((TextView) view.findViewById(R.id.tv_type_day));
-        recyclerView = ((XRecyclerView) view.findViewById(R.id.xrv_cloud));
+        recyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setLoadingListener(this);
-        recyclerView.setLoadingMoreProgressStyle(25);
         adapter = new CloudAdapter(getActivity()) {
             @Override
             public void onImageClick(String url) {
@@ -114,8 +119,6 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     @Override
     public void dismissProgress() {
         ((MainActivity) getActivity()).dismissProgress();
-        recyclerView.refreshComplete();
-        recyclerView.loadMoreComplete();
     }
 
     @Override
@@ -136,7 +139,12 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showActivitys(List<CloudItemData.EventsBean> list, boolean isLoadMore) {
-
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         adapter.notifyDataChange(list, isLoadMore);
 
     }

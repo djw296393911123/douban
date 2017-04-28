@@ -93,12 +93,29 @@
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>
 
-
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/xrv_cloud"
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/stll_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eee"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <com.djw.douban.util.CustomRefreshHeader
+            android:id="@+id/swipe_refresh_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.djw.douban.util.CustomLoadMoreFooter
+            android:id="@+id/swipe_load_more_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal" />
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 </android.support.design.widget.CoordinatorLayout>

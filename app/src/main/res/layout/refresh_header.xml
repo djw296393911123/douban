@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200px"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="50px">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/pb_header"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_jiantou"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:background="@drawable/jiantou_selector" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_refresh_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在刷新。。。"
+            android:textColor="@color/colorAccent"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/tv_refresh_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上次更新时间"
+            android:textColor="@color/colorAccent"
+            android:textSize="25px" />
+    </LinearLayout>
+</LinearLayout>

@@ -2,8 +2,12 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
@@ -11,23 +15,24 @@ import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.CommingSoonAdapter;
 import com.djw.douban.ui.home.movies.contract.CommingSoonContract;
 import com.djw.douban.ui.home.movies.presenter.CommingSoonPresenter;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter> implements CommingSoonContract.View, XRecyclerView.LoadingListener {
+public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter> implements CommingSoonContract.View, OnRefreshListener, OnLoadMoreListener {
 
-    @BindView(R.id.xrv_comming_soon)
-    XRecyclerView xrvCommingSoon;
+    @BindView(R.id.swipe_target)
+    RecyclerView xrvCommingSoon;
+    @BindView(R.id.stll_movies)
+    SwipeToLoadLayout swipeToLoadLayout;
     private CommingSoonAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comming_soon);
-
     }
 
     @Override
@@ -37,19 +42,21 @@ public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter>
 
     @Override
     public void showCommingSoon(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
-        xrvCommingSoon.loadMoreComplete();
-        xrvCommingSoon.refreshComplete();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         adapter.notifyDataChange(list, isLoadMore);
     }
 
     @Override
     public void initView() {
-
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
         setToolBarTitle(getString(R.string.commingsoon));
-        xrvCommingSoon = (XRecyclerView) findViewById(R.id.xrv_comming_soon);
         xrvCommingSoon.setLayoutManager(new LinearLayoutManager(this));
-        xrvCommingSoon.setLoadingListener(this);
-        xrvCommingSoon.setLoadingMoreProgressStyle(25);
         adapter = new CommingSoonAdapter(this);
         xrvCommingSoon.setAdapter(adapter);
     }
