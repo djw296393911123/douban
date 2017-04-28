@@ -96,7 +96,7 @@ public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHold
         return list.size();
     }
 
-    class TopHolder extends RecyclerView.ViewHolder {
+    static class TopHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
         private final RecyclerView recyclerView;

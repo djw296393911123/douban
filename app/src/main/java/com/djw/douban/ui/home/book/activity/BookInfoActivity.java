@@ -15,6 +15,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.book.BookInfoData;
 import com.djw.douban.ui.home.book.contract.BookInfoContract;
 import com.djw.douban.ui.home.book.presenter.BookInfoPresenter;
@@ -24,7 +25,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 
-public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements BookInfoContract.View {
+public class BookInfoActivity extends RxToolbarActivity<BookInfoPresenter> implements BookInfoContract.View {
 
     private ImageView head;
     private TextView title;
@@ -38,7 +39,6 @@ public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements B
     private TextView zuozhe;
     private RelativeLayout layout;
     private Toolbar toolbar;
-    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +63,12 @@ public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements B
     }
 
     @Override
+    protected void scrollToTop() {
+
+    }
+
+    @Override
     public void doBusiness() {
-        toolbar.setTitle("");
-        name = ((TextView) toolbar.findViewById(R.id.tv_toolbar_title));
     }
 
     @Override
@@ -106,8 +109,8 @@ public class BookInfoActivity extends RxActivity<BookInfoPresenter> implements B
             }
         });
         title.setText(bookInfoData.getTitle());
-        name.setText(bookInfoData.getTitle());
-        author.setText("作者 : " + bookInfoData.getAuthor().get(0));
+        setToolBarTitle(bookInfoData.getTitle());
+        author.setText("作者 : " + (bookInfoData.getAuthor().size() > 0 ? bookInfoData.getAuthor().get(0) : "未知"));
         out.setText("出版社 : " + bookInfoData.getPublisher());
         jianjie.setText(bookInfoData.getSummary());
         time.setText("出版时间 : " + bookInfoData.getPubdate());

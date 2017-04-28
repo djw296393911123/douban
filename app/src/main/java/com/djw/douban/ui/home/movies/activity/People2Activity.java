@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
@@ -68,7 +69,7 @@ public class People2Activity extends RxActivity<PeoplePresenter> implements Movi
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

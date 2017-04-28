@@ -50,9 +50,9 @@ public class PeoplePresenter extends RxPresenter<MoviesPeopleContract.View> impl
                         for (int i = 0; i < works.size(); i++) {
                             MoviesActorsData.WorksBean.SubjectBean subject = works.get(i).getSubject();
                             try {
-                                peopleTwos.add(new PeopleTwo(subject.getTitle(), subject.getId(), subject.getImages().getLarge(), String.valueOf(subject.getRating().getAverage()), subject.getDirectors().get(0).getId()));
+                                peopleTwos.add(new PeopleTwo(subject.getTitle(), subject.getId(), subject.getImages().getLarge(), String.valueOf(subject.getRating().getAverage())));
                             } catch (Exception e) {
-                                peopleTwos.add(new PeopleTwo(subject.getTitle(), subject.getId(), subject.getImages().getLarge(), String.valueOf(subject.getRating().getAverage()), ""));
+                                peopleTwos.add(new PeopleTwo(subject.getTitle(), subject.getId(), subject.getImages().getLarge(), String.valueOf(subject.getRating().getAverage())));
                             }
                         }
                         list.add(new PeopleThree(peopleTwos));

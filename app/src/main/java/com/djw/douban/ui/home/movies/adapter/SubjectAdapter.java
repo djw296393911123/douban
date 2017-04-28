@@ -47,7 +47,7 @@ class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.AlsoListHolder>
         holder.grade.setText(peopleTwo.getGrade());
         holder.name.setText(peopleTwo.getName());
         Glide.with(context).load(peopleTwo.getUrl()).asBitmap().into(holder.head);
-        holder.layout.setTag(peopleTwo.getId() + "," + peopleTwo.getDirect_id());
+        holder.layout.setTag(peopleTwo.getId());
         holder.layout.setOnClickListener(this);
     }
 
@@ -60,13 +60,11 @@ class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.AlsoListHolder>
     public void onClick(View v) {
         Bundle bundle = new Bundle();
         String tag = (String) v.getTag();
-        String[] split = tag.split(",");
-        bundle.putInt("id", Integer.parseInt(split[0]));
-        bundle.putString("direct", split[1]);
+        bundle.putInt("id", Integer.parseInt(tag));
         ((PeopleActivity) context).startActivity(MovieInfoActivity.class, bundle);
     }
 
-    class AlsoListHolder extends RecyclerView.ViewHolder {
+    static class AlsoListHolder extends RecyclerView.ViewHolder {
 
         private final ImageView head;
         private final TextView name;

@@ -1,6 +1,7 @@
 package com.djw.douban.ui.home.movies.presenter;
 
 import com.djw.douban.R;
+import com.djw.douban.base.ApiException;
 import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.movies.MoviesItemData;
@@ -49,10 +50,13 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                         List<NewMoviesBaseData> list = new LinkedList<>();
                         List<MoviesItemData.SubjectsBean> subjects = moviesItemData.getSubjects();
                         if (isLoadMore) {
-                            for (int i = 0; i < subjects.size(); i++) {
-                                MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName(), subjectsBean.getDirectors().get(0).getId()));
-                            }
+                            if (subjects.size() > 0) {
+                                for (int i = 0; i < subjects.size(); i++) {
+                                    MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
+                                    List<MoviesItemData.SubjectsBean.DirectorsBean> directors = subjectsBean.getDirectors();
+                                    list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), directors.size() > 0 ? directors.get(0).getName() : "JasonDong"));
+                                }
+                            } else new ApiException("没有更多数据");
                         } else {
                             List<String> urls = new ArrayList<>();
                             List<String> titles = new ArrayList<>();
@@ -96,7 +100,7 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().get(0).getName(), subjectsBean.getDirectors().get(0).getId()));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().size() > 0 ? subjectsBean.getDirectors().get(0).getName() : "JasonDong"));
                             }
 
 //                            list.add(new NewMoviesSix("查看更多"));

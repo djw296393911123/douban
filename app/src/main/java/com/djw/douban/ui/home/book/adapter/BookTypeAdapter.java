@@ -61,7 +61,7 @@ public abstract class BookTypeAdapter extends RecyclerView.Adapter<BookTypeAdapt
         return list.size();
     }
 
-    class BookTypeHolder extends RecyclerView.ViewHolder {
+    static class BookTypeHolder extends RecyclerView.ViewHolder {
 
         private final TextView textView;
         private final LinearLayout layout;

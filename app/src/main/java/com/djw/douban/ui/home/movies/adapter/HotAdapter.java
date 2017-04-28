@@ -57,16 +57,17 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotHolder> {
         final MoviesItemData.SubjectsBean subjectBean = list.get(position);
         Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.ivHotHead);
         holder.tvHotTitle.setText(subjectBean.getTitle());
-        holder.tvHotDirect.setText(subjectBean.getDirectors().get(0).getName());
         holder.tvHotGrade.setText(String.valueOf(subjectBean.getRating().getAverage()));
         holder.rbHot.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
         holder.tvHotNum.setText(String.valueOf(subjectBean.getCollect_count()));
         String daoyan = "导演 ：";
         List<MoviesItemData.SubjectsBean.DirectorsBean> directors = subjectBean.getDirectors();
-        for (int i = 0; i < directors.size(); i++) {
-            daoyan = daoyan + directors.get(i).getName() + "/";
+        if (directors.size() > 0) {
+            for (int i = 0; i < directors.size(); i++) {
+                daoyan = daoyan + directors.get(i).getName() + "/";
+            }
+            holder.tvHotDirect.setText(daoyan.substring(0, daoyan.length() - 1));
         }
-        holder.tvHotDirect.setText(daoyan.substring(0, daoyan.length() - 1));
         String actor = "演员 ：";
         List<MoviesItemData.SubjectsBean.CastsBean> casts = subjectBean.getCasts();
         for (int i = 0; i < casts.size(); i++) {
@@ -78,7 +79,6 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.HotHolder> {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", Integer.parseInt(subjectBean.getId()));
-                bundle.putString("direct", subjectBean.getDirectors().get(0).getId());
                 ((HotActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });

@@ -1,13 +1,11 @@
 package com.djw.douban.ui.home.movies.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.HotAdapter;
@@ -19,12 +17,10 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class HotActivity extends RxActivity<HotPresenter> implements HotContract.View, XRecyclerView.LoadingListener {
+public class HotActivity extends RxToolbarActivity<HotPresenter> implements HotContract.View, XRecyclerView.LoadingListener {
 
     @BindView(R.id.xrv_hot)
     XRecyclerView xrvHot;
-    @BindView(R.id.tl_base)
-    Toolbar tlBase;
     private HotAdapter adapter;
 
     @Override
@@ -47,12 +43,17 @@ public class HotActivity extends RxActivity<HotPresenter> implements HotContract
 
     @Override
     public void initView() {
-        tlBase.setTitleTextColor(Color.WHITE);
-        tlBase.setTitle(R.string.hot);
+        setToolBarTitle(getString(R.string.hot));
         xrvHot.setLayoutManager(new LinearLayoutManager(this));
         xrvHot.setLoadingListener(this);
+        xrvHot.setLoadingMoreProgressStyle(25);
         adapter = new HotAdapter(this);
         xrvHot.setAdapter(adapter);
+    }
+
+    @Override
+    protected void scrollToTop() {
+        xrvHot.scrollToPosition(0);
     }
 
     @Override

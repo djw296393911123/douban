@@ -55,7 +55,7 @@ public abstract class SelectTypeAdapter extends RecyclerView.Adapter<SelectTypeA
         return list.size();
     }
 
-    class CityHolder extends RecyclerView.ViewHolder {
+    static class CityHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview;
         private final LinearLayout layout;

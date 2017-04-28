@@ -1,11 +1,9 @@
 package com.djw.douban.ui.home.music.activity;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -15,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.ui.home.music.contract.MusicInfoContract;
 import com.djw.douban.ui.home.music.presenter.MusicInfoPresenter;
@@ -25,7 +23,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 
-public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements MusicInfoContract.View {
+public class MusicInfoActivity extends RxToolbarActivity<MusicInfoPresenter> implements MusicInfoContract.View {
     private ImageView head;
     private TextView title;
     private TextView author;
@@ -38,7 +36,6 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
     private TextView zuozhe;
     private RelativeLayout layout;
     private Toolbar toolbar;
-    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +75,7 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
             }
         });
         title.setText(musics.getTitle());
-        name.setText(musics.getTitle());
+        setToolBarTitle(musics.getTitle());
         author.setText("表演者 : " + musics.getTags().get(0).getName());
         jianjie.setText(musics.getSummary());
         time.setText("发行时间 : " + musics.getAttrs().getPubdate().get(0));
@@ -107,9 +104,12 @@ public class MusicInfoActivity extends RxActivity<MusicInfoPresenter> implements
     }
 
     @Override
+    protected void scrollToTop() {
+
+    }
+
+    @Override
     public void doBusiness() {
-        toolbar.setTitle("");
-        name = ((TextView) toolbar.findViewById(R.id.tv_toolbar_title));
     }
 
     @Override

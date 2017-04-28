@@ -113,7 +113,7 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return list.get(position).getType();
     }
 
-    private class MoviesTextHolder extends RecyclerView.ViewHolder {
+    private static class MoviesTextHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview;
 
@@ -124,7 +124,7 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private class MoviesTypeHolder extends RecyclerView.ViewHolder {
+    private static class MoviesTypeHolder extends RecyclerView.ViewHolder {
 
         private final TextView textview;
 
@@ -135,7 +135,7 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private class MoviesPeopleHolder extends RecyclerView.ViewHolder {
+    private static class MoviesPeopleHolder extends RecyclerView.ViewHolder {
 
 
         private final ImageView head;
@@ -151,7 +151,7 @@ public class MoviesInfoAapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private class MoviesFourHolder extends RecyclerView.ViewHolder {
+    private static class MoviesFourHolder extends RecyclerView.ViewHolder {
 
         RecyclerView recyclerView;
 

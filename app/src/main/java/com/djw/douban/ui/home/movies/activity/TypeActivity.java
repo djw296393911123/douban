@@ -1,13 +1,11 @@
 package com.djw.douban.ui.home.movies.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.ui.home.movies.adapter.TypeAdapter;
@@ -19,12 +17,10 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TypeActivity extends RxActivity<TypePresenter> implements TypeContract.View, XRecyclerView.LoadingListener {
+public class TypeActivity extends RxToolbarActivity<TypePresenter> implements TypeContract.View, XRecyclerView.LoadingListener {
 
     @BindView(R.id.xrv_type)
     XRecyclerView xrvType;
-    @BindView(R.id.tl_base)
-    Toolbar tlBase;
     private TypeAdapter adapter;
     private String q;
 
@@ -50,8 +46,14 @@ public class TypeActivity extends RxActivity<TypePresenter> implements TypeContr
     public void initView() {
         xrvType.setLayoutManager(new LinearLayoutManager(this));
         xrvType.setLoadingListener(this);
+        xrvType.setLoadingMoreProgressStyle(25);
         adapter = new TypeAdapter(this);
         xrvType.setAdapter(adapter);
+    }
+
+    @Override
+    protected void scrollToTop() {
+        xrvType.scrollToPosition(0);
     }
 
     @Override
@@ -64,8 +66,7 @@ public class TypeActivity extends RxActivity<TypePresenter> implements TypeContr
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
         q = getIntent().getExtras().getString("q");
-        tlBase.setTitleTextColor(Color.WHITE);
-        tlBase.setTitle(q);
+        setToolBarTitle(q);
         mPresenter.getType(q, ParamsData.START, ParamsData.COUNT, false, true);
     }
 

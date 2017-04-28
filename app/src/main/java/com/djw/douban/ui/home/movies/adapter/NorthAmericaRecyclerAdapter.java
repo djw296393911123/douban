@@ -60,10 +60,12 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
         holder.ratingBar.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
         String daoyan = "导演 ：";
         List<NorthAmericaItemData.SubjectsBean.SubjectBean.DirectorsBean> directors = subjectBean.getDirectors();
-        for (int i = 0; i < directors.size(); i++) {
-            daoyan = daoyan + directors.get(i).getName() + "/";
+        if (directors.size() > 0) {
+            for (int i = 0; i < directors.size(); i++) {
+                daoyan = daoyan + directors.get(i).getName() + "/";
+            }
+            holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
         }
-        holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
         String actor = "演员 ：";
         List<NorthAmericaItemData.SubjectsBean.SubjectBean.CastsBean> casts = subjectBean.getCasts();
         for (int i = 0; i < casts.size(); i++) {
@@ -75,7 +77,6 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", Integer.parseInt(subjectBean.getId()));
-                bundle.putString("direct", subjectBean.getDirectors().get(0).getId());
                 ((NorthAmericaActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
@@ -86,7 +87,7 @@ public class NorthAmericaRecyclerAdapter extends RecyclerView.Adapter<NorthAmeri
         return list.size();
     }
 
-    class MoviesHolder extends RecyclerView.ViewHolder {
+    static class MoviesHolder extends RecyclerView.ViewHolder {
 
         private final TextView title;
         private final TextView actiors;

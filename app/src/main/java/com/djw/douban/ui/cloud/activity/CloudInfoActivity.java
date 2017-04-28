@@ -2,6 +2,7 @@ package com.djw.douban.ui.cloud.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -27,12 +28,21 @@ public class CloudInfoActivity extends SimpleActivity {
     public void initView() {
         webView = (WebView) findViewById(R.id.wb_cloud);
         toolbar = (Toolbar) findViewById(R.id.tl_base);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         title = (TextView) findViewById(R.id.tv_toolbar_title);
     }
 
     @Override
     public void doBusiness() {
-        toolbar.setTitle("");
         title.setText(getIntent().getExtras().getString("title"));
         webView.loadData(CSS_STYLE + getIntent().getExtras().getString("content"), "text/html; charset=utf-8", "utf-8");
     }

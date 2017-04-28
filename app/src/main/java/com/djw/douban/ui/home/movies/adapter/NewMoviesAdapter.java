@@ -125,7 +125,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 NewMoviesFour four = (NewMoviesFour) list.get(position);
                 Glide.with(context).load(four.getUrl()).asBitmap().into(fourHolder.ivFour);
                 fourHolder.name.setText(four.getName());
-                fourHolder.cardView.setTag(Integer.parseInt(four.getId()) + "," + four.getDirect_id());
+                fourHolder.cardView.setTag(Integer.parseInt(four.getId()));
                 fourHolder.cardView.setOnClickListener(this);
                 fourHolder.direct.setText(four.getDirect());
                 break;
@@ -161,7 +161,6 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void OnBannerClick(int position) {
         Bundle bundle = new Bundle();
         NewMovieOne newMovieOne = (NewMovieOne) list.get(0);
-        bundle.putString("direct", newMovieOne.getDirect_id().get(position - 1));
         bundle.putInt("id", Integer.parseInt(newMovieOne.getIds().get(position - 1)));
         ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
     }
@@ -180,10 +179,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case R.id.cv_item:
                 Bundle bundle = new Bundle();
-                String tag = (String) v.getTag();
-                String[] split = tag.split(",");
-                bundle.putInt("id", Integer.parseInt(split[0]));
-                bundle.putString("direct", split[1]);
+                bundle.putInt("id", ((int) v.getTag()));
                 ((MainActivity) context).startActivity(MovieInfoActivity.class, bundle);
                 break;
             case R.id.iv_tow_one:
@@ -293,7 +289,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    private class GlideImageLoader extends ImageLoader {
+    private static class GlideImageLoader extends ImageLoader {
 
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {

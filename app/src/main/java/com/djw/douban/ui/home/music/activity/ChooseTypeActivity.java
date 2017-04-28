@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.newmusic.MusicBaseData;
 import com.djw.douban.data.newmusic.MusicListData;
@@ -28,7 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ChooseTypeActivity extends RxActivity<MusicChooseTypePresenter> implements ChooseTypeContract.View, XRecyclerView.LoadingListener, View.OnClickListener {
+public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresenter> implements ChooseTypeContract.View, XRecyclerView.LoadingListener, View.OnClickListener {
 
     @BindView(R.id.xrv_choose)
     XRecyclerView xrvChoose;
@@ -36,10 +35,6 @@ public class ChooseTypeActivity extends RxActivity<MusicChooseTypePresenter> imp
     RecyclerView rvType;
     @BindView(R.id.tl_zhihu)
     TabLayout tlZhihu;
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
-    @BindView(R.id.tl_base)
-    Toolbar tlBase;
     private MusicTypeAdapter adapter;
     private String tag;
     private TopAdapter topAdapter;
@@ -121,9 +116,13 @@ public class ChooseTypeActivity extends RxActivity<MusicChooseTypePresenter> imp
         xrvChoose.setAdapter(adapter);
     }
 
+    @Override
+    protected void scrollToTop() {
+        xrvChoose.scrollToPosition(0);
+    }
+
     private void initTabLayout() {
-        tlBase.setTitle("");
-        tvToolbarTitle.setText(R.string.find);
+        setToolBarTitle(getString(R.string.find));
         View tab_one = LayoutInflater.from(this).inflate(R.layout.item_choose_twoo, null);
         TextView one = (TextView) tab_one.findViewById(R.id.tv_type_one);
         tab_one.setOnClickListener(this);

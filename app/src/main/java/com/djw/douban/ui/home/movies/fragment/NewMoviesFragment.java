@@ -99,5 +99,4 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
         adapter.notifyDataChange(list, isLoadMore);
         isLoading = false;
     }
-
 }

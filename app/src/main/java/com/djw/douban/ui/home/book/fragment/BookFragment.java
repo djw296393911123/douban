@@ -41,9 +41,9 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     private BookTypeAdapter adapter;
 
-    private String[] types = {"综合", "文学", "流行", "文化", "生活", "天文", "地理", "小说", "短篇", "中篇", "长篇", "郭敬明", "韩寒", "莫言", "明晓溪", "饶雪漫"};
+    public String[] types = {"综合", "文学", "流行", "文化", "生活", "天文", "地理", "小说", "短篇", "中篇", "长篇", "郭敬明", "韩寒", "莫言", "明晓溪", "饶雪漫"};
     private XRecyclerView xRecyclerView;
-    private int position;
+    public int position;
     private BookRecyclerAdapter bookRecyclerAdapter;
     private Banner banner;
 
@@ -59,7 +59,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         xRecyclerView.setLayoutManager(layoutManager);
         xRecyclerView.setLoadingListener(this);
-//        xRecyclerView.setPullRefreshEnabled(false);
+        xRecyclerView.setLoadingMoreProgressStyle(25);
         View head = LayoutInflater.from(getActivity()).inflate(R.layout.item_header, null);
         banner = ((Banner) head.findViewById(R.id.banner));
         xRecyclerView.addHeaderView(head);
@@ -147,7 +147,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         bookRecyclerAdapter.notifyDataChange(list, isLoadMore);
     }
 
-    private class GlideImageLoader extends ImageLoader {
+    private static class GlideImageLoader extends ImageLoader {
 
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {

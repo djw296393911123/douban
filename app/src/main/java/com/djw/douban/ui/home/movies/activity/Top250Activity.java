@@ -2,13 +2,10 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.Top250Adapter;
@@ -18,12 +15,13 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
-public class Top250Activity extends RxActivity<Top250Presenter> implements Top250Contract.View, XRecyclerView.LoadingListener, View.OnClickListener {
+import butterknife.BindView;
 
-    private XRecyclerView recyclerView;
+public class Top250Activity extends RxToolbarActivity<Top250Presenter> implements Top250Contract.View, XRecyclerView.LoadingListener {
+
+    @BindView(R.id.rv_top)
+    XRecyclerView rvTop;
     private Top250Adapter adapter;
-    private Toolbar toolbar;
-    private long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +31,21 @@ public class Top250Activity extends RxActivity<Top250Presenter> implements Top25
 
     @Override
     public void initView() {
-        recyclerView = (XRecyclerView) findViewById(R.id.rv_top);
-        toolbar = (Toolbar) findViewById(R.id.tl_base);
-        toolbar.setOnClickListener(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setLoadingListener(this);
+        setToolBarTitle(getString(R.string.top));
+        rvTop.setLayoutManager(new LinearLayoutManager(this));
+        rvTop.setLoadingListener(this);
+        rvTop.setLoadingMoreProgressStyle(25);
         adapter = new Top250Adapter(this);
-        recyclerView.setAdapter(adapter);
+        rvTop.setAdapter(adapter);
+    }
+
+    @Override
+    protected void scrollToTop() {
+        rvTop.scrollToPosition(0);
     }
 
     @Override
     public void doBusiness() {
-        toolbar.setTitle("");
-        ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(R.string.top);
     }
 
 
@@ -75,18 +75,8 @@ public class Top250Activity extends RxActivity<Top250Presenter> implements Top25
 
     @Override
     public void showTop250(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
-        recyclerView.refreshComplete();
-        recyclerView.loadMoreComplete();
+        rvTop.refreshComplete();
+        rvTop.loadMoreComplete();
         adapter.notifyDataChange(list, isLoadMore);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (System.currentTimeMillis() - time > 2000) {
-            time = System.currentTimeMillis();
-        } else {
-            mPresenter.showTop250(ParamsData.START, ParamsData.COUNT, false, false);
-            recyclerView.smoothScrollToPosition(0);
-        }
     }
 }

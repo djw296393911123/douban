@@ -56,10 +56,12 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
         holder.title.setText(subjectsBean.getTitle());
         String daoyan = "导演 ：";
         List<MoviesItemData.SubjectsBean.DirectorsBean> directors = subjectsBean.getDirectors();
-        for (int i = 0; i < directors.size(); i++) {
-            daoyan = daoyan + directors.get(i).getName() + "/";
+        if (directors.size() > 0) {
+            for (int i = 0; i < directors.size(); i++) {
+                daoyan = daoyan + directors.get(i).getName() + "/";
+            }
+            holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
         }
-        holder.daoyan.setText(daoyan.substring(0, daoyan.length() - 1));
         String actor = "演员 ：";
         List<MoviesItemData.SubjectsBean.CastsBean> casts = subjectsBean.getCasts();
         for (int i = 0; i < casts.size(); i++) {
@@ -74,7 +76,6 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("direct", list.get(((int) v.getTag())).getDirectors().get(0).getId());
                 bundle.putInt("id", Integer.parseInt(list.get(((int) v.getTag())).getId()));
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
@@ -86,7 +87,7 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
         return list.size();
     }
 
-    class Top250Holder extends RecyclerView.ViewHolder {
+    static class Top250Holder extends RecyclerView.ViewHolder {
 
         private final TextView title;
         private final TextView actiors;

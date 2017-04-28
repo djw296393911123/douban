@@ -2,12 +2,11 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.ui.home.movies.adapter.NorthAmericaRecyclerAdapter;
@@ -19,12 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class NorthAmericaActivity extends RxActivity<NorthAmericaPresenter> implements NorthAmericaContract.View, XRecyclerView.LoadingListener {
+public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresenter> implements NorthAmericaContract.View, XRecyclerView.LoadingListener {
 
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
-    @BindView(R.id.tl_base)
-    Toolbar tlBase;
     @BindView(R.id.xrv_north)
     XRecyclerView xrvNorth;
     @BindView(R.id.tv_north)
@@ -52,12 +47,17 @@ public class NorthAmericaActivity extends RxActivity<NorthAmericaPresenter> impl
 
     @Override
     public void initView() {
-        tlBase.setTitle("");
-        tvToolbarTitle.setText(R.string.northamerica);
+        setToolBarTitle(getString(R.string.northamerica));
         xrvNorth.setLayoutManager(new LinearLayoutManager(this));
         xrvNorth.setLoadingListener(this);
+        xrvNorth.setLoadingMoreProgressStyle(25);
         adapter = new NorthAmericaRecyclerAdapter(this);
         xrvNorth.setAdapter(adapter);
+    }
+
+    @Override
+    protected void scrollToTop() {
+        xrvNorth.scrollToPosition(0);
     }
 
     @Override

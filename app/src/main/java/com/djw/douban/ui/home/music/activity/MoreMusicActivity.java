@@ -2,12 +2,10 @@ package com.djw.douban.ui.home.music.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.music.MusicRoot;
 import com.djw.douban.ui.home.music.adapter.MusicMoreAdapter;
@@ -18,14 +16,10 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoreMusicActivity extends RxActivity<MusicMorePresenter> implements MusicMoreContract.View, XRecyclerView.LoadingListener {
+public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> implements MusicMoreContract.View, XRecyclerView.LoadingListener {
 
     @BindView(R.id.xrv_more)
     XRecyclerView xrvMore;
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
-    @BindView(R.id.tl_base)
-    Toolbar tlBase;
     private MusicMoreAdapter adapter;
     private String tag;
 
@@ -57,8 +51,12 @@ public class MoreMusicActivity extends RxActivity<MusicMorePresenter> implements
     }
 
     @Override
+    protected void scrollToTop() {
+        xrvMore.scrollToPosition(0);
+    }
+
+    @Override
     public void doBusiness() {
-        tlBase.setTitle("");
     }
 
     @Override
@@ -67,7 +65,7 @@ public class MoreMusicActivity extends RxActivity<MusicMorePresenter> implements
         mPresenter.attachView(this);
         Bundle bundle = getIntent().getExtras();
         tag = bundle.getString("tag");
-        tvToolbarTitle.setText(tag);
+        setToolBarTitle(tag);
         mPresenter.getMore(tag, ParamsData.START, ParamsData.COUNT, false, true);
     }
 

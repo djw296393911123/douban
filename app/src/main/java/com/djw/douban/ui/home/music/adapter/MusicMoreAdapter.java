@@ -16,9 +16,13 @@ import com.djw.douban.R;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.ui.home.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.home.music.activity.MusicInfoActivity;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by JasonDong
@@ -51,16 +55,15 @@ public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.Musi
     @Override
     public void onBindViewHolder(MusicMoreHolder holder, int position) {
         Musics musics = list.get(position);
-        holder.author.setText(musics.getAuthor().get(0).getName());
-        holder.grade.setText(musics.getRating().getAverage());
-        holder.time.setText(musics.getAttrs().getPubdate().get(0));
-        holder.title.setText(musics.getTitle());
-        String string = musics.getAttrs().getTracks().toString();
-        holder.pinglun.setText(string.substring(1, string.length() - 1));
-        holder.ratingBar.setRating(((float) (Double.parseDouble(musics.getRating().getAverage()) / 2)));
-        Glide.with(context).load(musics.getImage()).asBitmap().into(holder.head);
-        holder.layout.setTag(musics.getId());
-        holder.layout.setOnClickListener(this);
+        holder.tvHotDirect.setText(musics.getAuthor().get(0).getName());
+        holder.tvHotGrade.setText(musics.getRating().getAverage());
+        holder.tvHotCast.setText(musics.getAttrs().getPubdate().get(0));
+        holder.tvHotTitle.setText(musics.getTitle());
+        holder.tvHotNum.setText(String.valueOf(musics.getRating().getNumRaters()));
+        holder.rbHot.setRating(((float) (Double.parseDouble(musics.getRating().getAverage()) / 2)));
+        Glide.with(context).load(musics.getImage()).asBitmap().into(holder.ivHotHead);
+        holder.llLayout.setTag(musics.getId());
+        holder.llLayout.setOnClickListener(this);
     }
 
     @Override
@@ -77,25 +80,27 @@ public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.Musi
 
     static class MusicMoreHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView head;
-        private final RatingBar ratingBar;
-        private final TextView grade;
-        private final TextView author;
-        private final TextView time;
-        private final TextView title;
-        private final TextView pinglun;
-        private final LinearLayout layout;
+        @BindView(R.id.iv_hot_head)
+        ImageView ivHotHead;
+        @BindView(R.id.tv_hot_title)
+        TextView tvHotTitle;
+        @BindView(R.id.rb_hot)
+        RatingBar rbHot;
+        @BindView(R.id.tv_hot_grade)
+        TextView tvHotGrade;
+        @BindView(R.id.tv_hot_direct)
+        TextView tvHotDirect;
+        @BindView(R.id.tv_hot_cast)
+        TextView tvHotCast;
+        @BindView(R.id.tv_hot_num)
+        TextView tvHotNum;
+        @BindView(R.id.ll_hot)
+        LinearLayout llLayout;
 
-        MusicMoreHolder(View itemView) {
-            super(itemView);
-            head = ((ImageView) itemView.findViewById(R.id.iv_more_head));
-            ratingBar = ((RatingBar) itemView.findViewById(R.id.rb_more));
-            grade = ((TextView) itemView.findViewById(R.id.tv_more_grade));
-            author = ((TextView) itemView.findViewById(R.id.tv_more_author));
-            time = ((TextView) itemView.findViewById(R.id.tv_more_time));
-            title = ((TextView) itemView.findViewById(R.id.tv_title));
-            pinglun = ((TextView) itemView.findViewById(R.id.tv_pinglun));
-            layout = ((LinearLayout) itemView.findViewById(R.id.ll_more));
+        MusicMoreHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+            AutoUtils.autoSize(itemView);
         }
     }
 }

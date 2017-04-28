@@ -7,25 +7,10 @@
     android:orientation="vertical"
     tools:context=".ui.home.book.activity.BookInfoActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tl_base"
+    <include
+        layout="@layout/toolbar_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_toolbar_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="35px" />
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"

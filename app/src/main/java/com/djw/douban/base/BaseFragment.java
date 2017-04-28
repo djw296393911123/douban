@@ -44,7 +44,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     @Inject
-    public T mPresenter;
+    protected T mPresenter;
 
     @Nullable
     @Override
@@ -68,8 +68,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void onDestroyView() {
         super.onDestroyView();
         if (mPresenter != null) mPresenter.detachView();
+        mPresenter = null;
         bind.unbind();
-
     }
 
     protected FragmentModule getFragmentModule() {

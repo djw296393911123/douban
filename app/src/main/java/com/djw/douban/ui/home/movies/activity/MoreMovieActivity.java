@@ -2,12 +2,10 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
-import com.djw.douban.base.RxActivity;
+import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.Top250Adapter;
@@ -17,12 +15,14 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
-public class MoreMovieActivity extends RxActivity<MoreMoviePresenter> implements MoreMovieContract.View, XRecyclerView.LoadingListener {
+import butterknife.BindView;
 
-    private XRecyclerView recyclerView;
+public class MoreMovieActivity extends RxToolbarActivity<MoreMoviePresenter> implements MoreMovieContract.View, XRecyclerView.LoadingListener {
+
+    @BindView(R.id.xrv_more)
+    XRecyclerView xrvMore;
     private Top250Adapter adapter;
     private int type;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +32,22 @@ public class MoreMovieActivity extends RxActivity<MoreMoviePresenter> implements
 
     @Override
     public void initView() {
-        recyclerView = (XRecyclerView) findViewById(R.id.xrv_more);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        toolbar = (Toolbar) findViewById(R.id.tl_base);
-        recyclerView.setLoadingListener(this);
+        setToolBarTitle(getString(R.string.dianying));
+        xrvMore = (XRecyclerView) findViewById(R.id.xrv_more);
+        xrvMore.setLayoutManager(new LinearLayoutManager(this));
+        xrvMore.setLoadingListener(this);
+        xrvMore.setLoadingMoreProgressStyle(25);
         adapter = new Top250Adapter(this);
-        recyclerView.setAdapter(adapter);
+        xrvMore.setAdapter(adapter);
+    }
+
+    @Override
+    protected void scrollToTop() {
+        xrvMore.scrollToPosition(0);
     }
 
     @Override
     public void doBusiness() {
-        toolbar.setTitle("");
-        ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText("电影");
     }
 
     @Override
@@ -61,8 +65,8 @@ public class MoreMovieActivity extends RxActivity<MoreMoviePresenter> implements
 
     @Override
     public void dismissProgress() {
-        recyclerView.refreshComplete();
-        recyclerView.loadMoreComplete();
+        xrvMore.refreshComplete();
+        xrvMore.loadMoreComplete();
     }
 
     @Override

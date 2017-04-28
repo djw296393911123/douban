@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
@@ -19,6 +21,7 @@ import com.djw.douban.ui.home.movies.presenter.PeoplePresenter;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class PeopleActivity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {
@@ -35,6 +38,8 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
     RecyclerView rvPeople;
     @BindView(R.id.cv_item)
     CardView cvItem;
+    @BindView(R.id.v_black)
+    View vBlack;
     private PeopleAdapter adapter;
 
     @Override
@@ -67,7 +72,7 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -77,5 +82,6 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
         Glide.with(this).load(peopleOne.getUrl()).bitmapTransform(new CropCircleTransformation(context)).into(ivSmall);
         Glide.with(this).load(peopleOne.getUrl()).asBitmap().into(ivLarge);
         adapter.notifyDataChange(list);
+        vBlack.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 }

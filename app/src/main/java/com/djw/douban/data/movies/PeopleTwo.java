@@ -15,15 +15,13 @@ public class PeopleTwo extends PeopleBaseData {
 
     private String grade;
 
-    private String direct_id;
 
-    public PeopleTwo(String name, String id, String url,String grade,String direct_id) {
+    public PeopleTwo(String name, String id, String url,String grade) {
         super(PeopleBaseData.TWO);
         this.name = name;
         this.id = id;
         this.url = url;
         this.grade = grade;
-        this.direct_id = direct_id;
     }
 
     public String getName() {
@@ -58,11 +56,4 @@ public class PeopleTwo extends PeopleBaseData {
         this.grade = grade;
     }
 
-    public String getDirect_id() {
-        return direct_id;
-    }
-
-    public void setDirect_id(String direct_id) {
-        this.direct_id = direct_id;
-    }
 }

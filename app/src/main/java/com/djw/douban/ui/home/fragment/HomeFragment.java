@@ -3,6 +3,7 @@ package com.djw.douban.ui.home.fragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,7 +45,9 @@ public class HomeFragment extends SimpleFragment {
     protected void doBusiness() {
         setHasOptionsMenu(true);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setTitle("");
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setDisplayShowTitleEnabled(false);
         ((TextView) toolbar.findViewById(R.id.tv_toolbar_title)).setText(getString(R.string.home));
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new NewMoviesFragment());

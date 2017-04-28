@@ -67,7 +67,7 @@ public class SearchPresenter extends RxPresenter<SearchContract.View> implements
         Observable<MusicRoot> musicByTag = helper.getMusicByTag(tag, start, count);
         Subscription subscribe = Observable.concat(type, bookByTag, musicByTag)
                 .compose(RxUtil.rxSchedulerHelper())
-                .subscribe(new CommonSubscribers<Object>(mView, true) {
+                .subscribe(new CommonSubscribers<Object>(mView, false) {
                     @Override
                     public void onNext(Object o) {
                         List<SearchBaseData> list = new ArrayList<>();

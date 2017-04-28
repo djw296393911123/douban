@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.djw.douban.R;
@@ -20,18 +21,33 @@ import com.djw.douban.ui.home.movies.presenter.MovieInfoPresenter;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements MovieInfoContract.View, AppBarLayout.OnOffsetChangedListener {
 
-    private ImageView head;
-    private TextView grade;
-    private TextView num;
-    private TextView story;
-    private TextView year;
-    private TextView name;
-    private TextView area;
+    @BindView(R.id.iv_movie_info)
+    ImageView ivMovieInfo;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_info_grade)
+    TextView tvInfoGrade;
+    @BindView(R.id.tv_info_num)
+    TextView tvInfoNum;
+    @BindView(R.id.tv_year)
+    TextView tvYear;
+    @BindView(R.id.tv_story)
+    TextView tvStory;
+    @BindView(R.id.tv_area)
+    TextView tvArea;
+    @BindView(R.id.tv_movies_title)
+    TextView tvMoviesTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+    @BindView(R.id.rv_info_movie)
+    RecyclerView rvInfoMovie;
     private MoviesInfoAapter adapter;
-    private Toolbar toolbar;
-    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +57,9 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
 
     @Override
     public void initView() {
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-        appBarLayout.addOnOffsetChangedListener(this);
-        head = (ImageView) findViewById(R.id.iv_movie_info);
-        grade = ((TextView) findViewById(R.id.tv_info_grade));
-        num = (TextView) findViewById(R.id.tv_info_num);
-        story = (TextView) findViewById(R.id.tv_story);
-        year = (TextView) findViewById(R.id.tv_year);
-        name = (TextView) findViewById(R.id.tv_name);
-        area = (TextView) findViewById(R.id.tv_area);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        title = (TextView) findViewById(R.id.tv_movies_title);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_info_movie);
+        appBar.addOnOffsetChangedListener(this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
+        rvInfoMovie.setLayoutManager(layoutManager);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -62,7 +67,7 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
             }
         });
         adapter = new MoviesInfoAapter(this);
-        recyclerView.setAdapter(adapter);
+        rvInfoMovie.setAdapter(adapter);
     }
 
     @Override
@@ -75,26 +80,26 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
         Bundle bundle = getIntent().getExtras();
-        mPresenter.getInfo(bundle.getInt("id"), bundle.getString("direct"));
+        mPresenter.getInfo(bundle.getInt("id"));
     }
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showInfo(List<MoviesInfoBaseData> data, MovieInfoTopData topData) {
         if (topData != null) {
-            Glide.with(this).load(topData.getUrl()).asBitmap().into(head);
+            Glide.with(this).load(topData.getUrl()).asBitmap().into(ivMovieInfo);
             toolbar.setTitle("");
-            title.setText(topData.getTitle());
-            name.setText(topData.getTitle());
-            year.setText(topData.getYear());
-            area.setText(topData.getCountry());
-            story.setText(topData.getType());
-            grade.setText(topData.getGrade());
-            num.setText(topData.getCount());
+            tvMoviesTitle.setText(topData.getTitle());
+            tvName.setText(topData.getTitle());
+            tvYear.setText(topData.getYear());
+            tvArea.setText(topData.getCountry());
+            tvStory.setText(topData.getType());
+            tvInfoGrade.setText(topData.getGrade());
+            tvInfoNum.setText(topData.getCount());
         }
         adapter.notifyDataChange(data);
     }
@@ -102,7 +107,7 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         if (verticalOffset != 0)
-            title.setVisibility(View.VISIBLE);
-        title.animate().alpha(Math.abs(verticalOffset));
+            tvMoviesTitle.setVisibility(View.VISIBLE);
+        tvMoviesTitle.animate().alpha(Math.abs(verticalOffset));
     }
 }

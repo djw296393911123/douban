@@ -111,7 +111,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
-    private class SearchHotHolder extends RecyclerView.ViewHolder {
+    private static class SearchHotHolder extends RecyclerView.ViewHolder {
 
         private final TextView num;
         private final TextView name;
@@ -126,7 +126,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private class SearchTypeHolder extends RecyclerView.ViewHolder {
+    private static class SearchTypeHolder extends RecyclerView.ViewHolder {
         private final TextView type;
 
         SearchTypeHolder(View itemView) {

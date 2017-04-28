@@ -73,7 +73,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         return list.size();
     }
 
-    class MoviesHolder extends RecyclerView.ViewHolder {
+    static class MoviesHolder extends RecyclerView.ViewHolder {
 
         private final ImageView image;
         private final TextView name;

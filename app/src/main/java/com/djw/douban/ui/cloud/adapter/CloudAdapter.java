@@ -82,6 +82,8 @@ public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.Clo
         });
     }
 
+
+
     @Override
     public int getItemCount() {
         return list.size();

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
-import com.djw.douban.data.cloud.UserData;
 import com.djw.douban.data.cloud.VisitedData;
 import com.djw.douban.ui.cloud.contract.UserContract;
 import com.djw.douban.ui.cloud.presenter.UserPresenter;

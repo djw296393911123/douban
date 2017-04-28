@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
@@ -60,6 +61,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         recyclerView = ((XRecyclerView) view.findViewById(R.id.xrv_cloud));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setLoadingListener(this);
+        recyclerView.setLoadingMoreProgressStyle(25);
         adapter = new CloudAdapter(getActivity()) {
             @Override
             public void onImageClick(String url) {
@@ -76,6 +78,10 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         toolbar.setTitle("");
         title = ((TextView) toolbar.findViewById(R.id.tv_toolbar_title));
 
+    }
+
+    public void scrollToTop() {
+        recyclerView.scrollToPosition(0);
     }
 
     @Override
@@ -97,7 +103,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

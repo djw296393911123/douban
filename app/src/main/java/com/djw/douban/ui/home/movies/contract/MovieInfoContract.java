@@ -23,7 +23,7 @@ public interface MovieInfoContract {
 
     interface Presenter extends BasePresenter<View> {
 
-        void getInfo(int id, String direct);
+        void getInfo(int id);
 
     }
 

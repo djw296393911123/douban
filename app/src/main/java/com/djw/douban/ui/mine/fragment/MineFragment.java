@@ -60,6 +60,10 @@ public class MineFragment extends BaseFragment<OnlinePresenter> implements Onlin
 
     }
 
+    public void scrollToTop() {
+        xrvMine.scrollToPosition(0);
+    }
+
     @Override
     protected void doBusiness() {
 
