@@ -4,6 +4,7 @@ import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
 import com.djw.douban.data.book.BannerData;
 import com.djw.douban.data.book.Books;
+import com.djw.douban.data.newbook.BookBaseData;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface BookContract {
 
     interface View extends BaseView {
 
-        void showBookList(List<Books> books, BannerData bannerData, boolean isLoadMore);
+        void showBookList(List<BookBaseData> books, boolean isLoadMore);
 
     }
 

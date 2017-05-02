@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
@@ -21,20 +24,22 @@ import com.djw.douban.ui.home.music.contract.ChooseTypeContract;
 import com.djw.douban.ui.home.music.presenter.MusicChooseTypePresenter;
 import com.djw.douban.util.CustomPopWindows;
 import com.djw.douban.util.TypePopWindows;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresenter> implements ChooseTypeContract.View, XRecyclerView.LoadingListener, View.OnClickListener {
+public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresenter> implements ChooseTypeContract.View, View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
 
-    @BindView(R.id.xrv_choose)
-    XRecyclerView xrvChoose;
+    @BindView(R.id.swipe_target)
+    RecyclerView rvChoose;
     @BindView(R.id.rv_type_tope)
     RecyclerView rvType;
     @BindView(R.id.tl_zhihu)
     TabLayout tlZhihu;
+    @BindView(R.id.stll_movies)
+    SwipeToLoadLayout swipeToLoadLayout;
     private MusicTypeAdapter adapter;
     private String tag;
     private TopAdapter topAdapter;
@@ -46,6 +51,7 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_type);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -55,8 +61,12 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
 
     @Override
     public void showChooseType(List<MusicListData> list, boolean isLoadMore) {
-        xrvChoose.refreshComplete();
-        xrvChoose.loadMoreComplete();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         adapter.notifyDataChange(list, isLoadMore);
     }
 
@@ -110,15 +120,16 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
             }
         };
         rvType.setAdapter(topAdapter);
-        xrvChoose.setLayoutManager(new LinearLayoutManager(this));
-        xrvChoose.setLoadingListener(this);
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        rvChoose.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MusicTypeAdapter(this);
-        xrvChoose.setAdapter(adapter);
+        rvChoose.setAdapter(adapter);
     }
 
     @Override
     protected void scrollToTop() {
-        xrvChoose.scrollToPosition(0);
+        rvChoose.scrollToPosition(0);
     }
 
     private void initTabLayout() {

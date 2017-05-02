@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,9 @@ public class MineFragment extends BaseFragment<OnlinePresenter> implements Onlin
 
     @Override
     public void onLoadMore() {
-        mPresenter.getUrl(adapter.getItemCount() + 1, ParamsData.COUNT, true);
+        int start = adapter.getItemCount() + 1;
+        Log.i("start", start + ":" + ParamsData.COUNT);
+        mPresenter.getUrl(start, ParamsData.COUNT, true);
     }
 
     @Override

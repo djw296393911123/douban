@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.djw.douban.R;
 import com.djw.douban.base.RxActivity;
@@ -42,7 +43,7 @@ public class SearchActivity extends RxActivity<SearchPresenter> implements Searc
 
     @Override
     public void showError(String msg) {
-
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

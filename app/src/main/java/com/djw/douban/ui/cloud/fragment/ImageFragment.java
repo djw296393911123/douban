@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.djw.douban.R;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by JasonDong on 2017/4/25.
@@ -44,6 +45,12 @@ public class ImageFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.pop_image, null);
         PhotoView photoView = (PhotoView) view.findViewById(R.id.pv_pop);
+        photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                dismiss();
+            }
+        });
         Glide.with(getActivity()).load(url).error(R.mipmap.img_default_meizi).into(photoView);
         AlertDialog alertDialog = new AlertDialog
                 .Builder(getActivity())

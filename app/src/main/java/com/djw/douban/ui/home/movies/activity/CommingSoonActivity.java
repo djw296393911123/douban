@@ -19,7 +19,6 @@ import com.djw.douban.ui.home.movies.presenter.CommingSoonPresenter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter> implements CommingSoonContract.View, OnRefreshListener, OnLoadMoreListener {
 

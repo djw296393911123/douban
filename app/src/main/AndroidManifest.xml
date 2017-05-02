@@ -41,16 +41,11 @@
             android:name=".ui.home.movies.activity.Top250Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.MoreMovieActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
             android:name=".ui.home.music.activity.MusicInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.cloud.activity.CloudInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.cloud.activity.UserActivity" />
         <activity
             android:name=".ui.home.movies.activity.CommingSoonActivity"
             android:theme="@style/AppTheme.NoActionBar" />

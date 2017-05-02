@@ -43,7 +43,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new NewMoviesAdapter(getActivity());
+        adapter = new NewMoviesAdapter();
         recyclerView.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

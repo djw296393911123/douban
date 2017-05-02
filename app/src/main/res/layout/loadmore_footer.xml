@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200px"
     android:gravity="center"
@@ -7,24 +8,20 @@
     android:padding="30px">
 
 
-    <ProgressBar
-        android:id="@+id/pb_header"
-        android:layout_width="50px"
-        android:layout_height="50px" />
+    <com.wang.avi.AVLoadingIndicatorView
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="PacmanIndicator" />
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/tv_refresh_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_refresh_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正在加载"
-            android:textColor="@color/colorAccent"
-            android:textSize="30px" />
-    </LinearLayout>
+        android:text="正在加载"
+        android:textColor="@color/colorAccent"
+        android:textSize="30px" />
 </LinearLayout>

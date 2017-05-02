@@ -3,7 +3,6 @@ package com.djw.douban.base;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 

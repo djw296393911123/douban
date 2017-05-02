@@ -36,7 +36,8 @@ public abstract class CommonSubscribers<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-        mView.dismissProgress();
+        if (isShow)
+            mView.dismissProgress();
     }
 
     @Override

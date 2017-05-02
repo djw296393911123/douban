@@ -21,7 +21,6 @@ import com.djw.douban.ui.home.movies.presenter.PeoplePresenter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class PeopleActivity extends RxActivity<PeoplePresenter> implements MoviesPeopleContract.View {

@@ -37,13 +37,6 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         doubleBounce.setColor(R.color.colorAccent);
         progressDialog.setIndeterminateDrawable(doubleBounce);
         progressDialog.setMessage("正在加载...");
-//        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                //取消网络请求
-//                if (mPresenter != null) mPresenter.detachView();
-//            }
-//        });
     }
 
     public void startActivity(Class<?> clz) {

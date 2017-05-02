@@ -2,8 +2,12 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
@@ -11,30 +15,33 @@ import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.home.movies.adapter.Top250Adapter;
 import com.djw.douban.ui.home.movies.contract.Top250Contract;
 import com.djw.douban.ui.home.movies.presenter.Top250Presenter;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class Top250Activity extends RxToolbarActivity<Top250Presenter> implements Top250Contract.View, XRecyclerView.LoadingListener {
+public class Top250Activity extends RxToolbarActivity<Top250Presenter> implements Top250Contract.View, OnRefreshListener, OnLoadMoreListener {
 
-    @BindView(R.id.rv_top)
-    XRecyclerView rvTop;
+    @BindView(R.id.swipe_target)
+    RecyclerView rvTop;
+    @BindView(R.id.stll_movies)
+    SwipeToLoadLayout swipeToLoadLayout;
     private Top250Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top250);
+        ButterKnife.bind(this);
     }
 
     @Override
     public void initView() {
         setToolBarTitle(getString(R.string.top));
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
         rvTop.setLayoutManager(new LinearLayoutManager(this));
-        rvTop.setLoadingListener(this);
-        rvTop.setLoadingMoreProgressStyle(25);
         adapter = new Top250Adapter(this);
         rvTop.setAdapter(adapter);
     }
@@ -75,8 +82,12 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
 
     @Override
     public void showTop250(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
-        rvTop.refreshComplete();
-        rvTop.loadMoreComplete();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         adapter.notifyDataChange(list, isLoadMore);
     }
 }

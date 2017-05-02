@@ -13,6 +13,7 @@
         <ProgressBar
             android:id="@+id/pb_header"
             android:layout_width="50px"
+            android:layout_marginRight="50px"
             android:layout_height="50px"
             android:visibility="gone" />
 
@@ -20,6 +21,7 @@
             android:id="@+id/iv_jiantou"
             android:layout_width="50px"
             android:layout_height="50px"
+            android:layout_marginRight="50px"
             android:background="@drawable/jiantou_selector" />
     </FrameLayout>
 
@@ -38,12 +40,25 @@
             android:textColor="@color/colorAccent"
             android:textSize="30px" />
 
-        <TextView
-            android:id="@+id/tv_refresh_time"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="上次更新时间"
-            android:textColor="@color/colorAccent"
-            android:textSize="25px" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上次更新时间 : "
+                android:textColor="@color/colorAccent"
+                android:textSize="25px" />
+
+            <TextView
+                android:id="@+id/tv_refresh_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="25px" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

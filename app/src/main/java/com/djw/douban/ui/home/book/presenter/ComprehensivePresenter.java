@@ -5,6 +5,9 @@ import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.book.BannerData;
 import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.book.Books;
+import com.djw.douban.data.newbook.BookBannerData;
+import com.djw.douban.data.newbook.BookBaseData;
+import com.djw.douban.data.newbook.BookListData;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.home.book.contract.BookContract;
 import com.djw.douban.util.RxUtil;
@@ -39,6 +42,7 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
                     @Override
                     public void onNext(BookRoot bookRoot) {
                         if (!isLoadMore) {
+                            List<BookBaseData> list = new ArrayList<>();
                             List<String> url = new ArrayList<>();
                             List<String> title = new ArrayList<>();
                             List<String> id = new ArrayList<>();
@@ -48,9 +52,20 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
                                 title.add(books.getTitle());
                                 id.add(books.getId());
                             }
-                            mView.showBookList(bookRoot.getBooks().subList(6, bookRoot.getBooks().size()), new BannerData(url, title, id), false);
+                            list.add(new BookBannerData(title, url, id));
+
+                            for (int i = 6; i < bookRoot.getBooks().size(); i++) {
+                                Books books = bookRoot.getBooks().get(i);
+                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId()));
+                            }
+                            mView.showBookList(list, false);
                         } else {
-                            mView.showBookList(bookRoot.getBooks(), null, true);
+                            List<BookBaseData> list = new ArrayList<>();
+                            for (int i = 0; i < bookRoot.getBooks().size(); i++) {
+                                Books books = bookRoot.getBooks().get(i);
+                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImage(), books.getId()));
+                            }
+                            mView.showBookList(list, true);
                         }
                     }
                 });

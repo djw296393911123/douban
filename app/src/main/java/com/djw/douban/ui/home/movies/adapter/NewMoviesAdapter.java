@@ -48,8 +48,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private Context context;
 
-    public NewMoviesAdapter(Context context) {
-        this.context = context;
+    public NewMoviesAdapter() {
         this.list = new ArrayList<>();
     }
 
@@ -61,19 +60,20 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         switch (viewType) {
             case NewMoviesBaseData.ONE:
-                return new OneHolder(LayoutInflater.from(context).inflate(R.layout.item_new_one, parent, false));
+                return new OneHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_one, parent, false));
             case NewMoviesBaseData.TWO:
-                return new TwoHolder(LayoutInflater.from(context).inflate(R.layout.item_new_two, parent, false));
+                return new TwoHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_two, parent, false));
             case NewMoviesBaseData.THREE:
-                return new ThreeHolder(LayoutInflater.from(context).inflate(R.layout.item_new_three, parent, false));
+                return new ThreeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_three, parent, false));
             case NewMoviesBaseData.FOUR:
-                return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_fourr, parent, false));
+                return new FourHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_fourr, parent, false));
             case NewMoviesBaseData.FIVE:
-                return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_five, parent, false));
+                return new FiveHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_five, parent, false));
             case NewMoviesBaseData.SIX:
-                return new SixeHolder(LayoutInflater.from(context).inflate(R.layout.item_new_six, parent, false));
+                return new SixeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_six, parent, false));
 
         }
         return null;

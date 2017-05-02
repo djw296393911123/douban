@@ -113,12 +113,10 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showProgress() {
-        ((MainActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
-        ((MainActivity) getActivity()).dismissProgress();
     }
 
     @Override

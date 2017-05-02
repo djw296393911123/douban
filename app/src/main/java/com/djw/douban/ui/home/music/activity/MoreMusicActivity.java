@@ -2,8 +2,12 @@ package com.djw.douban.ui.home.music.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
@@ -11,15 +15,16 @@ import com.djw.douban.data.music.MusicRoot;
 import com.djw.douban.ui.home.music.adapter.MusicMoreAdapter;
 import com.djw.douban.ui.home.music.contract.MusicMoreContract;
 import com.djw.douban.ui.home.music.presenter.MusicMorePresenter;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> implements MusicMoreContract.View, XRecyclerView.LoadingListener {
+public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> implements MusicMoreContract.View, OnRefreshListener, OnLoadMoreListener {
 
-    @BindView(R.id.xrv_more)
-    XRecyclerView xrvMore;
+    @BindView(R.id.swipe_target)
+    RecyclerView rvMore;
+    @BindView(R.id.stll_movies)
+    SwipeToLoadLayout swipeToLoadLayout;
     private MusicMoreAdapter adapter;
     private String tag;
 
@@ -37,22 +42,27 @@ public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> imp
 
     @Override
     public void showMore(MusicRoot musicRoot, boolean isLoadMore) {
-        xrvMore.loadMoreComplete();
-        xrvMore.refreshComplete();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         adapter.notifyDataChange(musicRoot.getMusics(), isLoadMore);
     }
 
     @Override
     public void initView() {
-        xrvMore.setLayoutManager(new LinearLayoutManager(this));
-        xrvMore.setLoadingListener(this);
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        rvMore.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MusicMoreAdapter(this);
-        xrvMore.setAdapter(adapter);
+        rvMore.setAdapter(adapter);
     }
 
     @Override
     protected void scrollToTop() {
-        xrvMore.scrollToPosition(0);
+        rvMore.scrollToPosition(0);
     }
 
     @Override

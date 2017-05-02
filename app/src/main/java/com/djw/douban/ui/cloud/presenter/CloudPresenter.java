@@ -17,7 +17,9 @@ import javax.inject.Inject;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/12.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/12.
  */
 
 public class CloudPresenter extends RxPresenter<CloudContract.View> implements CloudContract.Presenter {
@@ -25,7 +27,7 @@ public class CloudPresenter extends RxPresenter<CloudContract.View> implements C
     private final RetrofitHelper helper;
 
     @Inject
-    public CloudPresenter(RetrofitHelper helper) {
+    CloudPresenter(RetrofitHelper helper) {
         this.helper = helper;
     }
 

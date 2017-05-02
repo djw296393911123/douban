@@ -28,7 +28,9 @@ import retrofit2.http.Query;
 import rx.Observable;
 
 /**
- * Created by JasonDong on 2017/4/7.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/7.
  */
 
 public interface DoubanApi {

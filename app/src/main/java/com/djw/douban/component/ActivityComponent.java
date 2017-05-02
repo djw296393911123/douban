@@ -5,12 +5,10 @@ import android.app.Activity;
 
 import com.djw.douban.http.ActivityScope;
 import com.djw.douban.module.ActivityModule;
-import com.djw.douban.ui.cloud.activity.UserActivity;
 import com.djw.douban.ui.home.activity.SearchActivity;
 import com.djw.douban.ui.home.book.activity.BookInfoActivity;
 import com.djw.douban.ui.home.movies.activity.CommingSoonActivity;
 import com.djw.douban.ui.home.movies.activity.HotActivity;
-import com.djw.douban.ui.home.movies.activity.MoreMovieActivity;
 import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
 import com.djw.douban.ui.home.movies.activity.People2Activity;
@@ -39,13 +37,9 @@ public interface ActivityComponent {
 
     void inject(Top250Activity top250Activity);
 
-    void inject(MoreMovieActivity moreMovieActivity);
-
     void inject(BookInfoActivity bookInfoActivity);
 
     void inject(MusicInfoActivity musicInfoActivity);
-
-    void inject(UserActivity userActivity);
 
     void inject(CommingSoonActivity commingSoonActivity);
 

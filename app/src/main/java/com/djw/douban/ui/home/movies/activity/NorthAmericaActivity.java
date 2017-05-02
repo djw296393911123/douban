@@ -2,9 +2,13 @@ package com.djw.douban.ui.home.movies.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.ParamsData;
@@ -12,24 +16,27 @@ import com.djw.douban.data.movies.NorthAmericaItemData;
 import com.djw.douban.ui.home.movies.adapter.NorthAmericaRecyclerAdapter;
 import com.djw.douban.ui.home.movies.contract.NorthAmericaContract;
 import com.djw.douban.ui.home.movies.presenter.NorthAmericaPresenter;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresenter> implements NorthAmericaContract.View, XRecyclerView.LoadingListener {
+public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresenter> implements NorthAmericaContract.View, OnRefreshListener, OnLoadMoreListener {
 
-    @BindView(R.id.xrv_north)
-    XRecyclerView xrvNorth;
+    @BindView(R.id.swipe_target)
+    RecyclerView rvNorth;
     @BindView(R.id.tv_north)
     TextView tvNorth;
+    @BindView(R.id.stll_movies)
+    SwipeToLoadLayout swipeToLoadLayout;
     private NorthAmericaRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_north_america);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -39,8 +46,12 @@ public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresente
 
     @Override
     public void showMoviesList(List<NorthAmericaItemData.SubjectsBean> list, String date, boolean isLoadMore) {
-        xrvNorth.loadMoreComplete();
-        xrvNorth.refreshComplete();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
         tvNorth.setText(date);
         adapter.notifyDataChange(list, isLoadMore);
     }
@@ -48,16 +59,16 @@ public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresente
     @Override
     public void initView() {
         setToolBarTitle(getString(R.string.northamerica));
-        xrvNorth.setLayoutManager(new LinearLayoutManager(this));
-        xrvNorth.setLoadingListener(this);
-        xrvNorth.setLoadingMoreProgressStyle(25);
+        swipeToLoadLayout.setOnRefreshListener(this);
+        swipeToLoadLayout.setOnLoadMoreListener(this);
+        rvNorth.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NorthAmericaRecyclerAdapter(this);
-        xrvNorth.setAdapter(adapter);
+        rvNorth.setAdapter(adapter);
     }
 
     @Override
     protected void scrollToTop() {
-        xrvNorth.scrollToPosition(0);
+        rvNorth.scrollToPosition(0);
     }
 
     @Override

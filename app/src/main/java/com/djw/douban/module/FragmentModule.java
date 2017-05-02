@@ -10,7 +10,9 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by JasonDong on 2017/3/23.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/23.
  */
 @Module
 public class FragmentModule {

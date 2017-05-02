@@ -8,6 +8,7 @@ import com.djw.douban.component.AppComponent;
 import com.djw.douban.component.DaggerAppComponent;
 import com.djw.douban.module.AppMoudel;
 import com.djw.douban.module.HttpMoudel;
+import com.djw.douban.util.SPUtils;
 
 /**
  * Created by JasonDong on 2017/3/23.
@@ -21,6 +22,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        SPUtils.init(this, "carinfo");
         ViewTarget.setTagId(R.id.glide_tag_id);
     }
 
