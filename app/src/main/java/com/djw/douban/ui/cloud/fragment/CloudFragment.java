@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
-import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;

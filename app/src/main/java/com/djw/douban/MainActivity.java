@@ -11,8 +11,9 @@ import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.djw.douban.adapter.MainNavigatorAdapter;
 import com.djw.douban.base.SimpleActivity;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
-import com.djw.douban.ui.home.fragment.HomeFragment;
-import com.djw.douban.ui.mine.fragment.MineFragment;
+import com.djw.douban.ui.book.fragment.BookFragment;
+import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
+import com.djw.douban.ui.music.fragment.NewMusicFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,10 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
 
     private void initNavigator(Bundle savedInstanceState) {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new HomeFragment());
+        fragments.add(new NewMoviesFragment());
+        fragments.add(new BookFragment());
+        fragments.add(new NewMusicFragment());
         fragments.add(new CloudFragment());
-        fragments.add(new MineFragment());
         navigator = new FragmentNavigator(getSupportFragmentManager(), new MainNavigatorAdapter(fragments), R.id.fl_main);
         navigator.setDefaultPosition(DEFAULT_POSITION);
         navigator.onCreate(savedInstanceState);
@@ -43,9 +45,10 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
         bar.setMode(BottomNavigationBar.MODE_FIXED);
         bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_black_24dp, getString(R.string.home)))
-                .addItem(new BottomNavigationItem(R.drawable.ic_wb_cloudy_black_24dp, getString(R.string.guangbo)))
-                .addItem(new BottomNavigationItem(R.drawable.ic_assignment_ind_black_24dp, getString(R.string.mine)))
+                .addItem(new BottomNavigationItem(R.mipmap.movies, getString(R.string.movies)))
+                .addItem(new BottomNavigationItem(R.mipmap.books, getString(R.string.books)))
+                .addItem(new BottomNavigationItem(R.mipmap.music, getString(R.string.music)))
+                .addItem(new BottomNavigationItem(R.mipmap.activity, getString(R.string.guangbo)))
                 .initialise();
         bar.setTabSelectedListener(this);
         setCurrentTab(navigator.getCurrentPosition());

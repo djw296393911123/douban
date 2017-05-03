@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.djw.douban.ui.home.movies.activity.TypeActivity">
+    tools:context=".ui.movies.activity.TypeActivity">
 
     <include
         layout="@layout/toolbar_title"

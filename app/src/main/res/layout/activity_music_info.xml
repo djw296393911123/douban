@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.djw.douban.ui.home.music.activity.MusicInfoActivity">
+    tools:context=".ui.music.activity.MusicInfoActivity">
 
     <include
         layout="@layout/toolbar_title"

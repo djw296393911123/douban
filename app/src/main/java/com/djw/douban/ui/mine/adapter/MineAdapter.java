@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.mine.MineListData;
-import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
+import com.djw.douban.ui.movies.activity.MovieInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;

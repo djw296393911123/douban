@@ -8,4 +8,5 @@
     <color name="type_text">#aaa</color>
     <color name="tab_noselect">#333</color>
     <color name="book_tab">#eef</color>
+    <color name="translation">#00ffffff</color>
 </resources>

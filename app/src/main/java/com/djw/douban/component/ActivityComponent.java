@@ -5,19 +5,19 @@ import android.app.Activity;
 
 import com.djw.douban.http.ActivityScope;
 import com.djw.douban.module.ActivityModule;
-import com.djw.douban.ui.home.activity.SearchActivity;
-import com.djw.douban.ui.home.book.activity.BookInfoActivity;
-import com.djw.douban.ui.home.movies.activity.CommingSoonActivity;
-import com.djw.douban.ui.home.movies.activity.HotActivity;
-import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
-import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
-import com.djw.douban.ui.home.movies.activity.People2Activity;
-import com.djw.douban.ui.home.movies.activity.PeopleActivity;
-import com.djw.douban.ui.home.movies.activity.Top250Activity;
-import com.djw.douban.ui.home.movies.activity.TypeActivity;
-import com.djw.douban.ui.home.music.activity.ChooseTypeActivity;
-import com.djw.douban.ui.home.music.activity.MoreMusicActivity;
-import com.djw.douban.ui.home.music.activity.MusicInfoActivity;
+import com.djw.douban.ui.search.activity.SearchActivity;
+import com.djw.douban.ui.book.activity.BookInfoActivity;
+import com.djw.douban.ui.movies.activity.CommingSoonActivity;
+import com.djw.douban.ui.movies.activity.HotActivity;
+import com.djw.douban.ui.movies.activity.MovieInfoActivity;
+import com.djw.douban.ui.movies.activity.NorthAmericaActivity;
+import com.djw.douban.ui.movies.activity.People2Activity;
+import com.djw.douban.ui.movies.activity.PeopleActivity;
+import com.djw.douban.ui.movies.activity.Top250Activity;
+import com.djw.douban.ui.movies.activity.TypeActivity;
+import com.djw.douban.ui.music.activity.ChooseTypeActivity;
+import com.djw.douban.ui.music.activity.MoreMusicActivity;
+import com.djw.douban.ui.music.activity.MusicInfoActivity;
 
 import dagger.Component;
 

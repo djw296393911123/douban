@@ -29,43 +29,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.movies.activity.MovieInfoActivity"
+            android:name=".ui.movies.activity.MovieInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.PeopleActivity"
+            android:name=".ui.movies.activity.PeopleActivity"
             android:theme="@style/NoStateBar" />
         <activity
-            android:name=".ui.home.book.activity.BookInfoActivity"
+            android:name=".ui.book.activity.BookInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.Top250Activity"
+            android:name=".ui.movies.activity.Top250Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.music.activity.MusicInfoActivity"
+            android:name=".ui.music.activity.MusicInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.cloud.activity.CloudInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.CommingSoonActivity"
+            android:name=".ui.movies.activity.CommingSoonActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.NorthAmericaActivity"
+            android:name=".ui.movies.activity.NorthAmericaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.HotActivity"
+            android:name=".ui.movies.activity.HotActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.movies.activity.TypeActivity"
+            android:name=".ui.movies.activity.TypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.activity.SearchActivity"
+            android:name=".ui.search.activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.music.activity.MoreMusicActivity"
+            android:name=".ui.music.activity.MoreMusicActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.music.activity.ChooseTypeActivity"
+            android:name=".ui.music.activity.ChooseTypeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -6,9 +6,9 @@ import android.app.Activity;
 import com.djw.douban.http.FragmentScope;
 import com.djw.douban.module.FragmentModule;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
-import com.djw.douban.ui.home.book.fragment.BookFragment;
-import com.djw.douban.ui.home.movies.fragment.NewMoviesFragment;
-import com.djw.douban.ui.home.music.fragment.NewMusicFragment;
+import com.djw.douban.ui.book.fragment.BookFragment;
+import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
+import com.djw.douban.ui.music.fragment.NewMusicFragment;
 import com.djw.douban.ui.mine.fragment.MineFragment;
 
 import dagger.Component;

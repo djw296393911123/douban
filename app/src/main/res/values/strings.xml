@@ -27,4 +27,7 @@
     <string name="person_name">JasonDong</string>
     <string name="person_title">android程序员</string>
     <string name="person_intro">asdf</string>
+    <string name="music">音乐</string>
+    <string name="books">书籍</string>
+    <string name="movies">电影</string>
 </resources>

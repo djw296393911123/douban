@@ -1,10 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:swipe_style="classic"
-    tools:context="com.djw.douban.ui.home.movies.fragment.NewMoviesFragment">
+    tools:context=".ui.movies.fragment.NewMoviesFragment">
+
+    <include layout="@layout/toolbar_search" />
 
     <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
         android:id="@+id/stll_movies"
@@ -31,4 +34,4 @@
             android:gravity="center_horizontal" />
     </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
-</FrameLayout>
+</LinearLayout>

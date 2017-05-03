@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.djw.douban.ui.home.movies.activity.CommingSoonActivity">
+    tools:context=".ui.movies.activity.CommingSoonActivity">
 
     <include
         layout="@layout/toolbar_title"

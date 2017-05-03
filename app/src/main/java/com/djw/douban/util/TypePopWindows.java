@@ -11,10 +11,8 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import com.djw.douban.R;
-import com.djw.douban.data.cloud.CityData;
 import com.djw.douban.data.newmusic.MusicStyleInfoData;
-import com.djw.douban.ui.cloud.adapter.CityAdapter;
-import com.djw.douban.ui.home.movies.adapter.SelectTypeAdapter;
+import com.djw.douban.ui.movies.adapter.SelectTypeAdapter;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;

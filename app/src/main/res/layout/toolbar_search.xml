@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_serach"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="48px"
+                android:layout_height="48px"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/qr" />
+
+            <LinearLayout
+                android:layout_width="502px"
+                android:layout_height="64px"
+                android:layout_marginBottom="16px"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="16px"
+                android:background="@drawable/toolbar_search_bg"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28px"
+                    android:layout_height="28px"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="12px"
+                    android:src="@mipmap/toolbar_search" />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/translation"
+                    android:hint="请输入关键字"
+                    android:imeOptions="actionSearch"
+                    android:singleLine="true"
+                    android:textColorHint="#999999"
+                    android:textSize="25px" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="48px"
+                android:layout_height="48px"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@mipmap/message" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
