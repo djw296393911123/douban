@@ -14,14 +14,11 @@ public class NewMovieOne extends NewMoviesBaseData {
 
     private List<String> ids;
 
-    private List<String> direct_id;
-
-    public NewMovieOne(List<String> titles, List<String> urls, List<String> ids,List<String> direct_id) {
+    public NewMovieOne(List<String> titles, List<String> urls, List<String> ids) {
         super(NewMoviesBaseData.ONE);
         this.titles = titles;
         this.urls = urls;
         this.ids = ids;
-        this.direct_id = direct_id;
     }
 
     public List<String> getTitles() {
@@ -48,11 +45,4 @@ public class NewMovieOne extends NewMoviesBaseData {
         this.ids = ids;
     }
 
-    public List<String> getDirect_id() {
-        return direct_id;
-    }
-
-    public void setDirect_id(List<String> direct_id) {
-        this.direct_id = direct_id;
-    }
 }

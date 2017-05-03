@@ -18,6 +18,7 @@ import com.djw.douban.data.newmovies.NewMovieOne;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
+import com.djw.douban.data.newmovies.NewMoviesSeven;
 import com.djw.douban.data.newmovies.NewMoviesSix;
 import com.djw.douban.data.newmovies.NewMoviesThree;
 import com.djw.douban.data.newmovies.NewMoviesTwo;
@@ -27,6 +28,7 @@ import com.djw.douban.ui.home.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.home.movies.activity.NorthAmericaActivity;
 import com.djw.douban.ui.home.movies.activity.Top250Activity;
 import com.djw.douban.ui.home.movies.activity.TypeActivity;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -74,7 +76,8 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new FiveHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_five, parent, false));
             case NewMoviesBaseData.SIX:
                 return new SixeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_six, parent, false));
-
+            case NewMoviesBaseData.SEVEN:
+                return new SevenHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_seven, parent, false));
         }
         return null;
     }
@@ -109,6 +112,19 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 twoHolder.tvTwoTwo.setText(two.getName().get(1));
                 twoHolder.tvTwoThree.setText(two.getName().get(2));
                 twoHolder.tvTwoFour.setText(two.getName().get(3));
+
+                twoHolder.ivTowFive.setImageResource(two.getUrl().get(4));
+                twoHolder.ivTowFive.setOnClickListener(this);
+                twoHolder.ivTowSix.setImageResource(two.getUrl().get(5));
+                twoHolder.ivTowSix.setOnClickListener(this);
+                twoHolder.ivTowSeven.setImageResource(two.getUrl().get(6));
+                twoHolder.ivTowSeven.setOnClickListener(this);
+                twoHolder.ivTowEight.setImageResource(two.getUrl().get(7));
+                twoHolder.ivTowEight.setOnClickListener(this);
+                twoHolder.tvTwoFive.setText(two.getName().get(4));
+                twoHolder.tvTwoSix.setText(two.getName().get(5));
+                twoHolder.tvTwoSeven.setText(two.getName().get(6));
+                twoHolder.tvTwoEight.setText(two.getName().get(7));
                 break;
             case NewMoviesBaseData.THREE:
                 ThreeHolder threeHolder = (ThreeHolder) holder;
@@ -128,10 +144,13 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 fourHolder.cardView.setTag(Integer.parseInt(four.getId()));
                 fourHolder.cardView.setOnClickListener(this);
                 fourHolder.direct.setText(four.getDirect());
+                if (four.isGood()) fourHolder.tuijian.setVisibility(View.VISIBLE);
+                else fourHolder.tuijian.setVisibility(View.GONE);
                 break;
             case NewMoviesBaseData.FIVE:
                 FiveHolder fiveHolder = (FiveHolder) holder;
                 NewMoviesFive five = (NewMoviesFive) list.get(position);
+                Glide.with(context).load(five.getImg()).asBitmap().into(fiveHolder.imageView);
                 fiveHolder.textView.setText(five.getName());
                 break;
             case NewMoviesBaseData.SIX:
@@ -139,6 +158,11 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 NewMoviesSix six = (NewMoviesSix) list.get(position);
                 sixeHolder.textView.setText(six.getName());
                 sixeHolder.layout.setOnClickListener(this);
+                break;
+            case NewMoviesBaseData.SEVEN:
+                SevenHolder sevenHolder = (SevenHolder) holder;
+                NewMoviesSeven seven = (NewMoviesSeven) list.get(position);
+                sevenHolder.marqueeView.startWithList(seven.getTitles());
                 break;
         }
     }
@@ -200,6 +224,26 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 four.putString("q", "爱情");
                 ((MainActivity) context).startActivity(TypeActivity.class, four);
                 break;
+            case R.id.iv_tow_five:
+                Bundle five = new Bundle();
+                five.putString("q", "悬疑");
+                ((MainActivity) context).startActivity(TypeActivity.class, five);
+                break;
+            case R.id.iv_tow_six:
+                Bundle six = new Bundle();
+                six.putString("q", "动作");
+                ((MainActivity) context).startActivity(TypeActivity.class, six);
+                break;
+            case R.id.iv_tow_seven:
+                Bundle seven = new Bundle();
+                seven.putString("q", "灾难");
+                ((MainActivity) context).startActivity(TypeActivity.class, seven);
+                break;
+            case R.id.iv_tow_eight:
+                Bundle eight = new Bundle();
+                eight.putString("q", "剧情");
+                ((MainActivity) context).startActivity(TypeActivity.class, eight);
+                break;
             case R.id.ll_six_layout:
                 ((MainActivity) context).startActivity(HotActivity.class);
                 break;
@@ -221,7 +265,11 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView ivTowTwo;
         ImageView ivTowThree;
         ImageView ivTowFour;
-        TextView tvTwoOne, tvTwoTwo, tvTwoThree, tvTwoFour;
+        ImageView ivTowFive;
+        ImageView ivTowSix;
+        ImageView ivTowSeven;
+        ImageView ivTowEight;
+        TextView tvTwoOne, tvTwoTwo, tvTwoThree, tvTwoFour, tvTwoFive, tvTwoSix, tvTwoSeven, tvTwoEight;
 
         TwoHolder(View view) {
             super(view);
@@ -230,10 +278,18 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ivTowTwo = ((ImageView) view.findViewById(R.id.iv_tow_two));
             ivTowThree = ((ImageView) view.findViewById(R.id.iv_tow_three));
             ivTowFour = ((ImageView) view.findViewById(R.id.iv_tow_four));
+            ivTowFive = ((ImageView) view.findViewById(R.id.iv_tow_five));
+            ivTowSix = ((ImageView) view.findViewById(R.id.iv_tow_six));
+            ivTowSeven = ((ImageView) view.findViewById(R.id.iv_tow_seven));
+            ivTowEight = ((ImageView) view.findViewById(R.id.iv_tow_eight));
             tvTwoOne = ((TextView) view.findViewById(R.id.tv_two_one));
             tvTwoTwo = ((TextView) view.findViewById(R.id.tv_two_two));
             tvTwoThree = ((TextView) view.findViewById(R.id.tv_two_three));
             tvTwoFour = ((TextView) view.findViewById(R.id.tv_two_four));
+            tvTwoFive = ((TextView) view.findViewById(R.id.tv_two_five));
+            tvTwoSix = ((TextView) view.findViewById(R.id.tv_two_six));
+            tvTwoSeven = ((TextView) view.findViewById(R.id.tv_two_seven));
+            tvTwoEight = ((TextView) view.findViewById(R.id.tv_two_eight));
         }
     }
 
@@ -252,6 +308,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private static class FourHolder extends RecyclerView.ViewHolder {
+        ImageView tuijian;
         CardView cardView;
         TextView name;
         ImageView ivFour;
@@ -264,16 +321,19 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             name = ((TextView) view.findViewById(R.id.tv_foru_name));
             cardView = ((CardView) view.findViewById(R.id.cv_item));
             direct = ((TextView) view.findViewById(R.id.tv_singer));
+            tuijian = ((ImageView) view.findViewById(R.id.iv_four_tuijian));
         }
     }
 
     private static class FiveHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
         TextView textView;
 
         FiveHolder(View view) {
             super(view);
             AutoUtils.autoSize(view);
             textView = (TextView) view.findViewById(R.id.tv_five);
+            imageView = ((ImageView) view.findViewById(R.id.iv_five));
         }
     }
 
@@ -286,6 +346,17 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             AutoUtils.autoSize(view);
             textView = (TextView) view.findViewById(R.id.tv_six_more);
             layout = ((LinearLayout) view.findViewById(R.id.ll_six_layout));
+        }
+    }
+
+    private static class SevenHolder extends RecyclerView.ViewHolder {
+
+        MarqueeView marqueeView;
+
+        SevenHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            marqueeView = ((MarqueeView) view.findViewById(R.id.mv_tuijian));
         }
     }
 

@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by JasonDong on 2017/5/2.
+ * Created by JasonDong
+ * <p>
+ * on 2017/5/2.
  */
 
 public class RefreshHeaderTimeView extends RelativeLayout implements SwipeTrigger, SwipeRefreshTrigger {
@@ -45,7 +47,6 @@ public class RefreshHeaderTimeView extends RelativeLayout implements SwipeTrigge
         pb = (ProgressBar) view.findViewById(R.id.pb_header);
         jiantou = ((ImageView) view.findViewById(R.id.iv_jiantou));
     }
-
 
 
     @Override

@@ -5,17 +5,16 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="horizontal">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_five"
-        android:layout_width="48px"
-        android:layout_height="48px" />
-
+    </LinearLayout>
     <TextView
         android:id="@+id/tv_five"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
         android:gravity="center"
         android:padding="20px"
         android:textColor="@color/colorAccent"

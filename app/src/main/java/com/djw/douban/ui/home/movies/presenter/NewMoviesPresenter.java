@@ -1,5 +1,7 @@
 package com.djw.douban.ui.home.movies.presenter;
 
+import android.util.Log;
+
 import com.djw.douban.R;
 import com.djw.douban.base.ApiException;
 import com.djw.douban.base.CommonSubscribers;
@@ -9,6 +11,7 @@ import com.djw.douban.data.newmovies.NewMovieOne;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
+import com.djw.douban.data.newmovies.NewMoviesSeven;
 import com.djw.douban.data.newmovies.NewMoviesThree;
 import com.djw.douban.data.newmovies.NewMoviesTwo;
 import com.djw.douban.http.RetrofitHelper;
@@ -32,8 +35,8 @@ import rx.Subscription;
 public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> implements NewMoviesContract.Presenter {
 
     private final RetrofitHelper helper;
-    private int[] twos = {R.mipmap.hot, R.mipmap.jingpin, R.mipmap.tejia, R.mipmap.tuijian};
-    private String[] twos_title = {"热门", "喜剧", "犯罪", "爱情"};
+    private int[] twos = {R.mipmap.hot, R.mipmap.jingpin, R.mipmap.tejia, R.mipmap.tuijian, R.mipmap.xuanyi, R.mipmap.dongzuo, R.mipmap.zainan, R.mipmap.juqing};
+    private String[] twos_title = {"热门", "喜剧", "犯罪", "爱情", "悬疑", "动作", "灾难", "剧情"};
 
     @Inject
     NewMoviesPresenter(RetrofitHelper helper) {
@@ -54,22 +57,20 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                                 for (int i = 0; i < subjects.size(); i++) {
                                     MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
                                     List<MoviesItemData.SubjectsBean.DirectorsBean> directors = subjectsBean.getDirectors();
-                                    list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), directors.size() > 0 ? directors.get(0).getName() : "JasonDong"));
+                                    list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), directors.size() > 0 ? directors.get(0).getName() : "JasonDong", Integer.parseInt(subjectsBean.getRating().getStars()) > 10));
                                 }
                             } else new ApiException("没有更多数据");
                         } else {
                             List<String> urls = new ArrayList<>();
                             List<String> titles = new ArrayList<>();
                             List<String> ids = new ArrayList<>();
-                            List<String> direct_id = new ArrayList<>();
 
                             for (int i = 0; i < 5; i++) {
                                 titles.add(subjects.get(i).getTitle());
                                 urls.add(subjects.get(i).getImages().getLarge());
                                 ids.add(subjects.get(i).getId());
-                                direct_id.add(subjects.get(i).getDirectors().get(0).getId());
                             }
-                            list.add(new NewMovieOne(titles, urls, ids, direct_id));
+                            list.add(new NewMovieOne(titles, urls, ids));
 
 //                            list.add(new NewMoviesFive("精彩分类"));
 
@@ -83,7 +84,25 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                             }
                             list.add(new NewMoviesTwo(titles_two, urls_two, ids_two));
 
-                            list.add(new NewMoviesFive("精选榜单"));
+                            List<String> titles_tuijian = new ArrayList<>();
+                            List<Integer> id_tuijian = new ArrayList<>();
+
+                            titles_tuijian.add("经典老电影");
+                            id_tuijian.add(1);
+                            titles_tuijian.add("影院热映");
+                            id_tuijian.add(2);
+                            titles_tuijian.add("经典老电影");
+                            id_tuijian.add(3);
+                            titles_tuijian.add("经典老电影");
+                            id_tuijian.add(4);
+                            titles_tuijian.add("经典老电影");
+                            id_tuijian.add(5);
+                            titles_tuijian.add("经典老电影");
+                            id_tuijian.add(6);
+
+                            list.add(new NewMoviesSeven(titles_tuijian, id_tuijian));
+
+                            list.add(new NewMoviesFive("精选榜单", R.mipmap.paihangbang));
 
                             List<String> urls_three = new ArrayList<>();
                             List<String> titles_three = new ArrayList<>();
@@ -96,11 +115,11 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                             }
                             list.add(new NewMoviesThree(titles_three, urls_three, ids_three));
 
-                            list.add(new NewMoviesFive("即将上映"));
+                            list.add(new NewMoviesFive("即将上映", R.mipmap.jijiangshangying));
 
                             for (int i = 8; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
-                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().size() > 0 ? subjectsBean.getDirectors().get(0).getName() : "JasonDong"));
+                                list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().size() > 0 ? subjectsBean.getDirectors().get(0).getName() : "JasonDong", Integer.parseInt(subjectsBean.getRating().getStars()) > 10));
                             }
 
 //                            list.add(new NewMoviesSix("查看更多"));

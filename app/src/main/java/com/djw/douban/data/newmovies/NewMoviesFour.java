@@ -16,13 +16,16 @@ public class NewMoviesFour extends NewMoviesBaseData {
 
     private String direct;
 
-    public NewMoviesFour(String name, String url, String id, String grade, String direct) {
+    private boolean isGood;
+
+    public NewMoviesFour(String name, String url, String id, String grade, String direct,boolean isGood) {
         super(NewMoviesBaseData.FOUR);
         this.name = name;
         this.url = url;
         this.id = id;
         this.grade = grade;
         this.direct = direct;
+        this.isGood = isGood;
     }
 
     public String getName() {
@@ -65,4 +68,11 @@ public class NewMoviesFour extends NewMoviesBaseData {
         this.direct = direct;
     }
 
+    public boolean isGood() {
+        return isGood;
+    }
+
+    public void setGood(boolean good) {
+        isGood = good;
+    }
 }

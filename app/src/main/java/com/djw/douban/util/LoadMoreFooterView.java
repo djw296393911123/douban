@@ -13,7 +13,9 @@ import com.djw.douban.R;
 import com.zhy.autolayout.utils.AutoUtils;
 
 /**
- * Created by JasonDong on 2017/5/2.
+ * Created by JasonDong
+ * <p>
+ * on 2017/5/2.
  */
 
 public class LoadMoreFooterView extends RelativeLayout implements SwipeTrigger, SwipeRefreshTrigger {
