@@ -30,4 +30,5 @@
     <string name="music">音乐</string>
     <string name="books">书籍</string>
     <string name="movies">电影</string>
+    <string name="message">消息</string>
 </resources>

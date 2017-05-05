@@ -25,7 +25,9 @@ import rx.Observable;
 import rx.Subscription;
 
 /**
- * Created by JasonDong on 2017/4/17.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/17.
  */
 
 public class SearchPresenter extends RxPresenter<SearchContract.View> implements SearchContract.Presenter {

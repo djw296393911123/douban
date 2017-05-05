@@ -14,6 +14,7 @@ import com.djw.douban.R;
 import com.djw.douban.ui.music.activity.ChooseTypeActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +28,15 @@ class MusicChooseAdapter extends RecyclerView.Adapter<MusicChooseAdapter.MusicCh
 
     private Context context;
 
-    MusicChooseAdapter(List<String> list, Context context) {
-        this.list = list;
+    MusicChooseAdapter(Context context) {
+        this.list = new ArrayList<>();
         this.context = context;
+    }
+
+    public void notifyDataChange(List<String> list) {
+        this.list.clear();
+        this.list.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override

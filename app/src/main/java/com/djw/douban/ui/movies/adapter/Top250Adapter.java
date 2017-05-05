@@ -39,9 +39,14 @@ public class Top250Adapter extends RecyclerView.Adapter<Top250Adapter.Top250Hold
     }
 
     public void notifyDataChange(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
-        if (!isLoadMore) this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
+        if (isLoadMore) {
+            this.list.addAll(list);
+            notifyItemRangeChanged(getItemCount() + 1, list.size());
+        } else {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

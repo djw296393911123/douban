@@ -23,7 +23,9 @@ import java.util.List;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
- * Created by JasonDong on 2017/4/12.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/12.
  */
 
 public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder> {
@@ -32,15 +34,20 @@ public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.Clo
 
     private Context context;
 
-    public CloudAdapter(Context context) {
+    protected CloudAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
     }
 
     public void notifyDataChange(List<CloudItemData.EventsBean> list, boolean isLoadMore) {
-        if (!isLoadMore) this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
+        if (isLoadMore) {
+            this.list.addAll(list);
+            notifyItemRangeChanged(getItemCount() + 1, list.size());
+        } else {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -81,7 +88,6 @@ public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.Clo
             }
         });
     }
-
 
 
     @Override

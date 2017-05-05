@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +13,24 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
+import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.newmusic.MusicBaseData;
 import com.djw.douban.data.newmusic.MusicChooseData;
+import com.djw.douban.data.newmusic.MusicContentBaseData;
 import com.djw.douban.data.newmusic.MusicContentData;
 import com.djw.douban.data.newmusic.MusicLikeData;
+import com.djw.douban.data.newmusic.MusicMVData;
 import com.djw.douban.data.newmusic.MusicNewFiveData;
 import com.djw.douban.data.newmusic.MusicNoMoreData;
 import com.djw.douban.data.newmusic.MusicTypeData;
 import com.djw.douban.ui.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.music.activity.MusicInfoActivity;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -51,7 +56,8 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void notifyDataChange(List<MusicBaseData> list) {
 //        this.list.clear();
         this.list.addAll(list);
-        notifyDataSetChanged();
+        if (getItemCount() == 0) notifyItemRangeChanged(getItemCount(), list.size());
+        else notifyItemRangeChanged(getItemCount() + 1, list.size());
     }
 
     @Override
@@ -69,6 +75,8 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_six, parent, false));
             case MusicBaseData.SIX:
                 return new SixHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_nomore, parent, false));
+            case MusicBaseData.SEVEN:
+                return new SevenHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_music_seven_item, parent, false));
 
         }
         return null;
@@ -98,16 +106,12 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case MusicBaseData.TWO:
                 NewMusicContentHolder contentHolder = (NewMusicContentHolder) holder;
                 MusicContentData contentData = (MusicContentData) list.get(position);
-                RecyclerView recyclerView = contentHolder.recyclerView;
-                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-                recyclerView.setAdapter(new MusicContentAdapter(contentData.getList(), context));
+                contentHolder.loadData(contentData.getList());
                 break;
             case MusicBaseData.THREE:
                 NewMusicChooseHolder chooseHolder = (NewMusicChooseHolder) holder;
                 MusicChooseData chooseData = (MusicChooseData) list.get(position);
-                RecyclerView rvChoose = chooseHolder.recyclerView;
-                rvChoose.setLayoutManager(new GridLayoutManager(context, 4));
-                rvChoose.setAdapter(new MusicChooseAdapter(chooseData.getName(), context));
+                chooseHolder.loadData(chooseData.getName());
                 break;
             case MusicBaseData.FOUR:
                 FourHolder fourHolder = (FourHolder) holder;
@@ -135,6 +139,20 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
             case MusicBaseData.SIX:
                 ((SixHolder) holder).textView.setText(((MusicNoMoreData) list.get(position)).getTitle());
+                break;
+            case MusicBaseData.SEVEN:
+                SevenHolder sevenHolder = (SevenHolder) holder;
+                final MusicMVData seven = (MusicMVData) list.get(position);
+                sevenHolder.marqueeView.startWithList(seven.getTitles());
+                sevenHolder.marqueeView.setTag(seven.getTypes());
+                sevenHolder.marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, TextView textView) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("tag", seven.getTypes().get(position));
+                        ((MainActivity) context).startActivity(MoreMusicActivity.class, bundle);
+                    }
+                });
                 break;
         }
     }
@@ -170,26 +188,46 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private static class NewMusicContentHolder extends RecyclerView.ViewHolder {
 
-
-        private final RecyclerView recyclerView;
+        private final MusicContentAdapter adapter;
 
         NewMusicContentHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
-            recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_music_content));
+            RecyclerView recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_music_content));
+            CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.addOnScrollListener(new CenterScrollListener());
+            layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+            adapter = new MusicContentAdapter(itemView.getContext());
+            recyclerView.setAdapter(adapter);
+            recyclerView.scrollToPosition(1);
         }
+
+        void loadData(List<MusicContentBaseData> list) {
+            adapter.notifyDataChange(list);
+        }
+
     }
 
     private static class NewMusicChooseHolder extends RecyclerView.ViewHolder {
 
 
-        private final RecyclerView recyclerView;
+        private final MusicChooseAdapter adapter;
 
         NewMusicChooseHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
-            recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_music_content));
+            RecyclerView recyclerView = ((RecyclerView) itemView.findViewById(R.id.rv_music_content));
+            recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(), 4));
+            adapter = new MusicChooseAdapter(itemView.getContext());
+            recyclerView.setAdapter(adapter);
         }
+
+        void loadData(List<String> list) {
+            adapter.notifyDataChange(list);
+        }
+
     }
 
     private static class FourHolder extends RecyclerView.ViewHolder {
@@ -231,6 +269,17 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(view);
             AutoUtils.autoSize(view);
             textView = (TextView) view.findViewById(R.id.tv_music_type);
+        }
+    }
+
+    private static class SevenHolder extends RecyclerView.ViewHolder {
+
+        MarqueeView marqueeView;
+
+        SevenHolder(View view) {
+            super(view);
+            AutoUtils.autoSize(view);
+            marqueeView = ((MarqueeView) view.findViewById(R.id.mv_tuijian));
         }
     }
 

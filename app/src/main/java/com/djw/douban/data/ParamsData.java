@@ -9,7 +9,7 @@ public class ParamsData {
 
     public static final int COUNT = 18;
 
-    public static final int COUNT_TWO = 4;
+    public static final int COUNT_NEW_MOVIES = 36;
 
     public static final int COUNT_THREE = 9;
 

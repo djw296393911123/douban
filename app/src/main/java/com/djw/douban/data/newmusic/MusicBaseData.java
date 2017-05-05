@@ -18,6 +18,8 @@ public class MusicBaseData {
 
     public static final int SIX = 0x9006;
 
+    public static final int SEVEN = 0x9007;
+
     private int type;
 
     public MusicBaseData(int type) {

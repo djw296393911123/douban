@@ -10,6 +10,8 @@ public class BookBaseData {
 
     public static final int LIST = 0x9002;
 
+    public static final int TYPE = 0x9003;
+
     private int type;
 
     public BookBaseData(int type) {

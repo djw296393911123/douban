@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import com.djw.douban.http.ActivityScope;
 import com.djw.douban.module.ActivityModule;
+import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.ui.book.activity.BookInfoActivity;
 import com.djw.douban.ui.movies.activity.CommingSoonActivity;
@@ -56,4 +57,6 @@ public interface ActivityComponent {
     void inject(ChooseTypeActivity chooseTypeActivity);
 
     void inject(People2Activity people2Activity);
+
+    void inject(MessageActivity messageActivity);
 }

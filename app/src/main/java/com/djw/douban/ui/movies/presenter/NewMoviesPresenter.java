@@ -5,13 +5,19 @@ import com.djw.douban.base.ApiException;
 import com.djw.douban.base.CommonSubscribers;
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.movies.MoviesItemData;
+import com.djw.douban.data.newmovies.MoviesEightItemData;
+import com.djw.douban.data.newmovies.NewMovieNineItemData;
 import com.djw.douban.data.newmovies.NewMovieOne;
+import com.djw.douban.data.newmovies.NewMovieTen;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
+import com.djw.douban.data.newmovies.NewMoviesEight;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
+import com.djw.douban.data.newmovies.NewMoviesNine;
 import com.djw.douban.data.newmovies.NewMoviesSeven;
 import com.djw.douban.data.newmovies.NewMoviesThree;
 import com.djw.douban.data.newmovies.NewMoviesTwo;
+import com.djw.douban.data.newmovies.NewMoviewTwoItemData;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.movies.contract.NewMoviesContract;
 import com.djw.douban.util.RxUtil;
@@ -72,15 +78,11 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
 
 //                            list.add(new NewMoviesFive("精彩分类"));
 
-                            List<Integer> urls_two = new ArrayList<>();
-                            List<String> titles_two = new ArrayList<>();
-                            List<String> ids_two = new ArrayList<>();
+                            List<NewMoviewTwoItemData> twoItemDatas = new ArrayList<>();
                             for (int i = 0; i < twos.length; i++) {
-                                urls_two.add(twos[i]);
-                                titles_two.add(twos_title[i]);
-                                ids_two.add(String.valueOf(i));
+                                twoItemDatas.add(new NewMoviewTwoItemData(twos[i], twos_title[i], String.valueOf(i)));
                             }
-                            list.add(new NewMoviesTwo(titles_two, urls_two, ids_two));
+                            list.add(new NewMoviesTwo(twoItemDatas));
 
                             List<String> titles_tuijian = new ArrayList<>();
                             List<Integer> id_tuijian = new ArrayList<>();
@@ -113,9 +115,55 @@ public class NewMoviesPresenter extends RxPresenter<NewMoviesContract.View> impl
                             }
                             list.add(new NewMoviesThree(titles_three, urls_three, ids_three));
 
+                            list.add(new NewMoviesFive("口碑好评", R.mipmap.koubei));
+
+                            List<MoviesEightItemData> eights = new ArrayList<>();
+                            for (int i = 8; i < 16; i++) {
+                                MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
+                                eights.add(new MoviesEightItemData(subjectsBean.getTitle(), subjectsBean.getRating().getAverage() + "分", subjectsBean.getImages().getLarge(), subjectsBean.getId()));
+                            }
+                            eights.add(new MoviesEightItemData("", "", String.valueOf(R.mipmap.look_more), "12138"));
+                            list.add(new NewMoviesEight(eights));
+
+                            List<String> titles_tuijian2 = new ArrayList<>();
+                            List<Integer> id_tuijian2 = new ArrayList<>();
+
+                            titles_tuijian2.add("经典老电影");
+                            id_tuijian2.add(0);
+                            titles_tuijian2.add("影院热映");
+                            id_tuijian2.add(1);
+                            titles_tuijian2.add("小编推荐");
+                            id_tuijian2.add(2);
+                            titles_tuijian2.add("周星驰");
+                            id_tuijian2.add(3);
+                            titles_tuijian2.add("北美票房排行榜---最近");
+                            id_tuijian2.add(4);
+                            titles_tuijian2.add("好评如潮，经典耐看，速速围观！");
+                            id_tuijian2.add(5);
+
+                            list.add(new NewMoviesSeven(titles_tuijian2, id_tuijian2));
+
+                            list.add(new NewMoviesFive("近期热映", R.mipmap.hot));
+
+                            List<NewMovieNineItemData> nines = new ArrayList<>();
+                            for (int i = 16; i < 22; i++) {
+                                MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
+                                nines.add(new NewMovieNineItemData(subjectsBean.getImages().getLarge(), subjectsBean.getId()));
+                            }
+                            list.add(new NewMoviesNine(nines));
+
+                            list.add(new NewMoviesFive("小编推荐", R.mipmap.tuijian));
+
+                            List<NewMovieNineItemData> ten = new ArrayList<>();
+                            for (int i = 22; i < 30; i++) {
+                                MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
+                                ten.add(new NewMovieNineItemData(subjectsBean.getImages().getLarge(), subjectsBean.getId()));
+                            }
+                            list.add(new NewMovieTen(ten));
+
                             list.add(new NewMoviesFive("即将上映", R.mipmap.jijiangshangying));
 
-                            for (int i = 8; i < subjects.size(); i++) {
+                            for (int i = 30; i < subjects.size(); i++) {
                                 MoviesItemData.SubjectsBean subjectsBean = subjects.get(i);
                                 list.add(new NewMoviesFour(subjectsBean.getTitle(), subjectsBean.getImages().getLarge(), subjectsBean.getId(), String.valueOf(subjectsBean.getRating().getAverage()), subjectsBean.getDirectors().size() > 0 ? subjectsBean.getDirectors().get(0).getName() : "JasonDong", Integer.parseInt(subjectsBean.getRating().getStars()) > 10));
                             }

@@ -16,9 +16,9 @@
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/hot_left" />
+            android:layout_width="64px"
+            android:layout_height="64px"
+            android:background="@mipmap/bang" />
     </FrameLayout>
 
     <View
@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/hot_left" />
+                android:background="@mipmap/bang" />
         </FrameLayout>
 
 
@@ -69,7 +69,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/hot_left" />
+                android:background="@mipmap/bang" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

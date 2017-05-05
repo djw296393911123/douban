@@ -8,18 +8,18 @@ import java.util.List;
 
 public class MusicContentData extends MusicBaseData {
 
-    private List<MusicInfoData> list;
+    private List<MusicContentBaseData> list;
 
-    public MusicContentData(List<MusicInfoData> list) {
+    public MusicContentData(List<MusicContentBaseData> list) {
         super(MusicBaseData.TWO);
         this.list = list;
     }
 
-    public List<MusicInfoData> getList() {
+    public List<MusicContentBaseData> getList() {
         return list;
     }
 
-    public void setList(List<MusicInfoData> list) {
+    public void setList(List<MusicContentBaseData> list) {
         this.list = list;
     }
 }

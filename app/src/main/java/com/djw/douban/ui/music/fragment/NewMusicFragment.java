@@ -6,16 +6,21 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.newmusic.MusicBaseData;
+import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.music.adapter.NewMusicAdapter;
 import com.djw.douban.ui.music.contract.NewMusicContract;
 import com.djw.douban.ui.music.presenter.NewMusicPresenter;
 import com.djw.douban.ui.search.activity.SearchActivity;
+import com.djw.douban.zxing.activity.CaptureActivity;
 
 import java.util.List;
+
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,12 +75,12 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
 
     @Override
     public void showProgress() {
-
+        ((MainActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
-
+        ((MainActivity) getActivity()).dismissProgress();
     }
 
     @Override
@@ -86,5 +91,15 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     @Override
     public void onClick(View v) {
         startActivity(SearchActivity.class);
+    }
+
+    @OnClick(R.id.iv_back)
+    void startActivityToQrActivity() {
+        startActivity(CaptureActivity.class);
+    }
+
+    @OnClick(R.id.iv_message)
+    void startActivityToMessageActivity() {
+        startActivity(MessageActivity.class);
     }
 }

@@ -21,12 +21,16 @@ import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
+import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.ui.movies.adapter.NewMoviesAdapter;
 import com.djw.douban.ui.movies.contract.NewMoviesContract;
 import com.djw.douban.ui.movies.presenter.NewMoviesPresenter;
+import com.djw.douban.zxing.activity.CaptureActivity;
 
 import java.util.List;
+
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,7 +74,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT, false, true);
+        mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT_NEW_MOVIES, false, true);
     }
 
     @Override
@@ -106,7 +110,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
 
     @Override
     public void onRefresh() {
-        mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT, false, false);
+        mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT_NEW_MOVIES, false, false);
     }
 
     @Override
@@ -118,4 +122,15 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     public void onClick(View v) {
         startActivity(SearchActivity.class);
     }
+
+    @OnClick(R.id.iv_back)
+    void startActivityToQrActivity() {
+        startActivity(CaptureActivity.class);
+    }
+
+    @OnClick(R.id.iv_message)
+    void startActivityToMessageActivity() {
+        startActivity(MessageActivity.class);
+    }
+
 }

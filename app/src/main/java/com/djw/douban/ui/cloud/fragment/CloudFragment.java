@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
@@ -112,10 +113,12 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showProgress() {
+        ((MainActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
+        ((MainActivity) getActivity()).dismissProgress();
     }
 
     @Override

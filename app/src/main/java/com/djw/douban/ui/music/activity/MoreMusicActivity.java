@@ -88,4 +88,15 @@ public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> imp
     public void onLoadMore() {
         mPresenter.getMore(tag, adapter.getItemCount() + 1, ParamsData.COUNT, true, false);
     }
+
+    @Override
+    public void dismissProgress() {
+        super.dismissProgress();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
+    }
 }

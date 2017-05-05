@@ -14,10 +14,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
+import com.djw.douban.data.newmusic.MusicContentBaseData;
 import com.djw.douban.data.newmusic.MusicInfoData;
+import com.djw.douban.data.newmusic.MusicMoreData;
+import com.djw.douban.ui.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.music.activity.MusicInfoActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,37 +30,68 @@ import java.util.List;
  * on 2017/4/18.
  */
 
-class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapter.MusicContentHolder> implements View.OnClickListener {
+class MusicContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
-    private List<MusicInfoData> list;
+    private List<MusicContentBaseData> list;
 
     private Context context;
 
-    MusicContentAdapter(List<MusicInfoData> list, Context context) {
-        this.list = list;
+    MusicContentAdapter(Context context) {
+        this.list = new ArrayList<>();
         this.context = context;
     }
 
-    @Override
-    public MusicContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MusicContentHolder(LayoutInflater.from(context).inflate(R.layout.item_music_info, parent, false));
+    public void notifyDataChange(List<MusicContentBaseData> list) {
+        this.list.clear();
+        this.list.addAll(list);
+        notifyDataSetChanged();
     }
 
     @Override
-    public void onBindViewHolder(MusicContentHolder holder, int position) {
-        MusicInfoData musicInfoData = list.get(position);
-        holder.name.setText(musicInfoData.getTitle());
-        holder.grade.setText(musicInfoData.getGrade());
-        holder.singer.setText(musicInfoData.getSinger());
-        holder.ratingBar.setRating(((float) (Double.parseDouble(musicInfoData.getGrade()) / 2)));
-        Glide.with(context).load(musicInfoData.getUrl()).placeholder(R.mipmap.img_default_meizi).into(holder.head);
-        holder.layout.setTag(musicInfoData.getId());
-        holder.layout.setOnClickListener(this);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return viewType == MusicContentBaseData.NORMAL ?
+                new MusicContentHolder(LayoutInflater.from(context).inflate(R.layout.item_music_info_card, parent, false)) :
+                new MusicContentMoreHolder(LayoutInflater.from(context).inflate(R.layout.item_music_content_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (list.get(position).getType()) {
+            case MusicContentBaseData.NORMAL:
+                MusicContentHolder contentHolder = (MusicContentHolder) holder;
+                MusicInfoData musicInfoData = ((MusicInfoData) list.get(position));
+                contentHolder.name.setText(musicInfoData.getTitle());
+                contentHolder.grade.setText(musicInfoData.getGrade());
+                contentHolder.singer.setText(musicInfoData.getSinger());
+                contentHolder.ratingBar.setRating(((float) (Double.parseDouble(musicInfoData.getGrade()) / 2)));
+                Glide.with(context).load(musicInfoData.getUrl()).placeholder(R.mipmap.img_default_meizi).into(contentHolder.head);
+                contentHolder.layout.setTag(musicInfoData.getId());
+                contentHolder.layout.setOnClickListener(this);
+                break;
+            case MusicContentBaseData.MORE:
+                MusicContentMoreHolder moreHolder = (MusicContentMoreHolder) holder;
+                final MusicMoreData moreData = (MusicMoreData) list.get(position);
+                Glide.with(context).load(R.mipmap.look_more).asBitmap().into(moreHolder.imageView);
+                moreHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("tag", moreData.getName());
+                        ((MainActivity) context).startActivity(MoreMusicActivity.class, bundle);
+                    }
+                });
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return list.get(position).getType();
     }
 
     @Override
@@ -66,7 +101,7 @@ class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapter.Music
         ((MainActivity) context).startActivity(MusicInfoActivity.class, bundle);
     }
 
-    static class MusicContentHolder extends RecyclerView.ViewHolder {
+    private static class MusicContentHolder extends RecyclerView.ViewHolder {
         private final ImageView head;
         private final TextView name;
         private final RatingBar ratingBar;
@@ -85,4 +120,18 @@ class MusicContentAdapter extends RecyclerView.Adapter<MusicContentAdapter.Music
             layout = ((LinearLayout) itemView.findViewById(R.id.ll_content));
         }
     }
+
+    private static class MusicContentMoreHolder extends RecyclerView.ViewHolder {
+
+        ImageView imageView;
+        View view;
+
+        MusicContentMoreHolder(View itemView) {
+            super(itemView);
+            AutoUtils.autoSize(itemView);
+            view = itemView.findViewById(R.id.ll_more);
+            imageView = ((ImageView) itemView.findViewById(R.id.iv_more));
+        }
+    }
+
 }

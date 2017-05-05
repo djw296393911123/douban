@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#eee"
+    android:paddingBottom="40px">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/movies_up_down"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/tuijian_tips"
+            android:gravity="center"
+            android:text="芽儿呦推荐"
+            android:textColor="@color/colorAccent" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5px"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:layout_marginTop="5px"
+            android:background="#aaa" />
+
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/mv_tuijian"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mvAnimDuration="1000"
+            app:mvInterval="3000"
+            app:mvSingleLine="true"
+            app:mvTextColor="@color/colorAccent"
+            app:mvTextSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

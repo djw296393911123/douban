@@ -21,10 +21,14 @@ import com.djw.douban.ui.book.adapter.BookRecyclerAdapter;
 import com.djw.douban.ui.book.adapter.BookTypeAdapter;
 import com.djw.douban.ui.book.contract.BookContract;
 import com.djw.douban.ui.book.presenter.ComprehensivePresenter;
+import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.search.activity.SearchActivity;
+import com.djw.douban.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +93,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false, false);
+        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false, true);
     }
 
     @Override
@@ -137,5 +141,15 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     @Override
     public void onClick(View v) {
         startActivity(SearchActivity.class);
+    }
+
+    @OnClick(R.id.iv_back)
+    void startActivityToQrActivity() {
+        startActivity(CaptureActivity.class);
+    }
+
+    @OnClick(R.id.iv_message)
+    void startActivityToMessageActivity() {
+        startActivity(MessageActivity.class);
     }
 }

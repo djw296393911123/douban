@@ -171,6 +171,17 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
     }
 
     @Override
+    public void dismissProgress() {
+        super.dismissProgress();
+        if (swipeToLoadLayout.isRefreshing()) {
+            swipeToLoadLayout.setRefreshing(false);
+        }
+        if (swipeToLoadLayout.isLoadingMore()) {
+            swipeToLoadLayout.setLoadingMore(false);
+        }
+    }
+
+    @Override
     public void onRefresh() {
         mPresenter.getChooseType(tag, type, ParamsData.START, ParamsData.COUNT, false, false);
     }

@@ -4,7 +4,7 @@ package com.djw.douban.data.newmusic;
  * Created by JasonDong on 2017/4/18.
  */
 
-public class MusicInfoData {
+public class MusicInfoData extends MusicContentBaseData{
 
     private String title;
 
@@ -17,6 +17,7 @@ public class MusicInfoData {
     private String singer;
 
     public MusicInfoData(String title, String id, String url, String grade, String singer) {
+        super(MusicContentBaseData.NORMAL);
         this.title = title;
         this.id = id;
         this.url = url;

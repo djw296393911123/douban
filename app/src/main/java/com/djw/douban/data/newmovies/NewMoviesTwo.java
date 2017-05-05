@@ -8,40 +8,18 @@ import java.util.List;
 
 public class NewMoviesTwo extends NewMoviesBaseData {
 
-    private List<String> name;
+    private List<NewMoviewTwoItemData> list;
 
-    private List<Integer> url;
-
-    private List<String> id;
-
-    public NewMoviesTwo(List<String> name, List<Integer> url, List<String> id) {
+    public NewMoviesTwo(List<NewMoviewTwoItemData> list) {
         super(NewMoviesBaseData.TWO);
-        this.name = name;
-        this.url = url;
-        this.id = id;
+        this.list = list;
     }
 
-    public List<String> getName() {
-        return name;
+    public List<NewMoviewTwoItemData> getList() {
+        return list;
     }
 
-    public void setName(List<String> name) {
-        this.name = name;
-    }
-
-    public List<Integer> getUrl() {
-        return url;
-    }
-
-    public void setUrl(List<Integer> url) {
-        this.url = url;
-    }
-
-    public List<String> getId() {
-        return id;
-    }
-
-    public void setId(List<String> id) {
-        this.id = id;
+    public void setList(List<NewMoviewTwoItemData> list) {
+        this.list = list;
     }
 }

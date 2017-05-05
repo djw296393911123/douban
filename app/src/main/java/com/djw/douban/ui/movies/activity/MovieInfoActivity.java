@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -80,7 +81,9 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
         Bundle bundle = getIntent().getExtras();
-        mPresenter.getInfo(bundle.getInt("id"));
+        int id = bundle.getInt("id");
+        Log.i("id", id + "");
+        mPresenter.getInfo(id);
     }
 
     @Override

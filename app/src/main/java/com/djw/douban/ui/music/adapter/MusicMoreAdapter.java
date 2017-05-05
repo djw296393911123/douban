@@ -42,9 +42,14 @@ public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.Musi
     }
 
     public void notifyDataChange(List<Musics> list, boolean isLoadMore) {
-        if (!isLoadMore) this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
+        if (isLoadMore) {
+            this.list.addAll(list);
+            notifyItemRangeChanged(getItemCount() + 1, list.size());
+        } else {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

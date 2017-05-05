@@ -39,9 +39,14 @@ public class MusicTypeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public void notifyDataChange(List<MusicListData> list, boolean isLoadMore) {
-        if (!isLoadMore) this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
+        if (isLoadMore) {
+            this.list.addAll(list);
+            notifyItemRangeChanged(getItemCount() + 1, list.size());
+        } else {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

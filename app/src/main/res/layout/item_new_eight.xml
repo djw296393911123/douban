@@ -2,21 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="horizontal">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:background="#eee">
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/tv_five"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="20px"
-        android:textColor="@color/colorAccent"
-        android:textSize="30px" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_eight"
+        android:layout_width="match_parent"
+        android:layout_height="400px" />
 </LinearLayout>
