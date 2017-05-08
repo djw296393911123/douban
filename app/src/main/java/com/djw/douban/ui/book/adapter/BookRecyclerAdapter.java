@@ -45,9 +45,14 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public void notifyDataChange(List<BookBaseData> list, boolean isLoadMore) {
-        if (!isLoadMore) this.list.clear();
-        this.list.addAll(list);
-        notifyDataSetChanged();
+        if (isLoadMore) {
+            this.list.addAll(list);
+            notifyItemRangeChanged(getItemCount() + 1, list.size());
+        } else {
+            this.list.clear();
+            this.list.addAll(list);
+            notifyDataSetChanged();
+        }
     }
 
     @Override

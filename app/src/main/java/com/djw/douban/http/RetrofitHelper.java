@@ -6,6 +6,8 @@ import com.djw.douban.data.book.BookRoot;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.data.cloud.CloudLocData;
 import com.djw.douban.data.cloud.VisitedData;
+import com.djw.douban.data.girl.GankListItemData;
+import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.movies.MoviesActorsData;
 import com.djw.douban.data.movies.MoviesInfoData;
 import com.djw.douban.data.movies.MoviesItemData;
@@ -17,6 +19,8 @@ import com.djw.douban.data.music.MusicRootOM;
 import com.djw.douban.data.music.MusicRootRH;
 import com.djw.douban.data.music.Musics;
 import com.djw.douban.http.apis.DoubanApi;
+import com.djw.douban.http.apis.GirlApi;
+import com.djw.douban.http.apis.MessageApi;
 
 import rx.Observable;
 
@@ -30,8 +34,14 @@ public class RetrofitHelper {
 
     private DoubanApi doubanApi;
 
-    public RetrofitHelper(DoubanApi doubanApi) {
+    private GirlApi girlApi;
+
+    private MessageApi messageApi;
+
+    public RetrofitHelper(DoubanApi doubanApi, GirlApi girlApi, MessageApi messageApi) {
         this.doubanApi = doubanApi;
+        this.girlApi = girlApi;
+        this.messageApi = messageApi;
     }
 
     public Observable<MoviesItemData> getHotMovies(int start, int count) {
@@ -101,4 +111,13 @@ public class RetrofitHelper {
     public Observable<TypeData> getType(String q, int start, int count) {
         return doubanApi.getSearch(q, start, count);
     }
+
+    public Observable<GankListItemData> getGirl() {
+        return girlApi.getRadomMeizi("1");
+    }
+
+    public Observable<MessageReceiveData> getMessage(String msg) {
+        return messageApi.getMessage("3b693076b1314c6ca2b55f40031783b4", msg);
+    }
+
 }

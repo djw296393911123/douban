@@ -16,8 +16,8 @@
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:layout_width="64px"
-            android:layout_height="64px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@mipmap/bang" />
     </FrameLayout>
 

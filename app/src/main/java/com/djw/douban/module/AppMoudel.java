@@ -4,6 +4,8 @@ package com.djw.douban.module;
 import com.djw.douban.base.BaseApplication;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.http.apis.DoubanApi;
+import com.djw.douban.http.apis.GirlApi;
+import com.djw.douban.http.apis.MessageApi;
 
 import javax.inject.Singleton;
 
@@ -33,8 +35,8 @@ public class AppMoudel {
 
     @Provides
     @Singleton
-    RetrofitHelper provideRetrofitHelper(DoubanApi doubanApi) {
-        return new RetrofitHelper(doubanApi);
+    RetrofitHelper provideRetrofitHelper(DoubanApi doubanApi, GirlApi girlApi, MessageApi messageApi) {
+        return new RetrofitHelper(doubanApi, girlApi, messageApi);
     }
 
 }

@@ -29,13 +29,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.movies.activity.MovieInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -80,6 +74,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".zxing.activity.CaptureActivity" />
         <activity android:name=".zxing.activity.ResultActivity" />
+        <activity
+            android:name=".ui.leader.LeaderActivity"
+            android:theme="@style/NoStateBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

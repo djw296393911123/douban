@@ -134,7 +134,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
             }
         };
         title.setText(list.get(0).getTitle());
-        mPresenter.getActivitys(list.get(0).getId(), id_type, id_day, ParamsData.START, ParamsData.COUNT, false, false);
+        mPresenter.getActivitys(list.get(0).getId(), id_type, id_day, ParamsData.START, ParamsData.COUNT, false, true);
     }
 
     @Override

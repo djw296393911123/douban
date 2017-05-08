@@ -3,7 +3,11 @@ package com.djw.douban.module;
 
 import com.djw.douban.base.BaseApplication;
 import com.djw.douban.http.DoubanUrl;
+import com.djw.douban.http.GirlUrl;
 import com.djw.douban.http.apis.DoubanApi;
+import com.djw.douban.http.apis.GirlApi;
+import com.djw.douban.http.apis.MessageApi;
+import com.djw.douban.http.MessageUrl;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +17,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -51,6 +54,20 @@ public class HttpMoudel {
         return createRetrofit(builder, client, DoubanApi.SERVICE);
     }
 
+    @Singleton
+    @Provides
+    @GirlUrl
+    Retrofit provideGirlRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, GirlApi.SERVICE);
+    }
+
+    @Singleton
+    @Provides
+    @MessageUrl
+    Retrofit provideMessageRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, MessageApi.SERVICE);
+    }
+
 
     @Singleton
     @Provides
@@ -62,7 +79,7 @@ public class HttpMoudel {
     @Singleton
     @Provides
     Cache provideCache() {
-        return new Cache(new File(BaseApplication.getInstance().getApplicationContext().getCacheDir(), "dagger2"), 1024 * 1024 * 20);
+        return new Cache(new File(BaseApplication.getInstance().getApplicationContext().getCacheDir(), "yaeryou"), 1024 * 1024 * 50);
     }
 
     @Singleton
@@ -87,6 +104,18 @@ public class HttpMoudel {
     @Provides
     DoubanApi provideDoubanService(@DoubanUrl Retrofit retrofit) {
         return retrofit.create(DoubanApi.class);
+    }
+
+    @Singleton
+    @Provides
+    GirlApi provideGirlService(@GirlUrl Retrofit retrofit) {
+        return retrofit.create(GirlApi.class);
+    }
+
+    @Singleton
+    @Provides
+    MessageApi provideMessageService(@MessageUrl Retrofit retrofit) {
+        return retrofit.create(MessageApi.class);
     }
 
 
