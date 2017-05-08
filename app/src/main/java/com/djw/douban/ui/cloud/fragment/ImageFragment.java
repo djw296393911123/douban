@@ -17,7 +17,9 @@ import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
- * Created by JasonDong on 2017/4/25.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/25.
  */
 
 public class ImageFragment extends DialogFragment {
@@ -57,6 +59,7 @@ public class ImageFragment extends DialogFragment {
                 .setView(view)
                 .create();
         Window window = alertDialog.getWindow();
+        assert window != null;
         window.setWindowAnimations(R.style.dialog_style);
         return alertDialog;
     }

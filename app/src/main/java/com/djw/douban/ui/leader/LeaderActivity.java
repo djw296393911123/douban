@@ -17,16 +17,23 @@ import com.djw.douban.util.RxUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import kr.co.namee.permissiongen.PermissionFail;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 import rx.Observable;
+import rx.Subscription;
 import rx.functions.Action1;
 
 public class LeaderActivity extends RxActivity<LeaderPresenter> implements LeaderContract.View {
 
-    private ImageView imageView;
-    private TextView author;
+    @BindView(R.id.iv_leader)
+    ImageView ivLeader;
+    @BindView(R.id.tv_author)
+    TextView tvAuthor;
+    private Subscription subscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +49,13 @@ public class LeaderActivity extends RxActivity<LeaderPresenter> implements Leade
 
     @Override
     public void showGirl(String img, String string) {
-        author.setText(string);
-        Glide.with(this).load(img).into(imageView);
+        tvAuthor.setText(string);
+        Glide.with(this).load(img).into(ivLeader);
     }
 
     @Override
     public void initView() {
-        imageView = (ImageView) findViewById(R.id.iv_leader);
-        author = (TextView) findViewById(R.id.tv_author);
+
     }
 
     @Override
@@ -58,6 +64,13 @@ public class LeaderActivity extends RxActivity<LeaderPresenter> implements Leade
                 .addRequestCode(100)
                 .permissions(Manifest.permission.CAMERA)
                 .request();
+    }
+
+    @OnClick(R.id.tv_leader)
+    void tiaoguo() {
+        subscribe.unsubscribe();
+        startActivity(MainActivity.class);
+        finish();
     }
 
     @Override
@@ -75,7 +88,7 @@ public class LeaderActivity extends RxActivity<LeaderPresenter> implements Leade
 
     @PermissionSuccess(requestCode = 100)
     public void doSomething() {
-        Observable.timer(3, TimeUnit.SECONDS)
+        subscribe = Observable.timer(5, TimeUnit.SECONDS)
                 .compose(RxUtil.<Long>rxSchedulerHelper())
                 .subscribe(new Action1<Long>() {
                     @Override

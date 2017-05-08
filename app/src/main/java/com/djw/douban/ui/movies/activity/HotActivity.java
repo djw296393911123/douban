@@ -64,7 +64,7 @@ public class HotActivity extends RxToolbarActivity<HotPresenter> implements HotC
 
     @Override
     protected void scrollToTop() {
-        rvHot.scrollToPosition(0);
+        rvHot.smoothScrollToPosition(0);
     }
 
     @Override

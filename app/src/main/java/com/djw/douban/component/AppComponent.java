@@ -2,6 +2,7 @@ package com.djw.douban.component;
 
 
 import com.djw.douban.base.BaseApplication;
+import com.djw.douban.db.DBHelper;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.module.AppMoudel;
 import com.djw.douban.module.HttpMoudel;
@@ -21,5 +22,7 @@ public interface AppComponent {
     BaseApplication getContext();
 
     RetrofitHelper retrofitHelper();
+
+    DBHelper getDBHelper();
 
 }

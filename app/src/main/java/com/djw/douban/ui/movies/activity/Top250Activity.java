@@ -48,7 +48,7 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
 
     @Override
     protected void scrollToTop() {
-        rvTop.scrollToPosition(0);
+        rvTop.smoothScrollToPosition(0);
     }
 
     @Override

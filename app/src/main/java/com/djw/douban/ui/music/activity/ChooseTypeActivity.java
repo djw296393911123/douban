@@ -129,7 +129,7 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
 
     @Override
     protected void scrollToTop() {
-        rvChoose.scrollToPosition(0);
+        rvChoose.smoothScrollToPosition(0);
     }
 
     private void initTabLayout() {

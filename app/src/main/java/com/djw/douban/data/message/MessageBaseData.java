@@ -12,6 +12,8 @@ public class MessageBaseData {
 
     public static final int IMAGE = 0x9003;
 
+    public static final int TIME = 0x9004;
+
     private int type;
 
     public MessageBaseData(int type) {

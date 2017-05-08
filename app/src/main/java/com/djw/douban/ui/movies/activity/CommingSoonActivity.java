@@ -62,7 +62,7 @@ public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter>
 
     @Override
     protected void scrollToTop() {
-        xrvCommingSoon.scrollToPosition(0);
+        xrvCommingSoon.smoothScrollToPosition(0);
     }
 
     @Override

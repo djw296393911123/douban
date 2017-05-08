@@ -62,7 +62,7 @@ public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> imp
 
     @Override
     protected void scrollToTop() {
-        rvMore.scrollToPosition(0);
+        rvMore.smoothScrollToPosition(0);
     }
 
     @Override

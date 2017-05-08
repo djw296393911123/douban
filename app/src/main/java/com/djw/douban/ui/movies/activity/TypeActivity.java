@@ -64,7 +64,7 @@ public class TypeActivity extends RxToolbarActivity<TypePresenter> implements Ty
 
     @Override
     protected void scrollToTop() {
-        rvType.scrollToPosition(0);
+        rvType.smoothScrollToPosition(0);
     }
 
     @Override

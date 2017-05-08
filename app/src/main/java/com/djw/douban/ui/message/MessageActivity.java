@@ -11,12 +11,16 @@ import android.widget.Toast;
 
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
+import com.djw.douban.data.message.MessageBaseData;
 import com.djw.douban.data.message.MessageImgData;
 import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
+import com.djw.douban.data.message.MessageTimeData;
 import com.djw.douban.ui.message.adapter.MessageAdapter;
 import com.djw.douban.ui.message.contract.MessageContract;
 import com.djw.douban.ui.message.presenter.MessagePresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,7 +55,7 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
 
     @Override
     protected void scrollToTop() {
-
+        rvMessage.smoothScrollToPosition(0);
     }
 
     @Override
@@ -63,6 +67,7 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
     protected void inject() {
         getActivityComponent().inject(this);
         mPresenter.attachView(this);
+        mPresenter.getHistory();
     }
 
     @Override
@@ -74,20 +79,31 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
     @Override
     public void showReceiveMessage(MessageReceiveData data) {
         adapter.notifyDataChange(data);
-        rvMessage.scrollToPosition(adapter.getItemCount());
+        rvMessage.smoothScrollBy(adapter.getItemCount(), 1000);
     }
 
     @Override
     public void showSendMessage(MessageSendData data) {
         adapter.notifyDataChange(data);
         etSend.setText("");
-        rvMessage.scrollToPosition(adapter.getItemCount());
+        rvMessage.smoothScrollToPosition(adapter.getItemCount());
     }
 
     @Override
     public void showGirlMessage(MessageImgData data) {
         adapter.notifyDataChange(data);
-        rvMessage.scrollToPosition(adapter.getItemCount());
+        rvMessage.smoothScrollToPosition(adapter.getItemCount());
+    }
+
+    @Override
+    public void showHistory(List<MessageBaseData> list) {
+        adapter.notifyListChange(list);
+        rvMessage.smoothScrollToPosition(adapter.getItemCount());
+    }
+
+    @Override
+    public void showTime(MessageTimeData data) {
+        adapter.notifyDataChange(data);
     }
 
     @OnClick(R.id.btn_send)

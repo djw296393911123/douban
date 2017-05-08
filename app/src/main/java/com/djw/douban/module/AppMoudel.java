@@ -2,6 +2,7 @@ package com.djw.douban.module;
 
 
 import com.djw.douban.base.BaseApplication;
+import com.djw.douban.db.DBHelper;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.http.apis.DoubanApi;
 import com.djw.douban.http.apis.GirlApi;
@@ -39,4 +40,9 @@ public class AppMoudel {
         return new RetrofitHelper(doubanApi, girlApi, messageApi);
     }
 
+    @Provides
+    @Singleton
+    DBHelper provideDBHelper() {
+        return new DBHelper(application.getApplicationContext());
+    }
 }

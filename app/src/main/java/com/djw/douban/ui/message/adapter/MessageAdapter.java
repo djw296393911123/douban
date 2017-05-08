@@ -1,6 +1,7 @@
 package com.djw.douban.ui.message.adapter;
 
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import com.djw.douban.data.message.MessageBaseData;
 import com.djw.douban.data.message.MessageImgData;
 import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
+import com.djw.douban.data.message.MessageTimeData;
+import com.djw.douban.ui.cloud.fragment.ImageFragment;
+import com.djw.douban.ui.message.MessageActivity;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -38,6 +42,11 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void notifyListChange(List<MessageBaseData> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
@@ -47,7 +56,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new SendHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_send, parent, false));
             case MessageBaseData.IMAGE:
                 return new ImgHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_img, parent, false));
-
+            case MessageBaseData.TIME:
+                return new TimeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_time, parent, false));
         }
 
         return new SendHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_send, parent, false));
@@ -70,6 +80,11 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ImgHolder imgHolder = (ImgHolder) holder;
                 MessageImgData imgData = (MessageImgData) list.get(position);
                 imgHolder.loadData(imgData);
+                break;
+            case MessageBaseData.TIME:
+                TimeHolder timeHolder = (TimeHolder) holder;
+                MessageTimeData timeData = (MessageTimeData) list.get(position);
+                timeHolder.loadData(timeData);
                 break;
         }
     }
@@ -139,7 +154,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             context = itemView.getContext();
             img = ((ImageView) itemView.findViewById(R.id.iv_img));
             head = ((ImageView) itemView.findViewById(R.id.iv_head));
-
         }
 
         void loadData(MessageImgData data) {
@@ -148,6 +162,35 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             Glide.with(context).load(R.mipmap.hot).into(head);
 
+            img.setTag(data.getUrl());
+
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentTransaction transaction = ((MessageActivity) context).getSupportFragmentManager().beginTransaction();
+                    transaction.add(ImageFragment.newInstance(((String) v.getTag())), "img");
+                    transaction.commitAllowingStateLoss();
+                }
+            });
+
+        }
+
+    }
+
+    private static class TimeHolder extends RecyclerView.ViewHolder {
+
+
+        private final TextView time;
+
+        TimeHolder(View itemView) {
+            super(itemView);
+            AutoUtils.autoSize(itemView);
+            time = ((TextView) itemView.findViewById(R.id.tv_time));
+        }
+
+        void loadData(MessageTimeData data) {
+
+            time.setText(data.getTime());
         }
 
     }

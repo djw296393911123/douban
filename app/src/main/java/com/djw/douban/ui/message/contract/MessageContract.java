@@ -2,9 +2,13 @@ package com.djw.douban.ui.message.contract;
 
 import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
+import com.djw.douban.data.message.MessageBaseData;
 import com.djw.douban.data.message.MessageImgData;
 import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
+import com.djw.douban.data.message.MessageTimeData;
+
+import java.util.List;
 
 /**
  * Created by JasonDong
@@ -22,6 +26,10 @@ public interface MessageContract {
 
         void showGirlMessage(MessageImgData data);
 
+        void showHistory(List<MessageBaseData> list);
+
+        void showTime(MessageTimeData data);
+
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -31,6 +39,10 @@ public interface MessageContract {
         void getSendData(String msg);
 
         void getGirlData();
+
+        void getHistory();
+
+        void getTime();
 
     }
 

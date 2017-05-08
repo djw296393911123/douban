@@ -68,7 +68,7 @@ public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresente
 
     @Override
     protected void scrollToTop() {
-        rvNorth.scrollToPosition(0);
+        rvNorth.smoothScrollToPosition(0);
     }
 
     @Override

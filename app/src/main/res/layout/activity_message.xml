@@ -14,8 +14,11 @@
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100px"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -27,13 +30,17 @@
         <EditText
             android:id="@+id/et_send"
             android:layout_width="500px"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:paddingLeft="20px" />
 
         <Button
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="send" />
+            android:layout_margin="10px"
+            android:background="@drawable/music_choose"
+            android:text="发送" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
