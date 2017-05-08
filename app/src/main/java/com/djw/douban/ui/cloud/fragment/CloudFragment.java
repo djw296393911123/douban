@@ -86,7 +86,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     }
 
     public void scrollToTop() {
-        recyclerView.scrollToPosition(0);
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

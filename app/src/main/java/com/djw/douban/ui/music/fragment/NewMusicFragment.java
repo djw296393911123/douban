@@ -28,6 +28,7 @@ import butterknife.OnClick;
 public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements NewMusicContract.View, View.OnClickListener {
 
     private NewMusicAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void lazyLoad() {
@@ -37,17 +38,17 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     @Override
     protected void initView(View view) {
         view.findViewById(R.id.tv_search).setOnClickListener(this);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_new_music);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_new_music);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new NewMusicAdapter();
+        recyclerView.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 return adapter.isSpan(position);
             }
         });
-        adapter = new NewMusicAdapter(getActivity());
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -59,7 +60,11 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT);
+        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT_NEW_MUSIC);
+    }
+
+    public void scrollToTop(){
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

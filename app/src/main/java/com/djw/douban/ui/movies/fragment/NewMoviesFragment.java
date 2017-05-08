@@ -40,6 +40,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     private NewMoviesAdapter adapter;
 
     private SwipeToLoadLayout swipeToLoadLayout;
+    private RecyclerView recyclerView;
 
     @Override
     protected void lazyLoad() {
@@ -52,7 +53,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
         swipeToLoadLayout = ((SwipeToLoadLayout) view.findViewById(R.id.stll_movies));
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
+        recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NewMoviesAdapter();
@@ -116,6 +117,10 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     @Override
     public void onLoadMore() {
         mPresenter.getNewMovies(adapter.getItemCount() + 1, ParamsData.COUNT, true, false);
+    }
+
+    public void scrollToTop(){
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override

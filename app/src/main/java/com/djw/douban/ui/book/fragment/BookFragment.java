@@ -41,6 +41,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     public int position;
     private BookRecyclerAdapter bookRecyclerAdapter;
     private SwipeToLoadLayout swipeToLoadLayout;
+    private RecyclerView xRecyclerView;
 
 
     @Override
@@ -54,7 +55,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         swipeToLoadLayout = ((SwipeToLoadLayout) view.findViewById(R.id.stll_movies));
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
-        RecyclerView xRecyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
+        xRecyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         xRecyclerView.setLayoutManager(layoutManager);
         bookRecyclerAdapter = new BookRecyclerAdapter(getActivity());
@@ -94,6 +95,10 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
         mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false, true);
+    }
+
+    public void scrollToTop() {
+        xRecyclerView.smoothScrollToPosition(0);
     }
 
     @Override

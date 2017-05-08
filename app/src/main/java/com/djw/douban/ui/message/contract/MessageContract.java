@@ -30,6 +30,8 @@ public interface MessageContract {
 
         void showTime(MessageTimeData data);
 
+        void showDelete();
+
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -43,6 +45,8 @@ public interface MessageContract {
         void getHistory();
 
         void getTime();
+
+        void deleteHistory();
 
     }
 

@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
@@ -27,14 +28,10 @@ import butterknife.OnClick;
 
 public class MessageActivity extends RxToolbarActivity<MessagePresenter> implements MessageContract.View {
 
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
     @BindView(R.id.tl_base)
     Toolbar tlBase;
     @BindView(R.id.et_send)
     EditText etSend;
-    @BindView(R.id.ll_bottom)
-    LinearLayout llBottom;
     @BindView(R.id.rv_message)
     RecyclerView rvMessage;
     private MessageAdapter adapter;
@@ -71,6 +68,19 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.messag_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mPresenter.deleteHistory();
+        return true;
+    }
+
+    @Override
     public void showError(String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
@@ -104,6 +114,11 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
     @Override
     public void showTime(MessageTimeData data) {
         adapter.notifyDataChange(data);
+    }
+
+    @Override
+    public void showDelete() {
+        adapter.notifyDeleteAll();
     }
 
     @OnClick(R.id.btn_send)

@@ -128,6 +128,12 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
         mView.showTime(new MessageTimeData(format));
     }
 
+    @Override
+    public void deleteHistory() {
+        database.delete(DBHelper.TABLE,null,null);
+        mView.showDelete();
+    }
+
     private void insert(String msg, int type) {
         ContentValues values = new ContentValues();
         values.put(DBHelper.TYPE, type);

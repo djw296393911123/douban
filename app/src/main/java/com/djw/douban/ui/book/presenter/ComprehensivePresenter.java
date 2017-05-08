@@ -62,7 +62,7 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
                             List<BookBaseData> list = new ArrayList<>();
                             for (int i = 0; i < bookRoot.getBooks().size(); i++) {
                                 Books books = bookRoot.getBooks().get(i);
-                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImage(), books.getId()));
+                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId()));
                             }
                             mView.showBookList(list, true);
                         }

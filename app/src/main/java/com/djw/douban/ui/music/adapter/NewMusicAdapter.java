@@ -45,11 +45,9 @@ import java.util.List;
 public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<MusicBaseData> list;
-
     private Context context;
 
-    public NewMusicAdapter(Context context) {
-        this.context = context;
+    public NewMusicAdapter() {
         this.list = new ArrayList<>();
     }
 
@@ -62,19 +60,20 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         switch (viewType) {
             case MusicBaseData.ONE:
-                return new NewMusicTypeHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_type, parent, false));
+                return new NewMusicTypeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_music_type, parent, false));
             case MusicBaseData.TWO:
-                return new NewMusicContentHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_content, parent, false));
+                return new NewMusicContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_music_content, parent, false));
             case MusicBaseData.THREE:
-                return new NewMusicChooseHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_content, parent, false));
+                return new NewMusicChooseHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_music_content, parent, false));
             case MusicBaseData.FOUR:
-                return new FourHolder(LayoutInflater.from(context).inflate(R.layout.item_new_four, parent, false));
+                return new FourHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_four, parent, false));
             case MusicBaseData.FIVE:
-                return new FiveHolder(LayoutInflater.from(context).inflate(R.layout.item_new_six, parent, false));
+                return new FiveHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_six, parent, false));
             case MusicBaseData.SIX:
-                return new SixHolder(LayoutInflater.from(context).inflate(R.layout.item_new_music_nomore, parent, false));
+                return new SixHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_music_nomore, parent, false));
             case MusicBaseData.SEVEN:
                 return new SevenHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_music_seven_item, parent, false));
 
