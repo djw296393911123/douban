@@ -23,7 +23,6 @@ import com.djw.douban.data.message.MessageUrlData;
 import com.djw.douban.ui.cloud.fragment.ImageFragment;
 import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.message.WebviewActivity;
-import com.djw.douban.ui.message.fragment.PageFragment;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -133,8 +132,11 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         void loadData(MessageReceiveData data) {
+
             text.setText(data.getText());
+
             Glide.with(context).load(R.mipmap.hot).into(head);
+
         }
     }
 
