@@ -14,7 +14,6 @@ import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.message.MessageBaseData;
 import com.djw.douban.data.message.MessageImgData;
-import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
 import com.djw.douban.data.message.MessageTimeData;
 import com.djw.douban.ui.message.adapter.MessageAdapter;
@@ -87,7 +86,7 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
 
 
     @Override
-    public void showReceiveMessage(MessageReceiveData data) {
+    public void showReceiveMessage(MessageBaseData data) {
         adapter.notifyDataChange(data);
         rvMessage.smoothScrollBy(adapter.getItemCount(), 1000);
     }
@@ -123,7 +122,10 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
 
     @OnClick(R.id.btn_send)
     void send() {
-        mPresenter.getSendData(etSend.getText().toString().trim());
+        if (etSend.getText().toString().trim().equals(""))
+            Toast.makeText(context, "输入内容不能为空", Toast.LENGTH_SHORT).show();
+        else
+            mPresenter.getSendData(etSend.getText().toString().trim());
     }
 
 }

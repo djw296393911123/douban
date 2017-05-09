@@ -2,6 +2,8 @@ package com.djw.douban.ui.cloud.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,9 @@ import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.ui.cloud.activity.CloudInfoActivity;
+import com.djw.douban.ui.cloud.fragment.CloudFragment;
+import com.djw.douban.ui.cloud.fragment.CloudPageFragment;
+import com.djw.douban.ui.message.fragment.PageFragment;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -28,24 +33,40 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * on 2017/4/12.
  */
 
-public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder> {
+public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder> {
 
     private List<CloudItemData.EventsBean> list;
 
     private Context context;
 
-    protected CloudAdapter(Context context) {
+    private List<String> content;
+
+    private List<String> urls;
+
+    public CloudAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
+        this.content = new ArrayList<>();
+        this.urls = new ArrayList<>();
     }
 
     public void notifyDataChange(List<CloudItemData.EventsBean> list, boolean isLoadMore) {
         if (isLoadMore) {
             this.list.addAll(list);
+            for (int i = 0; i < list.size(); i++) {
+                urls.add(list.get(i).getImage_hlarge());
+                content.add(list.get(i).getTitle());
+            }
             notifyItemRangeChanged(getItemCount() + 1, list.size());
         } else {
             this.list.clear();
+            this.content.clear();
+            this.urls.clear();
             this.list.addAll(list);
+            for (int i = 0; i < list.size(); i++) {
+                urls.add(list.get(i).getImage_hlarge());
+                content.add(list.get(i).getTitle());
+            }
             notifyDataSetChanged();
         }
     }
@@ -84,7 +105,9 @@ public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.Clo
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onImageClick(eventsBean.getImage_hlarge());
+                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.add(CloudPageFragment.newInstance(urls, content, position), "img");
+                transaction.commitAllowingStateLoss();
             }
         });
     }
@@ -121,7 +144,5 @@ public abstract class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.Clo
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
         }
     }
-
-    public abstract void onImageClick(String url);
 
 }

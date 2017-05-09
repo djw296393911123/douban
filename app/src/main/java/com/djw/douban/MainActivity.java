@@ -10,14 +10,12 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.djw.douban.adapter.MainNavigatorAdapter;
 import com.djw.douban.base.SimpleActivity;
-import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.book.fragment.BookFragment;
+import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.music.fragment.NewMusicFragment;
-import com.djw.douban.ui.search.fragment.HomeFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends SimpleActivity implements BottomNavigationBar.OnTabSelectedListener {
 

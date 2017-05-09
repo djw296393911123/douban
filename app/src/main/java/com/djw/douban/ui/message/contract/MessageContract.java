@@ -4,7 +4,6 @@ import com.djw.douban.base.BasePresenter;
 import com.djw.douban.base.BaseView;
 import com.djw.douban.data.message.MessageBaseData;
 import com.djw.douban.data.message.MessageImgData;
-import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
 import com.djw.douban.data.message.MessageTimeData;
 
@@ -20,7 +19,7 @@ public interface MessageContract {
 
     interface View extends BaseView {
 
-        void showReceiveMessage(MessageReceiveData data);
+        void showReceiveMessage(MessageBaseData data);
 
         void showSendMessage(MessageSendData data);
 

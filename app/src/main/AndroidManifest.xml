@@ -73,6 +73,7 @@
             android:name=".ui.message.MessageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".zxing.activity.CaptureActivity" />
+        <activity android:name=".ui.message.WebviewActivity" />
         <activity android:name=".zxing.activity.ResultActivity" />
         <activity
             android:name=".ui.leader.LeaderActivity"

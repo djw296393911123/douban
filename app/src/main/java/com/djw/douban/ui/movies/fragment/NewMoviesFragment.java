@@ -2,15 +2,9 @@ package com.djw.douban.ui.movies.fragment;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -22,10 +16,10 @@ import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.ui.message.MessageActivity;
-import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.ui.movies.adapter.NewMoviesAdapter;
 import com.djw.douban.ui.movies.contract.NewMoviesContract;
 import com.djw.douban.ui.movies.presenter.NewMoviesPresenter;
+import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.zxing.activity.CaptureActivity;
 
 import java.util.List;
@@ -119,7 +113,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
         mPresenter.getNewMovies(adapter.getItemCount() + 1, ParamsData.COUNT, true, false);
     }
 
-    public void scrollToTop(){
+    public void scrollToTop() {
         recyclerView.smoothScrollToPosition(0);
     }
 

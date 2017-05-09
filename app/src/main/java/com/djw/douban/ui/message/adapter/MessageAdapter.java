@@ -1,7 +1,10 @@
 package com.djw.douban.ui.message.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +19,11 @@ import com.djw.douban.data.message.MessageImgData;
 import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
 import com.djw.douban.data.message.MessageTimeData;
+import com.djw.douban.data.message.MessageUrlData;
 import com.djw.douban.ui.cloud.fragment.ImageFragment;
 import com.djw.douban.ui.message.MessageActivity;
+import com.djw.douban.ui.message.WebviewActivity;
+import com.djw.douban.ui.message.fragment.PageFragment;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -47,7 +53,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
-    public void notifyDeleteAll(){
+    public void notifyDeleteAll() {
         this.list.clear();
         notifyDataSetChanged();
     }
@@ -63,6 +69,9 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new ImgHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_img, parent, false));
             case MessageBaseData.TIME:
                 return new TimeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_time, parent, false));
+            case MessageBaseData.URL:
+                return new URLHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_receive, parent, false));
+
         }
 
         return new SendHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_send, parent, false));
@@ -90,6 +99,11 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 TimeHolder timeHolder = (TimeHolder) holder;
                 MessageTimeData timeData = (MessageTimeData) list.get(position);
                 timeHolder.loadData(timeData);
+                break;
+            case MessageBaseData.URL:
+                URLHolder urlHolder = (URLHolder) holder;
+                MessageUrlData urlData = (MessageUrlData) list.get(position);
+                urlHolder.loadData(urlData);
                 break;
         }
     }
@@ -172,7 +186,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentTransaction transaction = ((MessageActivity) context).getSupportFragmentManager().beginTransaction();
+
+                    FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                     transaction.add(ImageFragment.newInstance(((String) v.getTag())), "img");
                     transaction.commitAllowingStateLoss();
                 }
@@ -196,6 +211,37 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         void loadData(MessageTimeData data) {
 
             time.setText(data.getTime());
+        }
+
+    }
+
+    private static class URLHolder extends RecyclerView.ViewHolder {
+
+
+        private final TextView text;
+        private final Context context;
+        private final ImageView head;
+
+        URLHolder(View itemView) {
+            super(itemView);
+            AutoUtils.autoSize(itemView);
+            context = itemView.getContext();
+            text = ((TextView) itemView.findViewById(R.id.tv_receive));
+            text.setTextColor(Color.BLUE);
+            head = ((ImageView) itemView.findViewById(R.id.iv_head));
+        }
+
+        void loadData(final MessageUrlData data) {
+            Glide.with(context).load(R.mipmap.hot).into(head);
+            text.setText(data.getUrl());
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("url", data.getUrl());
+                    ((MessageActivity) context).startActivity(WebviewActivity.class, bundle);
+                }
+            });
         }
 
     }

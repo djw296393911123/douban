@@ -14,6 +14,8 @@ public class MessageBaseData {
 
     public static final int TIME = 0x9004;
 
+    public static final int URL = 0x9005;
+
     private int type;
 
     public MessageBaseData(int type) {

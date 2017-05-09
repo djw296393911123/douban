@@ -67,14 +67,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         type_day = ((TextView) view.findViewById(R.id.tv_type_day));
         recyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new CloudAdapter(getActivity()) {
-            @Override
-            public void onImageClick(String url) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.add(ImageFragment.newInstance(url), "img");
-                transaction.commitAllowingStateLoss();
-            }
-        };
+        adapter = new CloudAdapter(getActivity());
         recyclerView.setAdapter(adapter);
     }
 

@@ -11,7 +11,9 @@ import com.djw.douban.module.HttpMoudel;
 import com.djw.douban.util.SPUtils;
 
 /**
- * Created by JasonDong on 2017/3/23.
+ * Created by JasonDong
+ * <p>
+ * on 2017/3/23.
  */
 
 public class BaseApplication extends Application {

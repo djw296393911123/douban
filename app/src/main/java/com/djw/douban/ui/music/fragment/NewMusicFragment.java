@@ -63,7 +63,7 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
         mPresenter.getMusic(ParamsData.START, ParamsData.COUNT_NEW_MUSIC);
     }
 
-    public void scrollToTop(){
+    public void scrollToTop() {
         recyclerView.smoothScrollToPosition(0);
     }
 

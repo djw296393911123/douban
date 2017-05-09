@@ -12,6 +12,7 @@ import com.djw.douban.data.message.MessageImgData;
 import com.djw.douban.data.message.MessageReceiveData;
 import com.djw.douban.data.message.MessageSendData;
 import com.djw.douban.data.message.MessageTimeData;
+import com.djw.douban.data.message.MessageUrlData;
 import com.djw.douban.db.DBHelper;
 import com.djw.douban.http.RetrofitHelper;
 import com.djw.douban.ui.message.contract.MessageContract;
@@ -62,6 +63,9 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
                             mView.showReceiveMessage(data);
                         } else {
                             getGirlData();
+                            insert(data.getUrl(), MessageBaseData.URL);
+                            data.setType(MessageBaseData.URL);
+                            mView.showReceiveMessage(new MessageUrlData(data.getUrl()));
                         }
 
                     }
@@ -117,6 +121,9 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
                 case MessageBaseData.TIME:
                     list.add(new MessageTimeData(msg));
                     break;
+                case MessageBaseData.URL:
+                    list.add(new MessageUrlData(msg));
+                    break;
             }
         }
         mView.showHistory(list);
@@ -130,7 +137,7 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
 
     @Override
     public void deleteHistory() {
-        database.delete(DBHelper.TABLE,null,null);
+        database.delete(DBHelper.TABLE, null, null);
         mView.showDelete();
     }
 
