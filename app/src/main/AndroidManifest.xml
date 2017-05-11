@@ -83,8 +83,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity
+            android:name=".ui.message.CalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.message.NewCalenderActivity"></activity>
     </application>
 
 </manifest>

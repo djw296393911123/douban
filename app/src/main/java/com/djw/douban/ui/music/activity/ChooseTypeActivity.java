@@ -72,7 +72,8 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
 
     @Override
     public void showTopType(List<MusicBaseData> list) {
-        topAdapter.notifyDataChange(list);
+
+        topAdapter.notifyDataChange(list,getIntent().getExtras().getInt("position"));
 
     }
 

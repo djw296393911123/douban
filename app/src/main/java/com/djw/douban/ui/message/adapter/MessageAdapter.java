@@ -70,7 +70,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new TimeHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_time, parent, false));
             case MessageBaseData.URL:
                 return new URLHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_receive, parent, false));
-
         }
 
         return new SendHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_send, parent, false));

@@ -2,7 +2,6 @@ package com.djw.douban.ui.cloud.fragment;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +21,7 @@ import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.ui.cloud.adapter.CloudAdapter;
 import com.djw.douban.ui.cloud.contract.CloudContract;
 import com.djw.douban.ui.cloud.presenter.CloudPresenter;
-import com.djw.douban.util.CityPopWindows;
+import com.djw.douban.util.CloudDownPopWindow;
 
 import java.util.List;
 
@@ -35,13 +34,13 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     private RecyclerView recyclerView;
     private CloudAdapter adapter;
     private Toolbar toolbar;
-    private CityPopWindows cityPopWindows;
+    private CloudDownPopWindow cityPopWindows;
     private TextView title;
     private String id = ParamsData.CITY;
     private TextView type_all;
     private TextView type_day;
-    private CityPopWindows typePop;
-    private CityPopWindows dayPop;
+    private CloudDownPopWindow typePop;
+    private CloudDownPopWindow dayPop;
     private String id_day = ParamsData.DAY;
     private String id_type = ParamsData.TYPE;
     private View type_view;
@@ -116,7 +115,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showCity(List<CityData> list) {
-        cityPopWindows = new CityPopWindows(getActivity(), list) {
+        cityPopWindows = new CloudDownPopWindow(getActivity(), list) {
 
             @Override
             public void onItemClicks(String id, String titles) {
@@ -144,7 +143,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showType(List<CityData> list) {
-        typePop = new CityPopWindows(getActivity(), list) {
+        typePop = new CloudDownPopWindow(getActivity(), list) {
 
             @Override
             public void onItemClicks(String id, String title) {
@@ -158,7 +157,7 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
 
     @Override
     public void showTypeDay(List<CityData> list) {
-        dayPop = new CityPopWindows(getActivity(), list) {
+        dayPop = new CloudDownPopWindow(getActivity(), list) {
 
             @Override
             public void onItemClicks(String id, String title) {
@@ -184,13 +183,13 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_type:
-                typePop.showAsDropDown(type_view, 5, 5);
+                typePop.showPopupWindow(swipeToLoadLayout);
                 break;
             case R.id.ll_type_day:
-                dayPop.showAsDropDown(type_view, 5, 5);
+                dayPop.showPopupWindow(swipeToLoadLayout);
                 break;
             case R.id.ll_cloud:
-                cityPopWindows.showAsDropDown(toolbar, 5, 5);
+                cityPopWindows.showPopupWindow(type_view);
                 break;
         }
     }

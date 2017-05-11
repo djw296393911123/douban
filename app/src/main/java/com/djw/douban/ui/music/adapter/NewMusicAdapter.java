@@ -52,7 +52,6 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void notifyDataChange(List<MusicBaseData> list) {
-//        this.list.clear();
         this.list.addAll(list);
         if (getItemCount() == 0) notifyItemRangeChanged(getItemCount(), list.size());
         else notifyItemRangeChanged(getItemCount() + 1, list.size());
@@ -162,7 +161,7 @@ public class NewMusicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public int isSpan(int position) {
-        return list.get(position).getType() == MusicBaseData.FOUR ? 1 : 2;
+        return list.get(position).getType() == MusicBaseData.FOUR ? 1 : 3;
     }
 
     @Override

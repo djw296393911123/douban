@@ -31,13 +31,15 @@ public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHold
 
     private Context context;
     private MusicTypeHAdapter adapter;
+    private int moveToPosition;
 
     protected TopAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
     }
 
-    public void notifyDataChange(List<MusicBaseData> list) {
+    public void notifyDataChange(List<MusicBaseData> list, int position) {
+        moveToPosition = position;
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -60,6 +62,7 @@ public abstract class TopAdapter extends RecyclerView.Adapter<TopAdapter.TopHold
                         onTopItemClick(tag, MusicBaseData.ONE);
                     }
                 });
+                holder.recyclerView.smoothScrollToPosition(moveToPosition);
                 break;
             case MusicBaseData.TWO:
                 TopTwoData topTwoData = (TopTwoData) list.get(position);

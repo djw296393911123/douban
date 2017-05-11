@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.djw.douban.http.ActivityScope;
 import com.djw.douban.module.ActivityModule;
 import com.djw.douban.ui.leader.LeaderActivity;
+import com.djw.douban.ui.message.CalendarActivity;
 import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.ui.book.activity.BookInfoActivity;
@@ -62,4 +63,6 @@ public interface ActivityComponent {
     void inject(MessageActivity messageActivity);
 
     void inject(LeaderActivity leaderActivity);
+
+    void inject(CalendarActivity calendarActivity);
 }

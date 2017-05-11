@@ -39,7 +39,7 @@ public abstract class BookTypeAdapter extends RecyclerView.Adapter<BookTypeAdapt
     }
 
     @Override
-    public void onBindViewHolder(final BookTypeHolder holder, int position) {
+    public void onBindViewHolder(BookTypeHolder holder, int position) {
         holder.textView.setText(list.get(position).getTitle());
         holder.layout.setSelected(list.get(position).isSelect());
         holder.layout.setTag(position);

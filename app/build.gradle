@@ -60,6 +60,7 @@ dependencies {
     compile 'com.azoft.carousellayoutmanager:carousel:1.2.1'
     compile 'com.sunfusheng:marqueeview:1.2.0'
     compile 'com.lovedise:permissiongen:0.0.6'
+    compile 'com.github.razerdp:BasePopup:v1.7.1'
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'

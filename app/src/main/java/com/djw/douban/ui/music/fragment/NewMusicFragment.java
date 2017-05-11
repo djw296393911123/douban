@@ -39,7 +39,7 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     protected void initView(View view) {
         view.findViewById(R.id.tv_search).setOnClickListener(this);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_new_music);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NewMusicAdapter();
         recyclerView.setAdapter(adapter);
@@ -60,7 +60,7 @@ public class NewMusicFragment extends BaseFragment<NewMusicPresenter> implements
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
-        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT_NEW_MUSIC);
+        mPresenter.getMusic(ParamsData.START, ParamsData.COUNT_NEW_MUSIC + 1);
     }
 
     public void scrollToTop() {

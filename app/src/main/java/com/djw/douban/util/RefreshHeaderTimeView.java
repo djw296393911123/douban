@@ -55,7 +55,7 @@ public class RefreshHeaderTimeView extends RelativeLayout implements SwipeTrigge
         jiantou.setSelected(true);
         pb.setVisibility(GONE);
         state.setText("下拉刷新");
-        String format = new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis()));
+        String format = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date(System.currentTimeMillis()));
         if (SPUtils.getBoolean(SPUtils.IS_FIRST, true)) {
             time.setText("从未刷新");
             SPUtils.putBoolean(SPUtils.IS_FIRST, false);

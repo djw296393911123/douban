@@ -75,7 +75,7 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mPresenter.deleteHistory();
+        startActivity(CalendarActivity.class);
         return true;
     }
 

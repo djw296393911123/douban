@@ -7,6 +7,7 @@ import com.djw.douban.http.FragmentScope;
 import com.djw.douban.module.FragmentModule;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.book.fragment.BookFragment;
+import com.djw.douban.ui.message.fragment.CalendarFragment;
 import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.music.fragment.NewMusicFragment;
 import com.djw.douban.ui.mine.fragment.MineFragment;
@@ -32,4 +33,6 @@ public interface FragmentComponent {
     void inject(NewMoviesFragment newMoviesFragment);
 
     void inject(NewMusicFragment newMusicFragment);
+
+    void inject(CalendarFragment calendarFragment);
 }

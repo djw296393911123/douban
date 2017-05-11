@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.OnClick;
@@ -42,7 +44,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     private BookRecyclerAdapter bookRecyclerAdapter;
     private SwipeToLoadLayout swipeToLoadLayout;
     private RecyclerView xRecyclerView;
-
+    private List<BookTypeData> list = new ArrayList<>();
 
     @Override
     protected void lazyLoad() {
@@ -74,15 +76,59 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
             @Override
             public void OnItemClick(int position) {
                 BookFragment.this.position = position;
-                mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false, true);
+                mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, list.get(position).getTitle(), false, true);
             }
         };
         recyclerView.setAdapter(adapter);
+        //为RecycleView绑定触摸事件
+        ItemTouchHelper helper = new ItemTouchHelper(new RecyclerViewTouchCallback(list, adapter));
+        helper.attachToRecyclerView(recyclerView);
+    }
+
+    private static class RecyclerViewTouchCallback extends ItemTouchHelper.Callback {
+
+        private List<BookTypeData> list;
+
+        private BookTypeAdapter adapter;
+
+        RecyclerViewTouchCallback(List<BookTypeData> list, BookTypeAdapter adapter) {
+            this.list = list;
+            this.adapter = adapter;
+        }
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            //首先回调的方法 返回int表示是否监听该方向
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;//拖拽
+            int swipeFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;//侧滑删除
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            //滑动事件
+            Collections.swap(list, viewHolder.getAdapterPosition(), target.getAdapterPosition());
+            adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+            adapter.notifyDataChange(list);
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            //侧滑事件
+//                list.remove(viewHolder.getAdapterPosition());
+//                adapter.notifyDataChange(list);
+        }
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            //是否可拖拽
+            return true;
+        }
     }
 
     @Override
     protected void doBusiness() {
-        List<BookTypeData> list = new ArrayList<>();
         list.add(new BookTypeData(types[0], true));
         for (int i = 1; i < types.length; i++) {
             list.add(new BookTypeData(types[i], false));
@@ -108,12 +154,12 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     public void onRefresh() {
-        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[position], false, false);
+        mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, list.get(position).getTitle(), false, false);
     }
 
     @Override
     public void onLoadMore() {
-        mPresenter.getBookList(bookRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, types[position], true, false);
+        mPresenter.getBookList(bookRecyclerAdapter.getItemCount() + 1, ParamsData.COUNT, list.get(position).getTitle(), true, false);
     }
 
     @Override

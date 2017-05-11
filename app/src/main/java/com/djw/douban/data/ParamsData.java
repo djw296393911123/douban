@@ -1,7 +1,9 @@
 package com.djw.douban.data;
 
 /**
- * Created by JasonDong on 2017/4/10.
+ * Created by JasonDong
+ * <p>
+ * on 2017/4/10.
  */
 
 public class ParamsData {

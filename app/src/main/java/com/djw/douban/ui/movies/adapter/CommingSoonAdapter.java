@@ -1,5 +1,6 @@
 package com.djw.douban.ui.movies.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -15,6 +16,7 @@ import com.djw.douban.R;
 import com.djw.douban.base.BaseActivity;
 import com.djw.douban.data.movies.MoviesItemData;
 import com.djw.douban.ui.movies.activity.MovieInfoActivity;
+import com.djw.douban.util.CommingLikePopWindow;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -84,6 +86,12 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
                 ((BaseActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CommingLikePopWindow(((Activity) context)).showPopupWindow(v);
+            }
+        });
     }
 
     @Override
@@ -100,6 +108,7 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
         private final TextView num;
         private final TextView pingfen;
         private final CardView cardView;
+        private final ImageView comment;
 
         Top250Holder(View itemView) {
             super(itemView);
@@ -111,6 +120,7 @@ public class CommingSoonAdapter extends RecyclerView.Adapter<CommingSoonAdapter.
             num = ((TextView) itemView.findViewById(R.id.tv_num));
             pingfen = ((TextView) itemView.findViewById(R.id.tv_pingfen));
             cardView = ((CardView) itemView.findViewById(R.id.cv_item));
+            comment = ((ImageView) itemView.findViewById(R.id.iv_comment));
         }
     }
 }
