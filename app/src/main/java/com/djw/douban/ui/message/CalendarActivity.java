@@ -2,18 +2,22 @@ package com.djw.douban.ui.message;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.djw.douban.R;
 import com.djw.douban.base.RxToolbarActivity;
 import com.djw.douban.data.calendar.CalendarBaseData;
+import com.djw.douban.data.things.ThingsBaseData;
 import com.djw.douban.ui.message.adapter.CalendarAdapter;
+import com.djw.douban.ui.message.adapter.ThingsAdapter;
 import com.djw.douban.ui.message.contract.CalenderContract;
 import com.djw.douban.ui.message.presenter.CalendarPresenter;
 import com.djw.douban.util.CalendarUtil;
 import com.djw.douban.util.DividerGridItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,11 +26,14 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
 
     @BindView(R.id.rv_calendar)
     RecyclerView rvCalendar;
+    @BindView(R.id.rv_things)
+    RecyclerView rvThings;
     private CalendarAdapter adapter;
     private int curMonth;
     private int month;
     private int year;
     private int curYear;
+    private ThingsAdapter thingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
         rvCalendar.setLayoutManager(layoutManager);
         rvCalendar.addItemDecoration(new DividerGridItemDecoration(this));
         adapter = new CalendarAdapter() {
+
             @Override
             public void onLeftClick() {
 
@@ -50,6 +58,7 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
                     setToolBarTitle(curYear + "年");
                 }
                 mPresenter.getCalendar(curYear, curMonth = --curMonth, curMonth == month && curYear == year);
+                thingAdapter.notifyDataChange(new ArrayList<ThingsBaseData>());
             }
 
             @Override
@@ -61,7 +70,14 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
                     setToolBarTitle(curYear + "年");
                 }
                 mPresenter.getCalendar(curYear, curMonth = ++curMonth, curMonth == month && curYear == year);
+                thingAdapter.notifyDataChange(new ArrayList<ThingsBaseData>());
             }
+
+            @Override
+            public void onItemClick(List<ThingsBaseData> list) {
+                thingAdapter.notifyDataChange(list);
+            }
+
         };
         rvCalendar.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -70,6 +86,10 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
                 return adapter.isSpan(position);
             }
         });
+
+        rvThings.setLayoutManager(new LinearLayoutManager(this));
+        thingAdapter = new ThingsAdapter();
+        rvThings.setAdapter(thingAdapter);
     }
 
     @Override
@@ -79,7 +99,6 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
 
     @Override
     public void doBusiness() {
-
     }
 
     @Override

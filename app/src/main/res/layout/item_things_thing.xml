@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f00"
+    android:orientation="horizontal"
+    android:padding="20px">
+
+    <TextView
+        android:id="@+id/tv_normal_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20px"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_normal_things"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:textSize="20px"
+        android:textStyle="bold" />
+</LinearLayout>

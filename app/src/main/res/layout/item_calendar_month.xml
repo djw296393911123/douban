@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_left"
-        android:layout_width="48px"
-        android:layout_height="48px"
+        android:layout_width="64px"
+        android:layout_height="64px"
         android:background="@drawable/ic_chevron_left_black_24dp" />
 
     <TextView
@@ -22,7 +22,7 @@
 
     <ImageView
         android:id="@+id/iv_right"
-        android:layout_width="48px"
-        android:layout_height="48px"
+        android:layout_width="64px"
+        android:layout_height="64px"
         android:background="@drawable/ic_chevron_right_black_24dp" />
 </LinearLayout>

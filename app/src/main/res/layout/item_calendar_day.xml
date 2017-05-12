@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_day"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -14,4 +15,24 @@
         android:gravity="center"
         android:textColor="@drawable/color_calander_day"
         android:textSize="25px" />
+
+    <TextView
+        android:id="@+id/tv_lunar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:ellipsize="end"
+        android:textColor="@color/colorAccent"
+        android:singleLine="true"
+        android:textSize="10px" />
+
+    <TextView
+        android:id="@+id/tv_festival"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#f00"
+        android:textSize="10px" />
 </LinearLayout>

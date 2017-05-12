@@ -104,7 +104,7 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
     public void getHistory() {
         List<MessageBaseData> list = new ArrayList<>();
         database = dbHelper.getWritableDatabase();
-        Cursor cursor = database.query(DBHelper.TABLE, null, null, null, null, null, null);
+        Cursor cursor = database.query(DBHelper.TABLE_MESSAGE, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
             int type = cursor.getInt(cursor.getColumnIndex(DBHelper.TYPE));
             String msg = cursor.getString(cursor.getColumnIndex(DBHelper.MESSAGE));
@@ -137,7 +137,7 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
 
     @Override
     public void deleteHistory() {
-        database.delete(DBHelper.TABLE, null, null);
+        database.delete(DBHelper.TABLE_MESSAGE, null, null);
         mView.showDelete();
     }
 
@@ -145,7 +145,7 @@ public class MessagePresenter extends RxPresenter<MessageContract.View> implemen
         ContentValues values = new ContentValues();
         values.put(DBHelper.TYPE, type);
         values.put(DBHelper.MESSAGE, msg);
-        database.insert(DBHelper.TABLE, null, values);
+        database.insert(DBHelper.TABLE_MESSAGE, null, values);
     }
 
 }

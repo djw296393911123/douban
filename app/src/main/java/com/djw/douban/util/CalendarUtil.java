@@ -144,32 +144,32 @@ public class CalendarUtil {
     }
 
 
-    /**
-     * 获取农历月份
-     *
-     * @return
-     */
-    public static String getLunarMonth() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int[] lunarDate = LunarCalendar.solarToLunar(year, month, day);
-        return lunarMonth[lunarDate[1] - 1];
-    }
-
-    /**
-     * 获取农历日
-     *
-     * @return
-     */
-    public static String getLunarDay(int d) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int[] lunarDate = LunarCalendar.solarToLunar(year, month, day);
-        return lunarDay[lunarDate[2] - 1];
-    }
+//    /**
+//     * 获取农历月份
+//     *
+//     * @return
+//     */
+//    public static String getLunarMonth() {
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH) + 1;
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//        int[] lunarDate = LunarCalendar.solarToLunar(year, month, day);
+//        return lunarMonth[lunarDate[1] - 1];
+//    }
+//
+//    /**
+//     * 获取农历日
+//     *
+//     * @return
+//     */
+//    public static String getLunarDay(int d) {
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH) + 1;
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//        int[] lunarDate = LunarCalendar.solarToLunar(year, month, day);
+//        return lunarDay[lunarDate[2] - 1];
+//    }
 
 }

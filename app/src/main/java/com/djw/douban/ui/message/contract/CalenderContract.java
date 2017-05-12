@@ -22,6 +22,8 @@ public interface CalenderContract {
 
         void getCalendar(int year, int month, boolean isCurMonth);
 
+        long insertThings(String things, String time);
+
     }
 
 }

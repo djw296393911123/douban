@@ -11,6 +11,7 @@ import com.djw.douban.R;
 import com.djw.douban.data.calendar.CalendarBaseData;
 import com.djw.douban.data.calendar.CalendarDayData;
 import com.djw.douban.data.calendar.CalenderMonthData;
+import com.djw.douban.data.things.ThingsBaseData;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -72,13 +73,31 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
             case CalendarBaseData.DAY:
                 DayHolder dayHolder = (DayHolder) holder;
                 final CalendarDayData dayData = (CalendarDayData) list.get(position);
+                TextView day = dayHolder.day;
+                TextView festival = dayHolder.festival;
+                TextView tvLunar = dayHolder.lunar;
+                View layout = dayHolder.view;
+
                 if (dayData.isCur()) {
-                    dayHolder.day.setBackgroundResource(R.drawable.bg_calendar_curday);
+                    day.setBackgroundResource(R.drawable.bg_calendar_curday);
                 }
-                dayHolder.day.setText(dayData.getDay());
-                dayHolder.day.setSelected(dayData.isSelect());
-                dayHolder.day.setTag(position);
-                dayHolder.day.setOnClickListener(new View.OnClickListener() {
+
+                if (!dayData.isCurMonth()) {
+                    tvLunar.setTextColor(Color.GRAY);
+                    day.setTextColor(Color.GRAY);
+                    festival.setTextColor(Color.GRAY);
+                } else if (!dayData.isCur()) {
+                    tvLunar.setTextColor(Color.BLACK);
+                    day.setTextColor(Color.BLACK);
+                    festival.setTextColor(Color.RED);
+                }
+                String[] lunar = dayData.getLunar().split(",");
+                tvLunar.setText(lunar[0]);
+                festival.setText(lunar.length > 1 ? lunar[1] : "");
+                day.setText(dayData.getDay());
+                day.setSelected(dayData.isSelect());
+                layout.setTag(position);
+                layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         for (int i = 2; i < list.size(); i++) {
@@ -86,6 +105,7 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
                         }
                         dayData.setSelect(true);
                         notifyDataSetChanged();
+                        onItemClick(dayData.getList());
                     }
                 });
                 break;
@@ -124,11 +144,17 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
     private static class DayHolder extends RecyclerView.ViewHolder {
 
         private final TextView day;
+        private final TextView lunar;
+        private final TextView festival;
+        private final View view;
 
         DayHolder(View itemView) {
             super(itemView);
             AutoUtils.autoSize(itemView);
             day = ((TextView) itemView.findViewById(R.id.tv_day));
+            lunar = ((TextView) itemView.findViewById(R.id.tv_lunar));
+            festival = ((TextView) itemView.findViewById(R.id.tv_festival));
+            view = itemView.findViewById(R.id.ll_day);
         }
     }
 
@@ -143,5 +169,7 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
     public abstract void onLeftClick();
 
     public abstract void onRightClick();
+
+    public abstract void onItemClick(List<ThingsBaseData> list);
 
 }

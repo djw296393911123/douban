@@ -10,6 +10,7 @@ import android.view.View;
 import com.djw.douban.R;
 import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.calendar.CalendarBaseData;
+import com.djw.douban.data.things.ThingsBaseData;
 import com.djw.douban.ui.message.adapter.CalendarAdapter;
 import com.djw.douban.ui.message.contract.CalenderContract;
 import com.djw.douban.ui.message.presenter.CalendarPresenter;
@@ -58,6 +59,12 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             public void onRightClick() {
 
             }
+
+            @Override
+            public void onItemClick(List<ThingsBaseData> list) {
+
+            }
+
         };
         rvCalendar.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
