@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_comment_popup"
+    android:padding="20px">
+
+    <LinearLayout
+        android:id="@+id/ll_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/calendar"
+            android:gravity="center_vertical"
+            android:text="日历1"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/tv_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:drawableLeft="@mipmap/calendar"
+            android:gravity="center_vertical"
+            android:text="日历2"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/tv_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20px"
+            android:drawableLeft="@mipmap/delete"
+            android:gravity="center_vertical"
+            android:text="清除聊天记录"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </LinearLayout>
+
+</LinearLayout>

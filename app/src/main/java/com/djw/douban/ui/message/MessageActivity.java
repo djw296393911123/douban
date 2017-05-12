@@ -19,6 +19,7 @@ import com.djw.douban.data.message.MessageTimeData;
 import com.djw.douban.ui.message.adapter.MessageAdapter;
 import com.djw.douban.ui.message.contract.MessageContract;
 import com.djw.douban.ui.message.presenter.MessagePresenter;
+import com.djw.douban.util.MessageMorePopWindow;
 
 import java.util.List;
 
@@ -75,7 +76,17 @@ public class MessageActivity extends RxToolbarActivity<MessagePresenter> impleme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        startActivity(CalendarActivity.class);
+        switch (item.getItemId()) {
+            case R.id.calendar1:
+                startActivity(CalendarActivity.class);
+                break;
+            case R.id.calendar2:
+                startActivity(NewCalendarActivity.class);
+                break;
+            case R.id.delete:
+                mPresenter.deleteHistory();
+                break;
+        }
         return true;
     }
 

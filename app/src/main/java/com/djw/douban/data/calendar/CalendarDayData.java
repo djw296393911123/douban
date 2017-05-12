@@ -40,4 +40,5 @@ public class CalendarDayData extends CalendarBaseData {
     public void setCur(boolean cur) {
         isCur = cur;
     }
+
 }

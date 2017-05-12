@@ -26,7 +26,7 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private List<CalendarBaseData> list;
 
-    public CalendarAdapter() {
+    protected CalendarAdapter() {
         this.list = new ArrayList<>();
     }
 
@@ -72,6 +72,9 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
             case CalendarBaseData.DAY:
                 DayHolder dayHolder = (DayHolder) holder;
                 final CalendarDayData dayData = (CalendarDayData) list.get(position);
+                if (dayData.isCur()) {
+                    dayHolder.day.setBackgroundResource(R.drawable.bg_calendar_curday);
+                }
                 dayHolder.day.setText(dayData.getDay());
                 dayHolder.day.setSelected(dayData.isSelect());
                 dayHolder.day.setTag(position);

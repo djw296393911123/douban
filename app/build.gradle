@@ -64,4 +64,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.cleveroad:cycle-menu:1.0.1'
 }

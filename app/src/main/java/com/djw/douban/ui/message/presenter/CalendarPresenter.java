@@ -1,10 +1,15 @@
 package com.djw.douban.ui.message.presenter;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.djw.douban.base.RxPresenter;
 import com.djw.douban.data.calendar.CalendarBaseData;
 import com.djw.douban.data.calendar.CalendarDayData;
 import com.djw.douban.data.calendar.CalendarWeekData;
 import com.djw.douban.data.calendar.CalenderMonthData;
+import com.djw.douban.data.message.MessageBaseData;
+import com.djw.douban.db.DBHelper;
 import com.djw.douban.ui.message.contract.CalenderContract;
 import com.djw.douban.util.CalendarUtil;
 
@@ -27,6 +32,7 @@ public class CalendarPresenter extends RxPresenter<CalenderContract.View> implem
 
     @Override
     public void getCalendar(int year, int month, boolean isCurMonth) {
+
         List<CalendarBaseData> list = new ArrayList<>();
 
         list.add(new CalenderMonthData(month + "月"));

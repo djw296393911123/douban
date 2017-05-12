@@ -82,7 +82,6 @@ public class MovieInfoActivity extends RxActivity<MovieInfoPresenter> implements
         mPresenter.attachView(this);
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("id");
-        Log.i("id", id + "");
         mPresenter.getInfo(id);
     }
 

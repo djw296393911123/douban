@@ -87,7 +87,9 @@
         <activity
             android:name=".ui.message.CalendarActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.message.NewCalenderActivity"></activity>
+        <activity
+            android:name=".ui.message.NewCalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

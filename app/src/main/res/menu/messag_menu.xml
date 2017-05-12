@@ -2,9 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/calendar1"
+        android:icon="@mipmap/calendar"
+        android:orderInCategory="100"
+        android:title="calendar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/calendar2"
+        android:icon="@mipmap/calendar"
+        android:orderInCategory="100"
+        android:title="calendar"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/delete"
         android:icon="@mipmap/delete"
         android:orderInCategory="100"
         android:title="delete"
         app:showAsAction="always" />
+
+
 </menu>
