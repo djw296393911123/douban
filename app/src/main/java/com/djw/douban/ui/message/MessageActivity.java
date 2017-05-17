@@ -19,7 +19,6 @@ import com.djw.douban.data.message.MessageTimeData;
 import com.djw.douban.ui.message.adapter.MessageAdapter;
 import com.djw.douban.ui.message.contract.MessageContract;
 import com.djw.douban.ui.message.presenter.MessagePresenter;
-import com.djw.douban.util.MessageMorePopWindow;
 
 import java.util.List;
 

@@ -37,18 +37,23 @@ public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> imp
 
     @Override
     public void showError(String msg) {
+        refreshOrLoadMoreStop();
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showMore(MusicRoot musicRoot, boolean isLoadMore) {
+        refreshOrLoadMoreStop();
+        adapter.notifyDataChange(musicRoot.getMusics(), isLoadMore);
+    }
+
+    private void refreshOrLoadMoreStop() {
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
         }
         if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
-        adapter.notifyDataChange(musicRoot.getMusics(), isLoadMore);
     }
 
     @Override

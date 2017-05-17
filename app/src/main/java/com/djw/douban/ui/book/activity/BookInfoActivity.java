@@ -2,6 +2,7 @@ package com.djw.douban.ui.book.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.djw.douban.data.book.BookInfoData;
 import com.djw.douban.ui.book.contract.BookInfoContract;
 import com.djw.douban.ui.book.presenter.BookInfoPresenter;
 import com.djw.douban.util.RxUtil;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -34,10 +36,10 @@ public class BookInfoActivity extends RxToolbarActivity<BookInfoPresenter> imple
     private TextView grade;
     private RatingBar ratingBar;
     private TextView num;
-    private TextView jianjie;
     private TextView zuozhe;
     private RelativeLayout layout;
     private Toolbar toolbar;
+    private ExpandableTextView etv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,8 @@ public class BookInfoActivity extends RxToolbarActivity<BookInfoPresenter> imple
         grade = (TextView) findViewById(R.id.tv_grade);
         ratingBar = (RatingBar) findViewById(R.id.rb_movies);
         num = (TextView) findViewById(R.id.tv_num);
-        jianjie = (TextView) findViewById(R.id.tv_jianjie);
         zuozhe = (TextView) findViewById(R.id.tv_zuozhe_jianjie);
+        etv = (ExpandableTextView)findViewById(R.id.expand_text_view);
     }
 
     @Override
@@ -99,8 +101,8 @@ public class BookInfoActivity extends RxToolbarActivity<BookInfoPresenter> imple
                             layout.setBackgroundColor(swatch.getRgb());
                             toolbar.setBackgroundColor(swatch.getRgb());
                         } else {
-                            layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                            toolbar.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+                            toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
                         }
                         head.setImageBitmap(resource);
                     }
@@ -111,7 +113,7 @@ public class BookInfoActivity extends RxToolbarActivity<BookInfoPresenter> imple
         setToolBarTitle(bookInfoData.getTitle());
         author.setText("作者 : " + (bookInfoData.getAuthor().size() > 0 ? bookInfoData.getAuthor().get(0) : "未知"));
         out.setText("出版社 : " + bookInfoData.getPublisher());
-        jianjie.setText(bookInfoData.getSummary());
+        etv.setText(bookInfoData.getSummary());
         time.setText("出版时间 : " + bookInfoData.getPubdate());
         zuozhe.setText(bookInfoData.getAuthor_intro());
         grade.setText(bookInfoData.getRating().getAverage());

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,27 +12,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-        android:id="@+id/stll_movies"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.djw.douban.util.RefreshHeaderTimeView
-            android:id="@+id/swipe_refresh_header"
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/stll_movies"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:gravity="center_horizontal" />
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/swipe_target"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <com.djw.douban.util.RefreshHeaderTimeView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:gravity="center_horizontal" />
 
-        <com.djw.douban.util.LoadMoreFooterView
-            android:id="@+id/swipe_load_more_footer"
-            android:layout_width="match_parent"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.djw.douban.util.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/bmb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal" />
-    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="50px"
+            android:layout_marginRight="50px"
+            app:bmb_buttonEnum="ham"
+            app:bmb_buttonPlaceEnum="buttonPlace_ham_4"
+            app:bmb_normalColor="#8ee5ee"
+            app:bmb_piecePlaceEnum="piecePlace_ham_4" />
+    </FrameLayout>
+
 </LinearLayout>

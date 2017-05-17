@@ -1,6 +1,7 @@
 package com.djw.douban.ui.movies.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -81,6 +82,6 @@ public class PeopleActivity extends RxActivity<PeoplePresenter> implements Movie
         Glide.with(this).load(peopleOne.getUrl()).bitmapTransform(new CropCircleTransformation(context)).into(ivSmall);
         Glide.with(this).load(peopleOne.getUrl()).asBitmap().into(ivLarge);
         adapter.notifyDataChange(list);
-        vBlack.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        vBlack.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
     }
 }

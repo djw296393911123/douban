@@ -41,6 +41,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
 
     public void startActivity(Class<?> clz) {
         startActivity(clz, null);
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     public void startActivity(Class<?> clz, Bundle bundle) {
@@ -51,6 +52,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
             intent.putExtras(bundle);
         }
         startActivity(intent);
+        overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     public void showProgress() {

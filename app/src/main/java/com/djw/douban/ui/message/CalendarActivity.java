@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.djw.douban.R;
@@ -16,6 +18,7 @@ import com.djw.douban.ui.message.contract.CalenderContract;
 import com.djw.douban.ui.message.presenter.CalendarPresenter;
 import com.djw.douban.util.CalendarUtil;
 import com.djw.douban.util.DividerGridItemDecoration;
+import com.djw.douban.util.MonthPopWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
     private int year;
     private int curYear;
     private ThingsAdapter thingAdapter;
+    private MonthPopWindow monthPopWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,13 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
 
             @Override
             public void onItemClick(List<ThingsBaseData> list) {
+                Log.i("things", list.toString());
                 thingAdapter.notifyDataChange(list);
+            }
+
+            @Override
+            public void onMonthClick(View view) {
+                monthPopWindow.showPopupWindow(view);
             }
 
         };
@@ -99,6 +109,14 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
 
     @Override
     public void doBusiness() {
+        monthPopWindow = new MonthPopWindow(this) {
+            @Override
+            public void onItemClicks(int month) {
+                mPresenter.getCalendar(curYear, month, CalendarActivity.this.month == month && curYear == year);
+                curMonth = month;
+                monthPopWindow.dismiss();
+            }
+        };
     }
 
     @Override

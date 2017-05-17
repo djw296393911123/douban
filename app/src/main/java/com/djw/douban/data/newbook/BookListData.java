@@ -14,12 +14,15 @@ public class BookListData extends BookBaseData {
 
     private String id;
 
-    public BookListData(String name, String grade, String img, String id) {
+    private String author;
+
+    public BookListData(String name, String grade, String img, String id,String author) {
         super(BookBaseData.LIST);
         this.name = name;
         this.grade = grade;
         this.img = img;
         this.id = id;
+        this.author = author;
     }
 
     public String getName() {
@@ -52,5 +55,13 @@ public class BookListData extends BookBaseData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

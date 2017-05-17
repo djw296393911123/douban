@@ -31,4 +31,56 @@
     <string name="books">书籍</string>
     <string name="movies">电影</string>
     <string name="message">消息</string>
+
+    <string-array name="movies_type_bmb_title">
+        <item>升序</item>
+        <item>降序</item>
+        <item>观影人数</item>
+        <item>发行时间</item>
+    </string-array>
+
+    <string-array name="movies_type_bmb_subTitle">
+        <item>以观众评分从低到高进行排列</item>
+        <item>以观众评分从高到低进行排列</item>
+        <item>电影自上映以来观影的人数</item>
+        <item>电影的上映时间</item>
+    </string-array>
+
+    <string-array name="movies_home_bmb_title">
+        <item>国产</item>
+        <item>欧美</item>
+        <item>日本</item>
+        <item>韩国</item>
+        <item>校园</item>
+        <item>青春</item>
+        <item>经典</item>
+        <item>怀旧</item>
+    </string-array>
+
+    <string-array name="book_type_title">
+        <item>综合</item>
+        <item>文学</item>
+        <item>流行</item>
+        <item>文化</item>
+        <item>生活</item>
+        <item>天文</item>
+        <item>地理</item>
+        <item>小说</item>
+        <item>短篇</item>
+        <item>中篇</item>
+        <item>长篇</item>
+        <item>郭敬明</item>
+        <item>韩寒</item>
+        <item>莫言</item>
+        <item>明晓溪</item>
+        <item>饶雪漫</item>
+    </string-array>
+
+    <string-array name="book_bmb_title">
+        <item>言情小说</item>
+        <item>玄幻小说</item>
+        <item>战争</item>
+        <item>网游</item>
+        <item>名著</item>
+    </string-array>
 </resources>

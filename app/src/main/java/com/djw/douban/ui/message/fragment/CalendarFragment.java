@@ -65,6 +65,11 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
             }
 
+            @Override
+            public void onMonthClick(View view) {
+
+            }
+
         };
         rvCalendar.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

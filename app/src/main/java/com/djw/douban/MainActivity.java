@@ -24,6 +24,7 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
     private static final int DEFAULT_POSITION = 0;
     private ArrayList<Fragment> fragments;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
         navigator.setDefaultPosition(DEFAULT_POSITION);
         navigator.onCreate(savedInstanceState);
         BottomNavigationBar bar = (BottomNavigationBar) findViewById(R.id.bnb_main);
+
         bar.setMode(BottomNavigationBar.MODE_FIXED);
         bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bar

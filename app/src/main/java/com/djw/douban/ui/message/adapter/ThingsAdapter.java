@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JasonDong on 2017/5/12.
+ * Created by JasonDong
+ * <p>
+ * on 2017/5/12.
  */
 
 public class ThingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

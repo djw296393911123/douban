@@ -9,29 +9,44 @@
 
     <include layout="@layout/toolbar_search" />
 
-    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-        android:id="@+id/stll_movies"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.djw.douban.util.RefreshHeaderTimeView
-            android:id="@+id/swipe_refresh_header"
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/stll_movies"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center_horizontal" />
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/swipe_target"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <com.djw.douban.util.RefreshHeaderTimeView
+                android:id="@+id/swipe_refresh_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal" />
 
-        <com.djw.douban.util.LoadMoreFooterView
-            android:id="@+id/swipe_load_more_footer"
-            android:layout_width="match_parent"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.djw.douban.util.LoadMoreFooterView
+                android:id="@+id/swipe_load_more_footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal" />
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/bmb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center_horizontal" />
-    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+            android:layout_gravity="right|bottom"
+            app:bmb_buttonEnum="textOutsideCircle"
+            app:bmb_buttonPlaceEnum="buttonPlace_sc_8_1"
+            app:bmb_normalColor="#8ee5ee"
+            app:bmb_piecePlaceEnum="piecePlace_dot_8_1" />
+    </FrameLayout>
 
 </LinearLayout>

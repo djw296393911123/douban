@@ -1,5 +1,6 @@
 package com.djw.douban.ui.message.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import com.zhy.autolayout.utils.AutoUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import tyrantgit.explosionfield.ExplosionField;
+
 /**
  * Created by JasonDong
  * <p>
@@ -37,6 +40,7 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MessageBaseData> list;
+    private Context context;
 
     public MessageAdapter() {
         this.list = new ArrayList<>();
@@ -59,6 +63,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         switch (viewType) {
             case MessageBaseData.RECEIVE:
                 return new ReceiveHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_receive, parent, false));
@@ -79,14 +84,28 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (list.get(position).getType()) {
             case MessageBaseData.RECEIVE:
-                ReceiveHolder receiveHolder = (ReceiveHolder) holder;
+                final ReceiveHolder receiveHolder = (ReceiveHolder) holder;
                 MessageReceiveData receiveData = (MessageReceiveData) list.get(position);
                 receiveHolder.loadData(receiveData);
+                receiveHolder.layout.setTag(position);
+                receiveHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeItem(((int) v.getTag()), receiveHolder.itemView);
+                    }
+                });
                 break;
             case MessageBaseData.SEND:
-                SendHolder sendHolder = (SendHolder) holder;
+                final SendHolder sendHolder = (SendHolder) holder;
                 MessageSendData sendData = (MessageSendData) list.get(position);
                 sendHolder.loadData(sendData);
+                sendHolder.layout.setTag(position);
+                sendHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeItem(((int) v.getTag()), sendHolder.itemView);
+                    }
+                });
                 break;
             case MessageBaseData.IMAGE:
                 ImgHolder imgHolder = (ImgHolder) holder;
@@ -99,10 +118,27 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 timeHolder.loadData(timeData);
                 break;
             case MessageBaseData.URL:
-                URLHolder urlHolder = (URLHolder) holder;
+                final URLHolder urlHolder = (URLHolder) holder;
                 MessageUrlData urlData = (MessageUrlData) list.get(position);
                 urlHolder.loadData(urlData);
+                urlHolder.layout.setTag(position);
+                urlHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeItem(((int) v.getTag()), urlHolder.itemView);
+                    }
+                });
                 break;
+        }
+    }
+
+    private void removeItem(int position, View view) {
+        ExplosionField explosionField = ExplosionField.attach2Window(((Activity) context));
+        explosionField.explode(view);
+        list.remove(position);
+        notifyItemRemoved(position);
+        if (position != list.size()) {
+            notifyItemRangeChanged(position, list.size() - position);
         }
     }
 
@@ -121,6 +157,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView text;
         private final ImageView head;
         private final Context context;
+        private final View layout;
 
         ReceiveHolder(View itemView) {
             super(itemView);
@@ -128,6 +165,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             context = itemView.getContext();
             text = ((TextView) itemView.findViewById(R.id.tv_receive));
             head = ((ImageView) itemView.findViewById(R.id.iv_head));
+            layout = itemView.findViewById(R.id.ll_receive);
         }
 
         void loadData(MessageReceiveData data) {
@@ -144,6 +182,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final ImageView head;
         private final TextView text;
         private final Context context;
+        private final View layout;
 
         SendHolder(View itemView) {
             super(itemView);
@@ -151,6 +190,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             context = itemView.getContext();
             head = ((ImageView) itemView.findViewById(R.id.iv_head));
             text = ((TextView) itemView.findViewById(R.id.tv_send));
+            layout = itemView.findViewById(R.id.ll_send);
         }
 
         void loadData(MessageSendData data) {
@@ -222,6 +262,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView text;
         private final Context context;
         private final ImageView head;
+        private final View layout;
 
         URLHolder(View itemView) {
             super(itemView);
@@ -230,6 +271,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             text = ((TextView) itemView.findViewById(R.id.tv_receive));
             text.setTextColor(Color.BLUE);
             head = ((ImageView) itemView.findViewById(R.id.iv_head));
+            layout = itemView.findViewById(R.id.ll_receive);
         }
 
         void loadData(final MessageUrlData data) {

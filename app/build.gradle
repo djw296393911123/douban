@@ -28,7 +28,6 @@ dependencies {
     })
     compile project(':bottom-navigation-bar')
     compile project(':pull-to-refresh')
-
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:palette-v7:25.1.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
@@ -61,8 +60,11 @@ dependencies {
     compile 'com.sunfusheng:marqueeview:1.2.0'
     compile 'com.lovedise:permissiongen:0.0.6'
     compile 'com.github.razerdp:BasePopup:v1.7.1'
+    compile 'com.cleveroad:cycle-menu:1.0.1'
+    compile 'tyrantgit:explosionfield:1.0.1'
+    compile 'com.nightonke:boommenu:2.0.9'
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.cleveroad:cycle-menu:1.0.1'
+    compile 'com.ms-square:expandableTextView:0.1.4'
 }

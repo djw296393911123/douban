@@ -1,5 +1,7 @@
 package com.djw.douban.ui.movies.activity;
 
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +17,13 @@ import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.ui.movies.adapter.TypeAdapter;
 import com.djw.douban.ui.movies.contract.TypeContract;
 import com.djw.douban.ui.movies.presenter.TypePresenter;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomMenuButton;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class TypeActivity extends RxToolbarActivity<TypePresenter> implements TypeContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -27,30 +31,37 @@ public class TypeActivity extends RxToolbarActivity<TypePresenter> implements Ty
     RecyclerView rvType;
     @BindView(R.id.stll_movies)
     SwipeToLoadLayout swipeToLoadLayout;
+    @BindView(R.id.bmb)
+    BoomMenuButton bmb;
     private TypeAdapter adapter;
     private String q;
+    private int[] bmb_icon = {R.mipmap.shengxu, R.mipmap.jiangxu, R.mipmap.renshu, R.mipmap.niandai};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_type);
-        ButterKnife.bind(this);
     }
 
     @Override
     public void showError(String msg) {
+        refreshOrLoadMoreStop();
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showType(List<TypeData.SubjectsBean> list, boolean isLoadMore) {
+        refreshOrLoadMoreStop();
+        adapter.notifyDataChange(list, isLoadMore);
+    }
+
+    private void refreshOrLoadMoreStop() {
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
         }
         if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
-        adapter.notifyDataChange(list, isLoadMore);
     }
 
     @Override
@@ -69,7 +80,23 @@ public class TypeActivity extends RxToolbarActivity<TypePresenter> implements Ty
 
     @Override
     public void doBusiness() {
+        Resources resources = getResources();
+        String[] bmb_title = resources.getStringArray(R.array.movies_type_bmb_title);
+        String[] bmb_subTitle = resources.getStringArray(R.array.movies_type_bmb_subTitle);
 
+        for (int i = 0; i < bmb.getButtonPlaceEnum().buttonNumber(); i++) {
+            bmb.addBuilder(new HamButton.Builder()
+                    .normalText(bmb_title[i])
+                    .subNormalText(bmb_subTitle[i])
+                    .normalImageRes(bmb_icon[i])
+                    .imagePadding(new Rect(50, 50, 50, 50))
+                    .listener(new OnBMClickListener() {
+                        @Override
+                        public void onBoomButtonClick(int index) {
+                            mPresenter.getRule(index, adapter.getList());
+                        }
+                    }));
+        }
     }
 
     @Override

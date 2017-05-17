@@ -8,9 +8,12 @@ public class CalenderMonthData extends CalendarBaseData {
 
     private String month;
 
-    public CalenderMonthData(String month) {
+    private String year;
+
+    public CalenderMonthData(String month, String year) {
         super(CalendarBaseData.MONTH);
         this.month = month;
+        this.year = year;
     }
 
     public String getMonth() {
@@ -19,5 +22,13 @@ public class CalenderMonthData extends CalendarBaseData {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

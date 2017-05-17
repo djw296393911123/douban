@@ -24,6 +24,8 @@ public interface TypeContract {
 
         void getType(String q, int start, int count, boolean isLoadMore, boolean isShowProgress);
 
+        void getRule(int type, List<TypeData.SubjectsBean> list);
+
     }
 
 }

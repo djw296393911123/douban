@@ -1,5 +1,6 @@
 package com.djw.douban.ui.cloud.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -17,15 +18,14 @@ import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.cloud.CloudItemData;
 import com.djw.douban.ui.cloud.activity.CloudInfoActivity;
-import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.cloud.fragment.CloudPageFragment;
-import com.djw.douban.ui.message.fragment.PageFragment;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import tyrantgit.explosionfield.ExplosionField;
 
 /**
  * Created by JasonDong
@@ -77,7 +77,7 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
     }
 
     @Override
-    public void onBindViewHolder(final CloudHolder holder, final int position) {
+    public void onBindViewHolder(final CloudHolder holder, int position) {
         final CloudItemData.EventsBean eventsBean = list.get(position);
         holder.content.setText(eventsBean.getTitle());
         holder.name.setText(eventsBean.getOwner().getName());
@@ -86,11 +86,11 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
         holder.type.setText(eventsBean.getCategory_name());
         Glide.with(context).load(eventsBean.getOwner().getAvatar()).bitmapTransform(new CropCircleTransformation(context)).into(holder.head);
         Glide.with(context).load(eventsBean.getImage_hlarge()).error(R.mipmap.img_default_meizi).into(holder.image);
+        holder.cha.setTag(position);
         holder.cha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.remove(position);
-                notifyDataSetChanged();
+                removeItem(((int) v.getTag()), holder.itemView);
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -102,16 +102,26 @@ public class CloudAdapter extends RecyclerView.Adapter<CloudAdapter.CloudHolder>
                 ((MainActivity) context).startActivity(CloudInfoActivity.class, bundle);
             }
         });
+        holder.image.setTag(position);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                transaction.add(CloudPageFragment.newInstance(urls, content, position), "img");
+                transaction.add(CloudPageFragment.newInstance(urls, content, ((int) v.getTag())), "img");
                 transaction.commitAllowingStateLoss();
             }
         });
     }
 
+    private void removeItem(int position, View view) {
+        ExplosionField explosionField = ExplosionField.attach2Window(((Activity) context));
+        explosionField.explode(view);
+        list.remove(position);
+        notifyItemRemoved(position);
+        if (position != list.size()) {
+            notifyItemRangeChanged(position, list.size() - position);
+        }
+    }
 
     @Override
     public int getItemCount() {

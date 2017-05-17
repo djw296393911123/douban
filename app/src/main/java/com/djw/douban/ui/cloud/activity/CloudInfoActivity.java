@@ -13,7 +13,6 @@ public class CloudInfoActivity extends SimpleActivity {
 
     private WebView webView;
     public final static String CSS_STYLE = "<style>* {font-size:16px;line-height:20px;} p {color:#aaa;  padding:3px;} a {color:#3E62A6;} img {max-width:310px;}pre {font-size:9pt;line-height:12pt;font-family:Courier New,Arial;border:1px solid #ddd;border-left:5px solid #6CE26C;background:#f6f6f6;padding:5px;}</style>";
-    private Toolbar toolbar;
     private TextView title;
 
 
@@ -27,7 +26,7 @@ public class CloudInfoActivity extends SimpleActivity {
     @Override
     public void initView() {
         webView = (WebView) findViewById(R.id.wb_cloud);
-        toolbar = (Toolbar) findViewById(R.id.tl_base);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tl_base);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayShowTitleEnabled(false);

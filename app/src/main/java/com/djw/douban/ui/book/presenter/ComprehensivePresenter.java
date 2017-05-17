@@ -55,14 +55,14 @@ public class ComprehensivePresenter extends RxPresenter<BookContract.View> imple
 
                             for (int i = 6; i < bookRoot.getBooks().size(); i++) {
                                 Books books = bookRoot.getBooks().get(i);
-                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId()));
+                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId(), books.getAuthor().toString()));
                             }
                             mView.showBookList(list, false);
                         } else {
                             List<BookBaseData> list = new ArrayList<>();
                             for (int i = 0; i < bookRoot.getBooks().size(); i++) {
                                 Books books = bookRoot.getBooks().get(i);
-                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId()));
+                                list.add(new BookListData(books.getTitle(), books.getRating().getAverage(), books.getImages().getLarge() == null ? books.getImages().getMedium() == null ? books.getImages().getSmall() : books.getImages().getMedium() : books.getImages().getLarge(), books.getId(), books.getAuthor().toString()));
                             }
                             mView.showBookList(list, true);
                         }

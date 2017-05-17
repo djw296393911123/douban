@@ -33,23 +33,27 @@ public class HotActivity extends RxToolbarActivity<HotPresenter> implements HotC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hot);
-        ButterKnife.bind(this);
     }
 
     @Override
     public void showError(String msg) {
+        refreshOrLoadMoreStop();
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showHot(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
+        refreshOrLoadMoreStop();
+        adapter.notifyDataChange(list, isLoadMore);
+    }
+
+    private void refreshOrLoadMoreStop() {
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
         }
         if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
-        adapter.notifyDataChange(list, isLoadMore);
     }
 
     @Override

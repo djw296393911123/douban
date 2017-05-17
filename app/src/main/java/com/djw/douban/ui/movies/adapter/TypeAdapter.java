@@ -3,6 +3,7 @@ package com.djw.douban.ui.movies.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
             this.list.addAll(list);
             notifyDataSetChanged();
         }
+    }
+
+    public List<TypeData.SubjectsBean> getList() {
+        return this.list;
     }
 
     @Override

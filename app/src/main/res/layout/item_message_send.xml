@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="right"
+    android:id="@+id/ll_send"
     android:orientation="horizontal"
     android:padding="10px">
 

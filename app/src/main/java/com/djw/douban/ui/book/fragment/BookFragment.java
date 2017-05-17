@@ -1,6 +1,9 @@
 package com.djw.douban.ui.book.fragment;
 
 
+import android.content.res.Resources;
+import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ import com.djw.douban.base.BaseFragment;
 import com.djw.douban.data.ParamsData;
 import com.djw.douban.data.book.BookTypeData;
 import com.djw.douban.data.newbook.BookBaseData;
+import com.djw.douban.ui.book.activity.BookFromTagActivity;
 import com.djw.douban.ui.book.adapter.BookRecyclerAdapter;
 import com.djw.douban.ui.book.adapter.BookTypeAdapter;
 import com.djw.douban.ui.book.contract.BookContract;
@@ -25,6 +29,9 @@ import com.djw.douban.ui.book.presenter.ComprehensivePresenter;
 import com.djw.douban.ui.message.MessageActivity;
 import com.djw.douban.ui.search.activity.SearchActivity;
 import com.djw.douban.zxing.activity.CaptureActivity;
+import com.nightonke.boommenu.BoomButtons.HamButton;
+import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
+import com.nightonke.boommenu.BoomMenuButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,12 +46,13 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     private BookTypeAdapter adapter;
 
-    public String[] types = {"综合", "文学", "流行", "文化", "生活", "天文", "地理", "小说", "短篇", "中篇", "长篇", "郭敬明", "韩寒", "莫言", "明晓溪", "饶雪漫"};
     public int position;
     private BookRecyclerAdapter bookRecyclerAdapter;
     private SwipeToLoadLayout swipeToLoadLayout;
     private RecyclerView xRecyclerView;
     private List<BookTypeData> list = new ArrayList<>();
+    private String[] types;
+    private BoomMenuButton bmb;
 
     @Override
     protected void lazyLoad() {
@@ -54,6 +62,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     @Override
     protected void initView(View view) {
         view.findViewById(R.id.tv_search).setOnClickListener(this);
+        bmb = ((BoomMenuButton) view.findViewById(R.id.bmb));
         swipeToLoadLayout = ((SwipeToLoadLayout) view.findViewById(R.id.stll_movies));
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
@@ -129,17 +138,38 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     protected void doBusiness() {
+
         list.add(new BookTypeData(types[0], true));
         for (int i = 1; i < types.length; i++) {
             list.add(new BookTypeData(types[i], false));
         }
         adapter.notifyDataChange(list);
+        Resources resources = getResources();
+        final String[] bmb_title = resources.getStringArray(R.array.book_bmb_title);
+        String[] bmb_subTitle = resources.getStringArray(R.array.book_bmb_title);
+        int[] bmb_icon = {R.mipmap.xiaoshuo, R.mipmap.xuanhuan, R.mipmap.zhanzehng, R.mipmap.wangyou, R.mipmap.mingzhu};
+        for (int i = 0; i < bmb.getButtonPlaceEnum().buttonNumber(); i++) {
+            bmb.addBuilder(new HamButton.Builder()
+                    .normalText(bmb_title[i])
+                    .subNormalText(bmb_subTitle[i])
+                    .normalImageRes(bmb_icon[i])
+                    .imagePadding(new Rect(50, 50, 50, 50))
+                    .listener(new OnBMClickListener() {
+                        @Override
+                        public void onBoomButtonClick(int index) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("tag", bmb_title[index]);
+                            startActivity(BookFromTagActivity.class, bundle);
+                        }
+                    }));
+        }
     }
 
     @Override
     protected void inject() {
         getFragmentComponent().inject(this);
         mPresenter.attachView(this);
+        types = getResources().getStringArray(R.array.book_type_title);
         mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, types[0], false, true);
     }
 
@@ -164,6 +194,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     public void showError(String msg) {
+        refreshOrLoadMoreStop();
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -177,14 +208,18 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         ((MainActivity) getActivity()).dismissProgress();
     }
 
-    @Override
-    public void showBookList(List<BookBaseData> list, boolean isLoadMore) {
+    private void refreshOrLoadMoreStop() {
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
         }
         if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
+    }
+
+    @Override
+    public void showBookList(List<BookBaseData> list, boolean isLoadMore) {
+        refreshOrLoadMoreStop();
         bookRecyclerAdapter.notifyDataChange(list, isLoadMore);
     }
 

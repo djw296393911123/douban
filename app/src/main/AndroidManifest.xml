@@ -90,6 +90,9 @@
         <activity
             android:name=".ui.message.NewCalendarActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.book.activity.BookFromTagActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

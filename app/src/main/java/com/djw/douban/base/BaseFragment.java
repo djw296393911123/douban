@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.djw.douban.R;
 import com.djw.douban.component.DaggerFragmentComponent;
 import com.djw.douban.component.FragmentComponent;
 import com.djw.douban.module.FragmentModule;
@@ -78,6 +79,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     public void startActivity(Class<?> clz) {
         startActivity(clz, null);
+        getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     public void startActivity(Class<?> clz, Bundle bundle) {
@@ -88,6 +90,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             intent.putExtras(bundle);
         }
         startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
     }
 
     protected void onVisible() {

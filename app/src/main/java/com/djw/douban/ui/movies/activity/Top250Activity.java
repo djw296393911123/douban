@@ -33,7 +33,6 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top250);
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -66,6 +65,7 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
 
     @Override
     public void showError(String msg) {
+        refreshOrLoadMoreStop();
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -80,14 +80,18 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
         mPresenter.showTop250(adapter.getItemCount() + 1, ParamsData.COUNT, true, false);
     }
 
-    @Override
-    public void showTop250(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
+    private void refreshOrLoadMoreStop() {
         if (swipeToLoadLayout.isRefreshing()) {
             swipeToLoadLayout.setRefreshing(false);
         }
         if (swipeToLoadLayout.isLoadingMore()) {
             swipeToLoadLayout.setLoadingMore(false);
         }
+    }
+
+    @Override
+    public void showTop250(List<MoviesItemData.SubjectsBean> list, boolean isLoadMore) {
+       refreshOrLoadMoreStop();
         adapter.notifyDataChange(list, isLoadMore);
     }
 }

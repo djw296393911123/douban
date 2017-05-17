@@ -1,5 +1,6 @@
 package com.djw.douban.ui.message.adapter;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.djw.douban.data.calendar.CalendarBaseData;
 import com.djw.douban.data.calendar.CalendarDayData;
 import com.djw.douban.data.calendar.CalenderMonthData;
 import com.djw.douban.data.things.ThingsBaseData;
+import com.djw.douban.util.MonthPopWindow;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import java.util.List;
 public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<CalendarBaseData> list;
+    private View itemView;
 
     protected CalendarAdapter() {
         this.list = new ArrayList<>();
@@ -57,6 +60,7 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
             case CalendarBaseData.MONTH:
                 MonthHolder monthHolder = (MonthHolder) holder;
                 monthHolder.month.setText(((CalenderMonthData) list.get(position)).getMonth());
+                monthHolder.year.setText(((CalenderMonthData) list.get(position)).getYear());
                 monthHolder.left.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -67,6 +71,12 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
                     @Override
                     public void onClick(View v) {
                         onRightClick();
+                    }
+                });
+                monthHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onMonthClick(itemView);
                     }
                 });
                 break;
@@ -109,6 +119,9 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
                     }
                 });
                 break;
+            case CalendarBaseData.WEEK:
+                itemView = ((WeekHolder) holder).itemView;
+                break;
         }
     }
 
@@ -131,6 +144,8 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
         private final TextView month;
         private final View left;
         private final View right;
+        private final TextView year;
+        private final View layout;
 
         MonthHolder(View itemView) {
             super(itemView);
@@ -138,6 +153,8 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
             month = ((TextView) itemView.findViewById(R.id.tv_month));
             left = itemView.findViewById(R.id.iv_left);
             right = itemView.findViewById(R.id.iv_right);
+            year = ((TextView) itemView.findViewById(R.id.tv_year));
+            layout = itemView.findViewById(R.id.ll_month);
         }
     }
 
@@ -171,5 +188,7 @@ public abstract class CalendarAdapter extends RecyclerView.Adapter<RecyclerView.
     public abstract void onRightClick();
 
     public abstract void onItemClick(List<ThingsBaseData> list);
+
+    public abstract void onMonthClick(View view);
 
 }

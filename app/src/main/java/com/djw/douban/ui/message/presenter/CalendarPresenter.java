@@ -11,7 +11,6 @@ import com.djw.douban.data.calendar.CalendarWeekData;
 import com.djw.douban.data.calendar.CalenderMonthData;
 import com.djw.douban.data.things.ThingsBaseData;
 import com.djw.douban.data.things.ThingsData;
-import com.djw.douban.data.things.ThingsNormalData;
 import com.djw.douban.db.DBHelper;
 import com.djw.douban.ui.message.contract.CalenderContract;
 import com.djw.douban.util.CalendarUtil;
@@ -41,12 +40,11 @@ public class CalendarPresenter extends RxPresenter<CalenderContract.View> implem
     public void getCalendar(int year, int month, boolean isCurMonth) {
 
         LunarCalendar lunarCalendar = new LunarCalendar();
-
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         List<CalendarBaseData> list = new ArrayList<>();
 
-        list.add(new CalenderMonthData(month + "月"));
+        list.add(new CalenderMonthData(month + "月", lunarCalendar.animalsYear(year)));
 
         list.add(new CalendarWeekData());
 
@@ -61,11 +59,25 @@ public class CalendarPresenter extends RxPresenter<CalenderContract.View> implem
                 String string = cursor.getString(cursor.getColumnIndex(DBHelper.THINGS));
                 things.add(new ThingsData(time, string));
             }
-            things.add(new ThingsNormalData());
+//            things.add(new ThingsNormalData());
             cursor.close();
             String lunarString = lunarCalendar.getLunarString(month == 1 ? year - 1 : year, month == 1 ? 12 : month - 1, day);
             String[] split = lunarString.split(",");
             if (split.length > 1) things.add(new ThingsData(split[1], "全天"));
+            String jinji = lunarCalendar.getJinji(month == 1 ? year - 1 : year, month == 1 ? 12 : month - 1, day);
+            if (!jinji.equals("")) {
+                String[] split1 = jinji.split("-");
+                if (split1.length > 1) {
+                    things.add(new ThingsData(split1[0], "全天"));
+                    things.add(new ThingsData(split1[1], "全天"));
+                } else {
+                    things.add(new ThingsData("宜 ：无", "无"));
+                    things.add(new ThingsData("忌 ：无", "无"));
+                }
+
+            }
+            String constellation = lunarCalendar.getConstellation(month == 1 ? 12 : month - 1, day);
+            things.add(new ThingsData(constellation, "全天"));
             list.add(new CalendarDayData(String.valueOf(day), lunarString, false, things, month - 1, year));
         }
 
@@ -78,11 +90,25 @@ public class CalendarPresenter extends RxPresenter<CalenderContract.View> implem
                 String string = cursor.getString(cursor.getColumnIndex(DBHelper.THINGS));
                 things.add(new ThingsData(time, string));
             }
-            things.add(new ThingsNormalData());
+//            things.add(new ThingsNormalData());
             cursor.close();
             String lunarString = lunarCalendar.getLunarString(year, month, i + 1);
             String[] split = lunarString.split(",");
             if (split.length > 1) things.add(new ThingsData(split[1], "全天"));
+            String jinji = lunarCalendar.getJinji(year, month, i + 1);
+            if (!jinji.equals("")) {
+                String[] split1 = jinji.split("-");
+                if (split1.length > 1) {
+                    things.add(new ThingsData(split1[0], "全天"));
+                    things.add(new ThingsData(split1[1], "全天"));
+                } else {
+                    things.add(new ThingsData("宜 ：无", "无"));
+                    things.add(new ThingsData("忌 ：无", "无"));
+                }
+
+            }
+            String constellation = lunarCalendar.getConstellation(month, i + 1);
+            things.add(new ThingsData(constellation, "全天"));
             CalendarDayData data = new CalendarDayData(String.valueOf(i + 1), lunarString, true, things, month, year);
             if ((i + 1) == CalendarUtil.getDay() && isCurMonth) {
                 data.setSelect(true);
@@ -101,12 +127,25 @@ public class CalendarPresenter extends RxPresenter<CalenderContract.View> implem
                 String string = cursor.getString(cursor.getColumnIndex(DBHelper.THINGS));
                 things.add(new ThingsData(time, string));
             }
-            things.add(new ThingsNormalData());
+//            things.add(new ThingsNormalData());
             cursor.close();
             String lunarString = lunarCalendar.getLunarString(month == 12 ? year + 1 : year, month == 12 ? 1 : month + 1, i + 1);
             String[] split = lunarString.split(",");
             if (split.length > 1) things.add(new ThingsData(split[1], "全天"));
+            String jinji = lunarCalendar.getJinji(month == 12 ? year + 1 : year, month == 12 ? 1 : month + 1, i + 1);
+            if (!jinji.equals("")) {
+                String[] split1 = jinji.split("-");
+                if (split1.length > 1) {
+                    things.add(new ThingsData(split1[0], "全天"));
+                    things.add(new ThingsData(split1[1], "全天"));
+                } else {
+                    things.add(new ThingsData("宜 ：无", "无"));
+                    things.add(new ThingsData("忌 ：无", "无"));
+                }
 
+            }
+            String constellation = lunarCalendar.getConstellation(month == 12 ? 1 : month + 1, i + 1);
+            things.add(new ThingsData(constellation, "全天"));
             list.add(new CalendarDayData(String.valueOf(i + 1), lunarString, false, things, month, year));
         }
 
