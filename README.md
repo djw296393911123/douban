@@ -13,4 +13,8 @@ apk下载:https://github.com/djw296393911123/douban/tree/master/app/app-release.
 <img src="screenshots/img3.png" width = "40%" />
 <img src="screenshots/img4.png" width = "40%" />
 <img src="screenshots/img5.png" width = "40%" />
+<img src="screenshots/img6.png" width = "40%" />
+<img src="screenshots/img7.png" width = "40%" />
+<img src="screenshots/img8.png" width = "40%" />
+<img src="screenshots/img9.png" width = "40%" />
 
