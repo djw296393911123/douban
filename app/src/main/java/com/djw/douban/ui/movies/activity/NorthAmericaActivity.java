@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresenter> implements NorthAmericaContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -67,7 +68,9 @@ public class NorthAmericaActivity extends RxToolbarActivity<NorthAmericaPresente
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvNorth.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NorthAmericaRecyclerAdapter(this);
-        rvNorth.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rvNorth.setAdapter(scaleAdapter);
     }
 
     @Override

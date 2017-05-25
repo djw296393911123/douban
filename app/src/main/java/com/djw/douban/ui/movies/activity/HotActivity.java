@@ -19,7 +19,7 @@ import com.djw.douban.ui.movies.presenter.HotPresenter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class HotActivity extends RxToolbarActivity<HotPresenter> implements HotContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -63,7 +63,9 @@ public class HotActivity extends RxToolbarActivity<HotPresenter> implements HotC
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvHot.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HotAdapter(this);
-        rvHot.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rvHot.setAdapter(scaleAdapter);
     }
 
     @Override

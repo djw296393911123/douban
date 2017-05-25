@@ -3,7 +3,6 @@ package com.djw.douban.ui.movies.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,11 @@ import com.djw.douban.R;
 import com.djw.douban.data.movies.TypeData;
 import com.djw.douban.ui.movies.activity.MovieInfoActivity;
 import com.djw.douban.ui.movies.activity.TypeActivity;
+import com.ramotion.foldingcell.FoldingCell;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +37,8 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
     private List<TypeData.SubjectsBean> list;
 
     private Context context;
+
+    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
 
     public TypeAdapter(Context context) {
         this.context = context;
@@ -59,13 +62,19 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
 
     @Override
     public TypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TypeHolder(LayoutInflater.from(context).inflate(R.layout.item_hot, parent, false));
+        return new TypeHolder(LayoutInflater.from(context).inflate(R.layout.item_type_movies, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(TypeHolder holder, int position) {
+    public void onBindViewHolder(final TypeHolder holder, int position) {
         final TypeData.SubjectsBean subjectBean = list.get(position);
+        if (unfoldedIndexes.contains(position)) {
+            holder.foldingCell.unfold(true);
+        } else {
+            holder.foldingCell.fold(true);
+        }
         Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.ivHotHead);
+        Glide.with(context).load(subjectBean.getImages().getLarge()).asBitmap().into(holder.large);
         holder.tvHotTitle.setText(subjectBean.getTitle());
         holder.tvHotGrade.setText(String.valueOf(subjectBean.getRating().getAverage()));
         holder.rbHot.setRating(((float) (subjectBean.getRating().getAverage() / 2)));
@@ -93,7 +102,39 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
                 ((TypeActivity) context).startActivity(MovieInfoActivity.class, bundle);
             }
         });
+        holder.ivHotHead.setTag(position);
+        holder.ivHotHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.foldingCell.toggle(false);
+                registerToggle(((int) v.getTag()));
+            }
+        });
+        holder.large.setTag(position);
+        holder.large.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.foldingCell.toggle(false);
+                registerToggle(((int) v.getTag()));
+            }
+        });
     }
+
+    private void registerToggle(int position) {
+        if (unfoldedIndexes.contains(position))
+            registerFold(position);
+        else
+            registerUnfold(position);
+    }
+
+    private void registerFold(int position) {
+        unfoldedIndexes.remove(position);
+    }
+
+    private void registerUnfold(int position) {
+        unfoldedIndexes.add(position);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -117,11 +158,16 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeHolder> {
         TextView tvHotNum;
         @BindView(R.id.ll_hot)
         LinearLayout llLayout;
+        @BindView(R.id.iv_large)
+        ImageView large;
+        @BindView(R.id.folding_cell)
+        FoldingCell foldingCell;
 
         TypeHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             AutoUtils.autoSize(itemView);
+
         }
     }
 }

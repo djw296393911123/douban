@@ -17,6 +17,7 @@ import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.bumptech.glide.Glide;
+import com.coorchice.library.SuperTextView;
 import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.newmovies.MoviesEightItemData;
@@ -25,6 +26,7 @@ import com.djw.douban.data.newmovies.NewMovieOne;
 import com.djw.douban.data.newmovies.NewMovieTen;
 import com.djw.douban.data.newmovies.NewMoviesBaseData;
 import com.djw.douban.data.newmovies.NewMoviesEight;
+import com.djw.douban.data.newmovies.NewMoviesError;
 import com.djw.douban.data.newmovies.NewMoviesFive;
 import com.djw.douban.data.newmovies.NewMoviesFour;
 import com.djw.douban.data.newmovies.NewMoviesNine;
@@ -56,13 +58,13 @@ import java.util.List;
  * on 2017/4/14.
  */
 
-public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener, View.OnClickListener, MarqueeView.OnItemClickListener {
+public abstract class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnBannerClickListener, View.OnClickListener, MarqueeView.OnItemClickListener {
 
     private List<NewMoviesBaseData> list;
 
     private Context context;
 
-    public NewMoviesAdapter() {
+    protected NewMoviesAdapter() {
         this.list = new ArrayList<>();
     }
 
@@ -76,6 +78,12 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             notifyDataSetChanged();
         }
 
+    }
+
+    public void notifyError(String msg) {
+        this.list.clear();
+        this.list.add(new NewMoviesError(msg));
+        notifyDataSetChanged();
     }
 
     @Override
@@ -102,7 +110,8 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new NineHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_nine, parent, false));
             case NewMoviesBaseData.TEN:
                 return new TenHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_nine, parent, false));
-
+            case NewMoviesBaseData.ELEVEN:
+                return new ErrorHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_error, parent, false));
         }
         return null;
     }
@@ -180,6 +189,16 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 TenHolder tenHolder = (TenHolder) holder;
                 NewMovieTen ten = (NewMovieTen) list.get(position);
                 tenHolder.loadData(ten.getList());
+                break;
+            case NewMoviesBaseData.ELEVEN:
+                ErrorHolder errorHolder = (ErrorHolder) holder;
+                errorHolder.msg.setText(((NewMoviesError) list.get(position)).getMsg());
+                errorHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        reLoadData();
+                    }
+                });
                 break;
         }
     }
@@ -321,12 +340,12 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private static class FiveHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView textView;
+        SuperTextView textView;
 
         FiveHolder(View view) {
             super(view);
             AutoUtils.autoSize(view);
-            textView = (TextView) view.findViewById(R.id.tv_five);
+            textView = (SuperTextView) view.findViewById(R.id.tv_five);
             imageView = ((ImageView) view.findViewById(R.id.iv_five));
         }
     }
@@ -438,6 +457,19 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
+    private static class ErrorHolder extends RecyclerView.ViewHolder {
+
+        private final View layout;
+        private final TextView msg;
+
+        ErrorHolder(View itemView) {
+            super(itemView);
+            AutoUtils.autoSize(itemView);
+            layout = itemView.findViewById(R.id.ll_error);
+            msg = ((TextView) itemView.findViewById(R.id.tv_error));
+        }
+    }
+
 
     private static class GlideImageLoader extends ImageLoader {
 
@@ -452,4 +484,7 @@ public class NewMoviesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return new ImageView(context);
         }
     }
+
+    public abstract void reLoadData();
+
 }

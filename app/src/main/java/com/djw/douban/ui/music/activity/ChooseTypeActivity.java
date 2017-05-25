@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresenter> implements ChooseTypeContract.View, View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
 
@@ -125,7 +126,9 @@ public class ChooseTypeActivity extends RxToolbarActivity<MusicChooseTypePresent
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvChoose.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MusicTypeAdapter(this);
-        rvChoose.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rvChoose.setAdapter(scaleAdapter);
     }
 
     @Override

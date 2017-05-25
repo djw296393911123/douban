@@ -19,6 +19,7 @@ import com.djw.douban.ui.book.presenter.BookTagPresenter;
 import java.util.List;
 
 import butterknife.BindView;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class BookFromTagActivity extends RxToolbarActivity<BookTagPresenter> implements BookTagContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -46,7 +47,10 @@ public class BookFromTagActivity extends RxToolbarActivity<BookTagPresenter> imp
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rv_book.setLayoutManager(new LinearLayoutManager(this));
-        rv_book.setAdapter(adapter = new BookTagAdapter());
+        adapter = new BookTagAdapter();
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rv_book.setAdapter(scaleAdapter);
     }
 
     @Override

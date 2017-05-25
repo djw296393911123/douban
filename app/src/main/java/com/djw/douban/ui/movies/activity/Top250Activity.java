@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class Top250Activity extends RxToolbarActivity<Top250Presenter> implements Top250Contract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -42,7 +43,9 @@ public class Top250Activity extends RxToolbarActivity<Top250Presenter> implement
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvTop.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Top250Adapter(this);
-        rvTop.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rvTop.setAdapter(scaleAdapter);
     }
 
     @Override

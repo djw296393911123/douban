@@ -18,6 +18,7 @@ import com.djw.douban.ui.music.presenter.MusicMorePresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> implements MusicMoreContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -62,7 +63,9 @@ public class MoreMusicActivity extends RxToolbarActivity<MusicMorePresenter> imp
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvMore.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MusicMoreAdapter(this);
-        rvMore.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        rvMore.setAdapter(scaleAdapter);
     }
 
     @Override

@@ -60,7 +60,12 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
         recyclerView = (RecyclerView) view.findViewById(R.id.swipe_target);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new NewMoviesAdapter();
+        adapter = new NewMoviesAdapter() {
+            @Override
+            public void reLoadData() {
+                mPresenter.getNewMovies(ParamsData.START, ParamsData.COUNT_NEW_MOVIES, false, true);
+            }
+        };
         recyclerView.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -109,6 +114,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
     @Override
     public void showError(String msg) {
         refreshOrLoadMoreStop();
+        adapter.notifyError(msg);
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -124,7 +130,7 @@ public class NewMoviesFragment extends BaseFragment<NewMoviesPresenter> implemen
 
     @Override
     public void showNewMovies(List<NewMoviesBaseData> list, boolean isLoadMore) {
-       refreshOrLoadMoreStop();
+        refreshOrLoadMoreStop();
         adapter.notifyDataChange(list, isLoadMore);
     }
 

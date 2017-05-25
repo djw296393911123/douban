@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> implements CalenderContract.View {
 
@@ -89,7 +90,9 @@ public class CalendarActivity extends RxToolbarActivity<CalendarPresenter> imple
             }
 
         };
-        rvCalendar.setAdapter(adapter);
+        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(adapter);
+        alphaAdapter.setFirstOnly(false);
+        rvCalendar.setAdapter(alphaAdapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

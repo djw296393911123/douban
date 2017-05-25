@@ -16,6 +16,7 @@ import com.djw.douban.MainActivity;
 import com.djw.douban.R;
 import com.djw.douban.data.newbook.BookBannerData;
 import com.djw.douban.data.newbook.BookBaseData;
+import com.djw.douban.data.newbook.BookErrorData;
 import com.djw.douban.data.newbook.BookListData;
 import com.djw.douban.ui.book.activity.BookInfoActivity;
 import com.youth.banner.Banner;
@@ -33,7 +34,7 @@ import java.util.List;
  * on 2017/4/7.
  */
 
-public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
 
@@ -55,10 +56,23 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    public void notifyError(String msg){
+        this.list.clear();
+        this.list.add(new BookErrorData(msg));
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return viewType == BookBaseData.LIST ? new BookListHolder(LayoutInflater.from(context).inflate(R.layout.item_book, parent, false))
-                : new BannerHolder(LayoutInflater.from(context).inflate(R.layout.item_header, parent, false));
+        switch (viewType) {
+            case BookBaseData.LIST:
+                return new BookListHolder(LayoutInflater.from(context).inflate(R.layout.item_book, parent, false));
+            case BookBaseData.BANNER:
+                return new BannerHolder(LayoutInflater.from(context).inflate(R.layout.item_header, parent, false));
+            case BookBaseData.ERROR:
+                return new ErrorHolder(LayoutInflater.from(context).inflate(R.layout.item_error, parent, false));
+        }
+        return null;
     }
 
     @Override
@@ -97,6 +111,17 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 banner.setBannerTitles(bannerData.getTitle());
                 banner.setImages(bannerData.getImg());
                 banner.start();
+                break;
+            case BookBaseData.ERROR:
+                ErrorHolder errorHolder = (ErrorHolder) holder;
+                BookErrorData errorData = (BookErrorData) list.get(position);
+                errorHolder.error.setText(errorData.getTitle());
+                errorHolder.layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        reLoadData();
+                    }
+                });
                 break;
         }
 
@@ -142,6 +167,20 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    private static class ErrorHolder extends RecyclerView.ViewHolder {
+
+
+        private final TextView error;
+        private final View layout;
+
+        ErrorHolder(View itemView) {
+            super(itemView);
+            AutoUtils.autoSize(itemView);
+            error = ((TextView) itemView.findViewById(R.id.tv_error));
+            layout = itemView.findViewById(R.id.ll_error);
+        }
+    }
+
     private static class GlideImageLoader extends ImageLoader {
 
         @Override
@@ -155,4 +194,7 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return new ImageView(context);
         }
     }
+
+    public abstract void reLoadData();
+
 }

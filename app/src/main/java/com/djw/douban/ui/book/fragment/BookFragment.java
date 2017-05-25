@@ -26,9 +26,6 @@ import com.djw.douban.ui.book.adapter.BookRecyclerAdapter;
 import com.djw.douban.ui.book.adapter.BookTypeAdapter;
 import com.djw.douban.ui.book.contract.BookContract;
 import com.djw.douban.ui.book.presenter.ComprehensivePresenter;
-import com.djw.douban.ui.message.MessageActivity;
-import com.djw.douban.ui.search.activity.SearchActivity;
-import com.djw.douban.zxing.activity.CaptureActivity;
 import com.nightonke.boommenu.BoomButtons.HamButton;
 import com.nightonke.boommenu.BoomButtons.OnBMClickListener;
 import com.nightonke.boommenu.BoomMenuButton;
@@ -37,12 +34,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.OnClick;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BookFragment extends BaseFragment<ComprehensivePresenter> implements BookContract.View, OnRefreshListener, OnLoadMoreListener, View.OnClickListener {
+public class BookFragment extends BaseFragment<ComprehensivePresenter> implements BookContract.View, OnRefreshListener, OnLoadMoreListener {
 
     private BookTypeAdapter adapter;
 
@@ -61,7 +58,6 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
 
     @Override
     protected void initView(View view) {
-        view.findViewById(R.id.tv_search).setOnClickListener(this);
         bmb = ((BoomMenuButton) view.findViewById(R.id.bmb));
         swipeToLoadLayout = ((SwipeToLoadLayout) view.findViewById(R.id.stll_movies));
         swipeToLoadLayout.setOnRefreshListener(this);
@@ -69,8 +65,15 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         xRecyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         xRecyclerView.setLayoutManager(layoutManager);
-        bookRecyclerAdapter = new BookRecyclerAdapter(getActivity());
-        xRecyclerView.setAdapter(bookRecyclerAdapter);
+        bookRecyclerAdapter = new BookRecyclerAdapter(getActivity()) {
+            @Override
+            public void reLoadData() {
+                mPresenter.getBookList(ParamsData.START, ParamsData.COUNT, list.get(position).getTitle(), false, true);
+            }
+        };
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(bookRecyclerAdapter);
+        scaleAdapter.setFirstOnly(false);
+        xRecyclerView.setAdapter(scaleAdapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -195,6 +198,7 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
     @Override
     public void showError(String msg) {
         refreshOrLoadMoreStop();
+        bookRecyclerAdapter.notifyError(msg);
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -223,19 +227,4 @@ public class BookFragment extends BaseFragment<ComprehensivePresenter> implement
         bookRecyclerAdapter.notifyDataChange(list, isLoadMore);
     }
 
-
-    @Override
-    public void onClick(View v) {
-        startActivity(SearchActivity.class);
-    }
-
-    @OnClick(R.id.iv_back)
-    void startActivityToQrActivity() {
-        startActivity(CaptureActivity.class);
-    }
-
-    @OnClick(R.id.iv_message)
-    void startActivityToMessageActivity() {
-        startActivity(MessageActivity.class);
-    }
 }

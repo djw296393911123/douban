@@ -19,6 +19,7 @@ import com.djw.douban.ui.movies.presenter.CommingSoonPresenter;
 import java.util.List;
 
 import butterknife.BindView;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter> implements CommingSoonContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -62,7 +63,9 @@ public class CommingSoonActivity extends RxToolbarActivity<CommingSoonPresenter>
         setToolBarTitle(getString(R.string.commingsoon));
         xrvCommingSoon.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CommingSoonAdapter(this);
-        xrvCommingSoon.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        xrvCommingSoon.setAdapter(scaleAdapter);
     }
 
     @Override

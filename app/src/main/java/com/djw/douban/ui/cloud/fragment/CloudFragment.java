@@ -25,6 +25,8 @@ import com.djw.douban.util.CloudDownPopWindow;
 
 import java.util.List;
 
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -67,7 +69,9 @@ public class CloudFragment extends BaseFragment<CloudPresenter> implements Cloud
         recyclerView = ((RecyclerView) view.findViewById(R.id.swipe_target));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CloudAdapter(getActivity());
-        recyclerView.setAdapter(adapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(adapter);
+        scaleAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(scaleAdapter);
     }
 
     @Override

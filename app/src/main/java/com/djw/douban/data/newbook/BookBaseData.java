@@ -12,6 +12,8 @@ public class BookBaseData {
 
     public static final int TYPE = 0x9003;
 
+    public static final int ERROR = 0x9004;
+
     private int type;
 
     public BookBaseData(int type) {

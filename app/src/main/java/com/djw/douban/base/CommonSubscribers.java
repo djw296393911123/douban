@@ -3,6 +3,9 @@ package com.djw.douban.base;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
@@ -50,8 +53,10 @@ public abstract class CommonSubscribers<T> extends Subscriber<T> {
             mView.showError(mErrorMsg);
         } else if (e instanceof ApiException) {
             mView.showError(e.getMessage());
-        } else if (e instanceof HttpException) {
-            mView.showError("数据加载失败");
+        } else if (e instanceof HttpException || e instanceof UnknownHostException) {
+            mView.showError("网络异常");
+        } else if (e instanceof SocketTimeoutException) {
+            mView.showError("请求超时");
         } else {
             mView.showError("数据加载失败");
         }

@@ -24,6 +24,7 @@ import com.nightonke.boommenu.BoomMenuButton;
 import java.util.List;
 
 import butterknife.BindView;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class TypeActivity extends RxToolbarActivity<TypePresenter> implements TypeContract.View, OnRefreshListener, OnLoadMoreListener {
 
@@ -70,7 +71,9 @@ public class TypeActivity extends RxToolbarActivity<TypePresenter> implements Ty
         swipeToLoadLayout.setOnLoadMoreListener(this);
         rvType.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TypeAdapter(this);
-        rvType.setAdapter(adapter);
+        ScaleInAnimationAdapter alphaAdapter = new ScaleInAnimationAdapter(adapter);
+        alphaAdapter.setFirstOnly(false);
+        rvType.setAdapter(alphaAdapter);
     }
 
     @Override

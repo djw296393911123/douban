@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:folding-cell="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.ramotion.foldingcell.FoldingCell xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/folding_cell"
+        folding-cell:additionalFlipsCount="2"
+        folding-cell:animationDuration="1300"
+        folding-cell:backSideColor="#eef"
+        folding-cell:cameraHeight="30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_large"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_hot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="30px">
+
+                <ImageView
+                    android:id="@+id/iv_hot_head"
+                    android:layout_width="150px"
+                    android:layout_height="200px"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_hot_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="25px"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:orientation="horizontal">
+
+                        <RatingBar
+                            android:id="@+id/rb_hot"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_hot_grade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10px"
+                            android:textSize="20px" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_hot_direct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:textSize="20px" />
+
+                    <TextView
+                        android:id="@+id/tv_hot_cast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:textSize="20px" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10px"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_hot_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="25px" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="人看过"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="25px" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#eee" />
+        </LinearLayout>
+    </com.ramotion.foldingcell.FoldingCell>
+
+
+</LinearLayout>

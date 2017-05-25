@@ -1,8 +1,10 @@
 package com.djw.douban;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -14,6 +16,15 @@ import com.djw.douban.ui.book.fragment.BookFragment;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.music.fragment.NewMusicFragment;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 
@@ -23,6 +34,8 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
     private FragmentNavigator navigator;
     private static final int DEFAULT_POSITION = 0;
     private ArrayList<Fragment> fragments;
+    private BottomNavigationBar bar;
+    private Drawer drawer;
 
 
     @Override
@@ -42,8 +55,7 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
         navigator = new FragmentNavigator(getSupportFragmentManager(), new MainNavigatorAdapter(fragments), R.id.fl_main);
         navigator.setDefaultPosition(DEFAULT_POSITION);
         navigator.onCreate(savedInstanceState);
-        BottomNavigationBar bar = (BottomNavigationBar) findViewById(R.id.bnb_main);
-
+        bar = (BottomNavigationBar) findViewById(R.id.bnb_main);
         bar.setMode(BottomNavigationBar.MODE_FIXED);
         bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bar
@@ -58,7 +70,38 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
 
     @Override
     public void initView() {
-
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.mipmap.wd_beijing)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("JasonDong").withEmail("296393911@qq.com").withIcon(getResources().getDrawable(R.mipmap.boy))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+        SecondaryDrawerItem douban = new SecondaryDrawerItem().withName("豆瓣").withSelectedTextColor(Color.BLACK).withEnabled(false);
+        SecondaryDrawerItem fuli = new SecondaryDrawerItem().withName("福利").withSelectedTextColor(Color.BLACK).withEnabled(false);
+        SecondaryDrawerItem movies = new SecondaryDrawerItem().withIdentifier(1).withName("电影").withSelectedTextColor(Color.RED).withIcon(R.mipmap.movies);
+        SecondaryDrawerItem book = new SecondaryDrawerItem().withIdentifier(2).withName("图书").withSelectedTextColor(Color.RED).withIcon(R.mipmap.books);
+        SecondaryDrawerItem music = new SecondaryDrawerItem().withIdentifier(3).withName("音乐").withSelectedTextColor(Color.RED).withIcon(R.mipmap.music);
+        SecondaryDrawerItem cloud = new SecondaryDrawerItem().withIdentifier(4).withName("活动").withSelectedTextColor(Color.RED).withIcon(R.mipmap.activity);
+        drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withAccountHeader(headerResult)
+                .addDrawerItems(douban,movies,book,music,cloud,new DividerDrawerItem(),fuli)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
+                        setCurrentTab(position - 2);
+                        return true;
+                    }
+                })
+                .build();
     }
 
     private void setCurrentTab(int position) {
@@ -79,7 +122,9 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
 
     @Override
     public void onTabSelected(int position) {
+        drawer.closeDrawer();
         setCurrentTab(position);
+
     }
 
     @Override
