@@ -31,4 +31,15 @@
         <item name="android:windowEnterAnimation">@anim/showimage_in</item>
         <item name="android:windowExitAnimation">@anim/showimage_out</item>
     </style>
+
+    <style name="DetailedTheme" parent="AppTheme">
+        <!--背景透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--无进入动画-->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 </resources>

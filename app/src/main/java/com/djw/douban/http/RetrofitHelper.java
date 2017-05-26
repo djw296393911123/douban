@@ -120,4 +120,8 @@ public class RetrofitHelper {
         return messageApi.getMessage("3b693076b1314c6ca2b55f40031783b4", msg);
     }
 
+    public Observable<GankListItemData> getGirls(int page) {
+        return girlApi.getMeizi(String.valueOf(page));
+    }
+
 }

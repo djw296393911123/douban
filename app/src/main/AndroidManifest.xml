@@ -93,6 +93,12 @@
         <activity
             android:name=".ui.book.activity.BookFromTagActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.girl.activity.GirlActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.girl.activity.GirlLargeActivity"
+            android:theme="@style/DetailedTheme" />
     </application>
 
 </manifest>

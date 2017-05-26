@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.djw.douban.http.ActivityScope;
 import com.djw.douban.module.ActivityModule;
 import com.djw.douban.ui.book.activity.BookFromTagActivity;
+import com.djw.douban.ui.girl.activity.GirlActivity;
 import com.djw.douban.ui.leader.LeaderActivity;
 import com.djw.douban.ui.message.CalendarActivity;
 import com.djw.douban.ui.message.MessageActivity;
@@ -68,4 +69,6 @@ public interface ActivityComponent {
     void inject(CalendarActivity calendarActivity);
 
     void inject(BookFromTagActivity bookFromTagActivity);
+
+    void inject(GirlActivity girlActivity);
 }

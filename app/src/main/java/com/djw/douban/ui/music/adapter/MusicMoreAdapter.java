@@ -62,7 +62,7 @@ public class MusicMoreAdapter extends RecyclerView.Adapter<MusicMoreAdapter.Musi
         Musics musics = list.get(position);
         holder.tvHotDirect.setText(musics.getAuthor().get(0).getName());
         holder.tvHotGrade.setText(musics.getRating().getAverage());
-        holder.tvHotCast.setText(musics.getAttrs().getPubdate().get(0));
+        holder.tvHotCast.setText(musics.getAttrs().getPubdate() == null ? "" : musics.getAttrs().getPubdate().get(0));
         holder.tvHotTitle.setText(musics.getTitle());
         holder.tvHotNum.setText(String.valueOf(musics.getRating().getNumRaters()));
         holder.rbHot.setRating(((float) (Double.parseDouble(musics.getRating().getAverage()) / 2)));

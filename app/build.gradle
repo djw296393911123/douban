@@ -28,6 +28,10 @@ dependencies {
     })
     compile project(':bottom-navigation-bar')
     compile project(':pull-to-refresh')
+    compile project(':animators')
+    compile('com.mikepenz:materialdrawer:5.9.1@aar') {
+        transitive = true
+    }
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:palette-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
@@ -63,14 +67,10 @@ dependencies {
     compile 'com.cleveroad:cycle-menu:1.0.1'
     compile 'tyrantgit:explosionfield:1.0.1'
     compile 'com.nightonke:boommenu:2.0.9'
+    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'com.github.chenBingX:SuperTextView:v1.1'
+    compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
     testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.4'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.ms-square:expandableTextView:0.1.4'
-    compile 'com.github.chenBingX:SuperTextView:v1.1'
-    compile project(':animators')
-    compile('com.mikepenz:materialdrawer:5.9.1@aar') {
-        transitive = true
-    }
-    compile 'com.ramotion.foldingcell:folding-cell:1.1.0'
 }

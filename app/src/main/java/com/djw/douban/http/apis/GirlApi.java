@@ -17,4 +17,7 @@ public interface GirlApi {
     @GET("random/data/福利/{num}")
     Observable<GankListItemData> getRadomMeizi(@Path("num") String num);
 
+    @GET("data/福利/20/{page}")
+    Observable<GankListItemData> getMeizi(@Path("page") String page);
+
 }

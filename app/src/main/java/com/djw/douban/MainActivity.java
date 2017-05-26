@@ -12,9 +12,13 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.aspsine.fragmentnavigator.FragmentNavigator;
 import com.djw.douban.adapter.MainNavigatorAdapter;
 import com.djw.douban.base.SimpleActivity;
+import com.djw.douban.ui.book.activity.BookFromTagActivity;
 import com.djw.douban.ui.book.fragment.BookFragment;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
+import com.djw.douban.ui.girl.activity.GirlActivity;
+import com.djw.douban.ui.movies.activity.HotActivity;
 import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
+import com.djw.douban.ui.music.activity.MoreMusicActivity;
 import com.djw.douban.ui.music.fragment.NewMusicFragment;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -34,7 +38,6 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
     private FragmentNavigator navigator;
     private static final int DEFAULT_POSITION = 0;
     private ArrayList<Fragment> fragments;
-    private BottomNavigationBar bar;
     private Drawer drawer;
 
 
@@ -55,7 +58,7 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
         navigator = new FragmentNavigator(getSupportFragmentManager(), new MainNavigatorAdapter(fragments), R.id.fl_main);
         navigator.setDefaultPosition(DEFAULT_POSITION);
         navigator.onCreate(savedInstanceState);
-        bar = (BottomNavigationBar) findViewById(R.id.bnb_main);
+        BottomNavigationBar bar = (BottomNavigationBar) findViewById(R.id.bnb_main);
         bar.setMode(BottomNavigationBar.MODE_FIXED);
         bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bar
@@ -85,19 +88,36 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
                 .build();
         SecondaryDrawerItem douban = new SecondaryDrawerItem().withName("豆瓣").withSelectedTextColor(Color.BLACK).withEnabled(false);
         SecondaryDrawerItem fuli = new SecondaryDrawerItem().withName("福利").withSelectedTextColor(Color.BLACK).withEnabled(false);
-        SecondaryDrawerItem movies = new SecondaryDrawerItem().withIdentifier(1).withName("电影").withSelectedTextColor(Color.RED).withIcon(R.mipmap.movies);
-        SecondaryDrawerItem book = new SecondaryDrawerItem().withIdentifier(2).withName("图书").withSelectedTextColor(Color.RED).withIcon(R.mipmap.books);
-        SecondaryDrawerItem music = new SecondaryDrawerItem().withIdentifier(3).withName("音乐").withSelectedTextColor(Color.RED).withIcon(R.mipmap.music);
-        SecondaryDrawerItem cloud = new SecondaryDrawerItem().withIdentifier(4).withName("活动").withSelectedTextColor(Color.RED).withIcon(R.mipmap.activity);
+        SecondaryDrawerItem movies = new SecondaryDrawerItem().withIdentifier(1).withName("热门电影").withSelectedTextColor(Color.RED).withIcon(R.mipmap.movies);
+        SecondaryDrawerItem book = new SecondaryDrawerItem().withIdentifier(2).withName("精选图书").withSelectedTextColor(Color.RED).withIcon(R.mipmap.books);
+        SecondaryDrawerItem music = new SecondaryDrawerItem().withIdentifier(3).withName("中国风音乐").withSelectedTextColor(Color.RED).withIcon(R.mipmap.music);
+        SecondaryDrawerItem girl = new SecondaryDrawerItem().withIdentifier(4).withName("美女").withSelectedTextColor(Color.RED).withIcon(R.mipmap.girl);
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
-                .addDrawerItems(douban,movies,book,music,cloud,new DividerDrawerItem(),fuli)
+                .addDrawerItems(douban, movies, book, music, new DividerDrawerItem(), fuli, girl)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
-                        setCurrentTab(position - 2);
+                        switch (((int) drawerItem.getIdentifier())) {
+                            case 1:
+                                startActivity(HotActivity.class);
+                                break;
+                            case 2:
+                                Bundle bundle = new Bundle();
+                                bundle.putString("tag", "精选");
+                                startActivity(BookFromTagActivity.class, bundle);
+                                break;
+                            case 3:
+                                Bundle music = new Bundle();
+                                music.putString("tag", "中国风");
+                                startActivity(MoreMusicActivity.class, music);
+                                break;
+                            case 4:
+                                startActivity(GirlActivity.class);
+                                break;
+                        }
                         return true;
                     }
                 })
