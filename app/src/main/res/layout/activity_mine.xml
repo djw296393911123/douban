@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    tools:context="com.djw.douban.ui.mine.activity.MineActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:background="#F00">
+
+        <com.djw.douban.util.WaveView
+            android:id="@+id/wave_view"
+            android:layout_width="match_parent"
+            android:layout_height="15px"
+            android:layout_gravity="bottom" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:layout_marginBottom="15px"
+            android:layout_gravity="bottom|center"
+            android:background="@mipmap/boy" />
+
+    </FrameLayout>
+</LinearLayout>

@@ -16,6 +16,7 @@ import com.djw.douban.ui.book.activity.BookFromTagActivity;
 import com.djw.douban.ui.book.fragment.BookFragment;
 import com.djw.douban.ui.cloud.fragment.CloudFragment;
 import com.djw.douban.ui.girl.activity.GirlActivity;
+import com.djw.douban.ui.mine.activity.MineActivity;
 import com.djw.douban.ui.movies.activity.HotActivity;
 import com.djw.douban.ui.movies.fragment.NewMoviesFragment;
 import com.djw.douban.ui.music.activity.MoreMusicActivity;
@@ -92,10 +93,11 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
         SecondaryDrawerItem book = new SecondaryDrawerItem().withIdentifier(2).withName("精选图书").withSelectedTextColor(Color.RED).withIcon(R.mipmap.books);
         SecondaryDrawerItem music = new SecondaryDrawerItem().withIdentifier(3).withName("中国风音乐").withSelectedTextColor(Color.RED).withIcon(R.mipmap.music);
         SecondaryDrawerItem girl = new SecondaryDrawerItem().withIdentifier(4).withName("美女").withSelectedTextColor(Color.RED).withIcon(R.mipmap.girl);
+        SecondaryDrawerItem mine = new SecondaryDrawerItem().withIdentifier(5).withName("关于我").withSelectedTextColor(Color.RED).withIcon(R.mipmap.tejia);
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withAccountHeader(headerResult)
-                .addDrawerItems(douban, movies, book, music, new DividerDrawerItem(), fuli, girl)
+                .addDrawerItems(douban, movies, book, music, new DividerDrawerItem(), fuli, girl, mine)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -116,6 +118,9 @@ public class MainActivity extends SimpleActivity implements BottomNavigationBar.
                                 break;
                             case 4:
                                 startActivity(GirlActivity.class);
+                                break;
+                            case 5:
+                                startActivity(MineActivity.class);
                                 break;
                         }
                         return true;

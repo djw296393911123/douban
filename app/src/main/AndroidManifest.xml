@@ -99,6 +99,9 @@
         <activity
             android:name=".ui.girl.activity.GirlLargeActivity"
             android:theme="@style/DetailedTheme" />
+        <activity
+            android:name=".ui.mine.activity.MineActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
